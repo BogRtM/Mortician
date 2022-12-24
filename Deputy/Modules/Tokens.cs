@@ -23,7 +23,7 @@ namespace Deputy.Modules
 
             LanguageAPI.Add(prefix + "NAME", "Deputy");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "Birds of Prey");
+            LanguageAPI.Add(prefix + "SUBTITLE", "The Long Legs of the Law");
             LanguageAPI.Add(prefix + "LORE", lore);
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
@@ -36,6 +36,7 @@ namespace Deputy.Modules
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Dashing Beauty");
             LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction.");
+                //"Hitting enemies with <style=cIsDamage>kick</style> attacks grants a stacking movement speed bonus.");
             #endregion
 
             #region Keywords
@@ -51,20 +52,21 @@ namespace Deputy.Modules
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
-            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Evasive</style>. Throw out two revolvers. " +
-                $"While in flight, each revolver will shoot a nearby enemy for <style=cIsDamage>6x80%</style> damage</style>.");
+            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Evasive</style>. Throw two revolvers. " +
+                $"While in flight, each revolver will shoot a nearby enemy for <style=cIsDamage>6x100%</style> damage</style>.");
             #endregion
 
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_KICK_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_KICK_DESCRIPTION", $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, perform a <style=cIsUtility>heavy</style> " +
-                $" kick for <style=cIsDamage>800% damage</style>. Pressing the jump input while dashing will instead cause you to leap into the air, " +
-                $"rapidly shooting enemies below for up to <style=cIsDamage>6x100% damage</style>.");
+            LanguageAPI.Add(prefix + "UTILITY_KICK_DESCRIPTION", $"<style=cIsUtility>Leap</style> forward, rapidly shooting enemies below for " +
+                $"<style=cIsDamage>150% damage</style>.");
             #endregion
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Nothing yet.");
+            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
+                $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, kick them for <style=cIsDamage>800% damage</style> " +
+                $"and reduce your skill cooldowns by <style=cIsUtility>2.0s</style>.");
             #endregion
 
             #region Achievements
@@ -73,6 +75,8 @@ namespace Deputy.Modules
             LanguageAPI.Add(prefix + "MASTERYUNLOCKABLE_UNLOCKABLE_NAME", "Deputy: Mastery");
             #endregion
             #endregion
+
+            #region Henry
             /*
             #region Henry
             string prefix = DeputyPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
@@ -130,6 +134,7 @@ namespace Deputy.Modules
             #endregion
             #endregion
             */
+            #endregion
         }
     }
 }
