@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1782132455
+CRC: 1870957926
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c7ae93634e4dc5cba8f00e064bb8124c
+    Hash: 05684eb3473922a753fd426207e813ca
   TypeTreeHash:
     serializedVersion: 2
     Hash: 629e386d734ac71e9bc9dd2ba6bb23b5
@@ -41,14 +41,14 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/DeputyAssets/Animations/DeputyRig_01-RestPose.anim
 - Assets/DeputyAssets/mdlDeputy.prefab
-- Assets/DeputyAssets/Materials/matDeputy.mat
-- Assets/DeputyAssets/DeputyDisplay.prefab
-- Assets/DeputyAssets/Textures/deputyNormal.png
 - Assets/DeputyAssets/Animations/DeputyBodyAvatar.asset
+- Assets/DeputyAssets/Materials/matDeputy.mat
+- Assets/DeputyAssets/Textures/deputyNormal.png
 - Assets/DeputyAssets/Animations/animDeputyMenu.controller
 - Assets/DeputyAssets/Textures/deputyEmission.png
 - Assets/DeputyAssets/Materials/matVisor.mat
 - Assets/DeputyAssets/Textures/deputyDiffuse.png
+- Assets/DeputyAssets/DeputyDisplay.prefab
 - Assets/DeputyAssets/FBX/DeputyBody.fbx
 - Assets/DeputyAssets/Animations/animDeputy.controller
 Dependencies: []

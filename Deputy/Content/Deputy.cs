@@ -36,7 +36,8 @@ namespace Deputy.Modules.Survivors
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
             maxHealth = 90f,
-            healthGrowth = 27f
+            healthGrowth = 27f,
+            sortPosition = 3.1f
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
@@ -215,9 +216,9 @@ namespace Deputy.Modules.Survivors
             #region Special
             SkillDef specialSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
-                skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
-                skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_DESCRIPTION",
+                skillName = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
+                skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
+                skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Idle)),
                 activationStateMachineName = "Weapon",

@@ -58,13 +58,13 @@ namespace Deputy.Modules
 
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_KICK_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_KICK_DESCRIPTION", $"<style=cIsUtility>Leap</style> forward, rapidly shooting enemies below for " +
+            LanguageAPI.Add(prefix + "UTILITY_KICK_DESCRIPTION", $"<style=cIsUtility>Leap</style> forward, rapidly shooting enemies below you for " +
                 $"<style=cIsDamage>150% damage</style>.");
             #endregion
 
             #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
+            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_NAME", "Skull Cracker");
+            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
                 $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, kick them for <style=cIsDamage>800% damage</style> " +
                 $"and reduce your skill cooldowns by <style=cIsUtility>2.0s</style>.");
             #endregion
