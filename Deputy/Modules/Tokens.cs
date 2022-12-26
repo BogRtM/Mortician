@@ -64,8 +64,8 @@ namespace Deputy.Modules
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_NAME", "Skull Cracker");
-            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
-                $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, kick them for <style=cIsDamage>800% damage</style> " +
+            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. <style=cIsDamage>Slayer</style>. " +
+                $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, strike them for <style=cIsDamage>800% damage</style> " +
                 $"and reduce your skill cooldowns by <style=cIsUtility>2.0s</style>.");
             #endregion
 
