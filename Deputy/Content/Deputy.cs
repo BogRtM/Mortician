@@ -37,7 +37,9 @@ namespace Deputy.Modules.Survivors
 
             maxHealth = 90f,
             healthGrowth = 27f,
-            sortPosition = 3.1f
+            sortPosition = 3.1f,
+            moveSpeed = 8f,
+            cameraParamsDepth = -9f
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
