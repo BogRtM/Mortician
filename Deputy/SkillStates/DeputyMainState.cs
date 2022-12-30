@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
+using Deputy.Components;
+
 namespace Skillstates.Deputy
 {
     internal class DeputyMainState : GenericCharacterMain
     {
+        private DeputyAnimatorController DAC;
+
         public override void OnEnter()
         {
             base.OnEnter();
+            DAC = base.GetComponent<DeputyAnimatorController>();
         }
 
         public override void FixedUpdate()
@@ -32,13 +37,7 @@ namespace Skillstates.Deputy
         {
             base.UpdateAnimationParameters();
 
-            if(base.inputBank.moveVector != Vector3.zero)
-            {
-                base.modelAnimator.SetFloat("movingPitch", 1f, 0.1f, Time.deltaTime);
-            } else
-            {
-                base.modelAnimator.SetFloat("movingPitch", 0f);
-            }
+            DAC.UpdateAnimationParams();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

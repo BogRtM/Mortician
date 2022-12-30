@@ -28,19 +28,19 @@ AvatarMask:
   - m_Path: Rig/ROOT/base
     m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/Butt.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/Butt.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/FrontHip.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/FrontHip.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/SideHip.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/SideHip.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/Thigh.L
     m_Weight: 0
   - m_Path: Rig/ROOT/base/Pelvis/Thigh.L/Calf.L

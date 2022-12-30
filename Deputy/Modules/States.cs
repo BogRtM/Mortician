@@ -9,7 +9,8 @@ namespace Deputy.Modules
         internal static void RegisterStates()
         {
             #region Deputy
-            Modules.Content.AddEntityState(typeof(SkillTemplate));
+            Modules.Content.AddEntityState(typeof(DeputyMainState));
+            Modules.Content.AddEntityState(typeof(VigorValor));
             #endregion
         }
     }

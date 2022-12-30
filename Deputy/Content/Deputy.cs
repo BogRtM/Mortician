@@ -38,7 +38,7 @@ namespace Deputy.Modules.Survivors
             maxHealth = 90f,
             healthGrowth = 27f,
             sortPosition = 3.1f,
-            moveSpeed = 8f,
+            //moveSpeed = 8f,
             cameraParamsDepth = -8.18f
         };
 
@@ -102,6 +102,8 @@ namespace Deputy.Modules.Survivors
             CharacterBody deputyBody = bodyPrefab.GetComponent<CharacterBody>();
             deputyBody.bodyFlags |= CharacterBody.BodyFlags.SprintAnyDirection;
             //SetCoreTransform();
+
+            bodyPrefab.AddComponent<DeputyAnimatorController>();
         }
 
         private void SetCoreTransform()
@@ -173,7 +175,7 @@ namespace Deputy.Modules.Survivors
                 skillNameToken = prefix + "_DEPUTY_BODY_SECONDARY_SLING_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SECONDARY_SLING_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Idle)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,

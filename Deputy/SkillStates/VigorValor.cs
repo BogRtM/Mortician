@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
+using Deputy.Components;
+
 namespace Skillstates.Deputy
 {
     internal class VigorValor : BaseState
     {
         public static float baseDuration = 0.1f;
 
+        private DeputyAnimatorController DAC;
+
         public override void OnEnter()
         {
             base.OnEnter();
-            base.StartAimMode(0.5f, false);
+            DAC = base.GetComponent<DeputyAnimatorController>();
+
+            DAC.SetCombatWeight(1f);
+
+            Chat.AddMessage("Entering combat");
         }
 
         public override void FixedUpdate()

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Deputy.Components
 {
-    internal class PlaceholderComponent
+    internal class PlaceholderComponent : MonoBehaviour
     {
     }
 }

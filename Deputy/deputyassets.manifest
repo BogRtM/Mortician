@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2268006518
+CRC: 3893656609
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4be4e3dc4a5f49eceafeab1439f8f4e3
+    Hash: b655495990c070b98ea3ffde7083a956
   TypeTreeHash:
     serializedVersion: 2
     Hash: ed7dcb5778c100c64f9cc501954a7b4f
@@ -41,33 +41,47 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/DeputyAssets/Animations/DeputyBodyAvatar.asset
-- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitchMoving.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_xx-ArmOut.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-IdleIn.anim
-- Assets/DeputyAssets/mdlDeputy.prefab
-- Assets/DeputyAssets/Animations/armMask.mask
-- Assets/DeputyAssets/DeputyDisplay.prefab
-- Assets/DeputyAssets/Animations/Clips/Rig_04-RunB New.anim
-- Assets/DeputyAssets/Materials/matDeputy.mat
-- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-Idle.anim
-- Assets/DeputyAssets/Animations/AimMask.mask
-- Assets/DeputyAssets/Animations/Clips/Rig_05-DescentFast.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_02-AimYaw.anim
 - Assets/DeputyAssets/Animations/Clips/Rig_05-Jump.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunB-Combat.anim
+- Assets/DeputyAssets/Animations/DeputyBodyAvatar.asset
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-DescentFast-Combat.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-Ascent-Combat.anim
+- Assets/DeputyAssets/Animations/rightArmMask.mask
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunB New.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_06c-ShootL.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-Idle.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/sprintCombatFix.fbx
+- Assets/DeputyAssets/mdlDeputy.prefab
+- Assets/DeputyAssets/Animations/leftArmMask.mask
+- Assets/DeputyAssets/Animations/Clips/Rig_06c-ShootR.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_02cs-AimYaw-Sprint-Combat.anim
+- Assets/DeputyAssets/DeputyDisplay.prefab
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-Descent-Combat.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimYaw.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitch.anim
+- Assets/DeputyAssets/Materials/matDeputy.mat
+- Assets/DeputyAssets/Animations/Clips/Rig_01c-Combat-Idle.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunL.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_01c-Combat-Idle.anim
+- Assets/DeputyAssets/Animations/AimMask.mask
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunL-Combat.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunR.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_03c-Sprint-Combat.anim
 - Assets/DeputyAssets/Textures/deputyNormal.png
 - Assets/DeputyAssets/FBX/DeputyBody.fbx
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunF-Combat.anim
 - Assets/DeputyAssets/Animations/Clips/Rig_04-RunF.anim
 - Assets/DeputyAssets/Animations/animDeputyMenu.controller
-- Assets/DeputyAssets/Animations/Clips/Rig_04-RunL.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_05-Ascent.anim
 - Assets/DeputyAssets/Textures/deputyEmission.png
 - Assets/DeputyAssets/Materials/matVisor.mat
 - Assets/DeputyAssets/Textures/deputyDiffuse.png
-- Assets/DeputyAssets/Animations/Clips/Rig_05-Descent.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_00-Keying.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitch.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_05-Ascent.anim
-- Assets/DeputyAssets/Animations/Clips/Rig_04-RunR.anim
 - Assets/DeputyAssets/Animations/Clips/Rig_03-Sprint.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_05-DescentFast.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitchMoving.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-IdleIn.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunR-Combat.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_05-Descent.anim
+- Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_02c-AimYaw-Combat.anim
 - Assets/DeputyAssets/Animations/animDeputy.controller
 Dependencies: []
