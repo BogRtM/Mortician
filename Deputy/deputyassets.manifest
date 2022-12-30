@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1870957926
+CRC: 2268006518
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 05684eb3473922a753fd426207e813ca
+    Hash: 4be4e3dc4a5f49eceafeab1439f8f4e3
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 629e386d734ac71e9bc9dd2ba6bb23b5
+    Hash: ed7dcb5778c100c64f9cc501954a7b4f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -37,18 +37,37 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
+- Class: 319
+  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/DeputyAssets/Animations/DeputyRig_01-RestPose.anim
-- Assets/DeputyAssets/mdlDeputy.prefab
 - Assets/DeputyAssets/Animations/DeputyBodyAvatar.asset
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitchMoving.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_xx-ArmOut.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-IdleIn.anim
+- Assets/DeputyAssets/mdlDeputy.prefab
+- Assets/DeputyAssets/Animations/armMask.mask
+- Assets/DeputyAssets/DeputyDisplay.prefab
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunB New.anim
 - Assets/DeputyAssets/Materials/matDeputy.mat
+- Assets/DeputyAssets/Animations/Clips/Rig_01-Rest-Idle.anim
+- Assets/DeputyAssets/Animations/AimMask.mask
+- Assets/DeputyAssets/Animations/Clips/Rig_05-DescentFast.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimYaw.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_05-Jump.anim
 - Assets/DeputyAssets/Textures/deputyNormal.png
+- Assets/DeputyAssets/FBX/DeputyBody.fbx
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunF.anim
 - Assets/DeputyAssets/Animations/animDeputyMenu.controller
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunL.anim
 - Assets/DeputyAssets/Textures/deputyEmission.png
 - Assets/DeputyAssets/Materials/matVisor.mat
 - Assets/DeputyAssets/Textures/deputyDiffuse.png
-- Assets/DeputyAssets/DeputyDisplay.prefab
-- Assets/DeputyAssets/FBX/DeputyBody.fbx
+- Assets/DeputyAssets/Animations/Clips/Rig_05-Descent.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_00-Keying.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_02-AimPitch.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_05-Ascent.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_04-RunR.anim
+- Assets/DeputyAssets/Animations/Clips/Rig_03-Sprint.anim
 - Assets/DeputyAssets/Animations/animDeputy.controller
 Dependencies: []

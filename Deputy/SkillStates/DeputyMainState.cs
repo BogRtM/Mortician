@@ -13,6 +13,14 @@ namespace Skillstates.Deputy
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if(base.characterBody.isSprinting && !aimAnimator.fullYaw)
+            {
+                aimAnimator.fullYaw = true;
+            } else if(!base.characterBody.isSprinting && aimAnimator.fullYaw)
+            {
+                aimAnimator.fullYaw = false;
+            }
         }
 
         public override void OnExit()
@@ -23,6 +31,14 @@ namespace Skillstates.Deputy
         public override void UpdateAnimationParameters()
         {
             base.UpdateAnimationParameters();
+
+            if(base.inputBank.moveVector != Vector3.zero)
+            {
+                base.modelAnimator.SetFloat("movingPitch", 1f, 0.1f, Time.deltaTime);
+            } else
+            {
+                base.modelAnimator.SetFloat("movingPitch", 0f);
+            }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

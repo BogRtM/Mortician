@@ -39,7 +39,7 @@ namespace Deputy.Modules.Survivors
             healthGrowth = 27f,
             sortPosition = 3.1f,
             moveSpeed = 8f,
-            cameraParamsDepth = -9f
+            cameraParamsDepth = -8.18f
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
@@ -71,12 +71,20 @@ namespace Deputy.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "VisorMesh",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "ShoulderPadsMesh",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "CuffsMesh",
                 }
         };
 
         public override UnlockableDef characterUnlockableDef => null;
 
-        public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
+        public override Type characterMainState => typeof(Skillstates.Deputy.DeputyMainState);
 
         public override ItemDisplaysBase itemDisplays => new DeputyItemDisplays();
 
@@ -135,7 +143,7 @@ namespace Deputy.Modules.Survivors
                 skillNameToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Idle)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(VigorValor)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
