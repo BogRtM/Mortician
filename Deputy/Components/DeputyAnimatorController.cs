@@ -16,6 +16,15 @@ namespace Deputy.Components
         private CharacterBody characterBody;
         private InputBankTest inputBank;
 
+        private const float sprintCombatGroundYaw = 1.0f;
+
+        private bool inCombat;
+        private bool isMoving;
+        private bool isSprinting;
+        private bool isGrounded;
+
+        private bool sprintYawSet;
+
         private void Awake()
         {
             modelAnimator = base.GetComponentInChildren<Animator>();
@@ -31,28 +40,42 @@ namespace Deputy.Components
 
         public void UpdateAnimationParams()
         {
-            SetSprintYaw();
-            SetMovingPitch();
+            inCombat = modelAnimator.GetLayerWeight(combatLayerIndex) == 1f;
+            isMoving = modelAnimator.GetBool("isMoving");
+            isSprinting = modelAnimator.GetBool("isSprinting");
+            isGrounded = modelAnimator.GetBool("isGrounded");
+
+            SetYaw();
+            SetPitch();
         }
 
-        private void SetSprintYaw()
+        private void SetYaw()
         {
-            if (characterBody.isSprinting && !aimAnimator.fullYaw)
+
+            if (isSprinting && inCombat && !sprintYawSet)
             {
-                Chat.AddMessage("Setting full yaw");
-                    aimAnimator.fullYaw = true;
-                    aimAnimator.yawRangeMin = -175f;
-                    aimAnimator.yawRangeMax = 175f;
+                sprintYawSet = true;
+                aimAnimator.giveupDuration = float.PositiveInfinity;
+                aimAnimator.yawRangeMin = -175f;
+                aimAnimator.yawRangeMax = 175f;
             }
-            else if (!characterBody.isSprinting && aimAnimator.fullYaw)
+            else if(sprintYawSet)
             {
-                Chat.AddMessage("Stopping full yaw");
-                    aimAnimator.fullYaw = false;
-                    aimAnimator.yawRangeMin = -80f;
-                    aimAnimator.yawRangeMax = 80f;
+                sprintYawSet = false;
+                aimAnimator.giveupDuration = 3f;
+                aimAnimator.yawRangeMin = -80f;
+                aimAnimator.yawRangeMax = 80f;
             }
 
-            if(modelAnimator.GetLayerWeight(combatLayerIndex) == 1f && characterBody.isSprinting)
+            if(isSprinting && inCombat && !isGrounded)
+            {
+                modelAnimator.SetFloat("yawControl", 3f);
+            }
+            else if(isSprinting && inCombat && isGrounded)
+            {
+                modelAnimator.SetFloat("yawControl", 2f);
+            }
+            else if(!isSprinting && inCombat)
             {
                 modelAnimator.SetFloat("yawControl", 1f);
             }
@@ -62,15 +85,11 @@ namespace Deputy.Components
             }
         }
 
-        private void SetMovingPitch()
+        private void SetPitch()
         {
-            if (inputBank.moveVector != Vector3.zero)
+            if(isMoving && !isSprinting)
             {
-                modelAnimator.SetFloat("movingPitch", 1f, 0.1f, Time.deltaTime);
-            }
-            else
-            {
-                modelAnimator.SetFloat("movingPitch", 0f);
+                modelAnimator.SetFloat("pitchControl", 1f);
             }
         }
 

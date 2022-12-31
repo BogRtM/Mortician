@@ -296,7 +296,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1770222289
+--- !u!1001 &8545460999146830905
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mdlDeputy
       objectReference: {fileID: 0}
+    - target: {fileID: 5989412485876436719, guid: 2d52b1f31103c9141befa73b10d33a91,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 226e4f9781955fa4894a15e2e9287d52, type: 2}
     - target: {fileID: 6365128066527925335, guid: 2d52b1f31103c9141befa73b10d33a91,
         type: 3}
       propertyPath: m_RootOrder

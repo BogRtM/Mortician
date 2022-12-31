@@ -164,6 +164,9 @@ namespace Deputy.Modules.Survivors
                 keywordTokens = new string[] {"KEYWORD_AGILE"}
             });
 
+            SteppedSkillDef deputyPrimarySkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
+            deputyPrimarySkillDef.skillName = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
+
 
             Modules.Skills.AddPrimarySkills(bodyPrefab, primarySkillDef);
             #endregion

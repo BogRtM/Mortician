@@ -18,7 +18,7 @@ namespace Skillstates.Deputy
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
+            /*
             if(base.characterBody.isSprinting && !aimAnimator.fullYaw)
             {
                 aimAnimator.fullYaw = true;
@@ -26,6 +26,7 @@ namespace Skillstates.Deputy
             {
                 aimAnimator.fullYaw = false;
             }
+            */
         }
 
         public override void OnExit()
