@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &444383139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 444383140}
+  m_Layer: 0
+  m_Name: MuzzleR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &444383140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444383139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.437, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5314500490826046883}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1489299882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1489299883}
+  m_Layer: 0
+  m_Name: MuzzleL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1489299883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489299882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.437, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5949412544207516791}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &11716825046405472
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +932,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1.0000002, z: 1}
   m_Children:
   - {fileID: 6578522775042916812}
+  - {fileID: 444383140}
   m_Father: {fileID: 4284111120166324186}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1080,7 +1141,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fddb4c952070574488b38cbdb46fab29, type: 2}
+  - {fileID: 2100000, guid: 2f63780c3072ac84b9a3573999e44d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2010,6 +2071,7 @@ Transform:
   m_LocalScale: {x: 1.0000002, y: 1.0000001, z: 0.99999976}
   m_Children:
   - {fileID: 2701199112153485127}
+  - {fileID: 1489299883}
   m_Father: {fileID: 4708914138778633294}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2037,9 +2099,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4788480870214428975}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3452175, y: 0, z: 0}
-  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.000000080466215, y: 1.28, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6365128066527925335}
   m_RootOrder: 0
@@ -2055,9 +2117,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.39999998
-  m_Height: 1.9023873
+  m_Height: 2.2655463
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8520699, z: 0}
+  m_Center: {x: 0, y: -0.2633464, z: 0}
 --- !u!1 &4948915434866230139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,7 +2490,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989412485876436717}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 71f2b0c0a3084c248b1bc760615af09e, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 226e4f9781955fa4894a15e2e9287d52, type: 2}
   m_Controller: {fileID: 9100000, guid: 5590c5df974b5f645a60db3f2d62ff59, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2475,6 +2537,10 @@ MonoBehaviour:
     transform: {fileID: 419937077346620113}
   - name: BaseBone
     transform: {fileID: 6043530725575686067}
+  - name: MuzzleL
+    transform: {fileID: 1489299883}
+  - name: MuzzleR
+    transform: {fileID: 444383140}
 --- !u!1 &6097871766326271210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3991,7 +4057,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fddb4c952070574488b38cbdb46fab29, type: 2}
+  - {fileID: 2100000, guid: 2f63780c3072ac84b9a3573999e44d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4286,7 +4352,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fddb4c952070574488b38cbdb46fab29, type: 2}
+  - {fileID: 2100000, guid: 2f63780c3072ac84b9a3573999e44d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

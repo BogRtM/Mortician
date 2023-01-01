@@ -11,6 +11,7 @@ using UnityEngine.AddressableAssets;
 using R2API;
 using UnityEngine.UI;
 using EntityStates;
+using static RoR2.TeleporterInteraction;
 
 namespace Deputy.Modules.Survivors
 {
@@ -139,6 +140,7 @@ namespace Deputy.Modules.Survivors
             string prefix = DeputyPlugin.DEVELOPER_PREFIX;
 
             #region Primary
+            /*
             SkillDef primarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME",
@@ -163,12 +165,33 @@ namespace Deputy.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] {"KEYWORD_AGILE"}
             });
+            */
 
             SteppedSkillDef deputyPrimarySkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
             deputyPrimarySkillDef.skillName = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
+            deputyPrimarySkillDef.skillNameToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
+            deputyPrimarySkillDef.skillDescriptionToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_DESCRIPTION";
+            deputyPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon");
+            deputyPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(VigorValor));
+            deputyPrimarySkillDef.activationStateMachineName = "Weapon";
+            deputyPrimarySkillDef.baseMaxStock = 1;
+            deputyPrimarySkillDef.baseRechargeInterval = 0f;
+            deputyPrimarySkillDef.beginSkillCooldownOnSkillEnd = false;
+            deputyPrimarySkillDef.canceledFromSprinting = false;
+            deputyPrimarySkillDef.forceSprintDuringState = false;
+            deputyPrimarySkillDef.fullRestockOnAssign = true;
+            deputyPrimarySkillDef.interruptPriority = EntityStates.InterruptPriority.Any;
+            deputyPrimarySkillDef.resetCooldownTimerOnUse = false;
+            deputyPrimarySkillDef.isCombatSkill = true;
+            deputyPrimarySkillDef.mustKeyPress = false;
+            deputyPrimarySkillDef.cancelSprintingOnActivation = false;
+            deputyPrimarySkillDef.rechargeStock = 1;
+            deputyPrimarySkillDef.requiredStock = 1;
+            deputyPrimarySkillDef.stockToConsume = 1;
+            deputyPrimarySkillDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
 
 
-            Modules.Skills.AddPrimarySkills(bodyPrefab, primarySkillDef);
+            Modules.Skills.AddPrimarySkills(bodyPrefab, deputyPrimarySkillDef);
             #endregion
 
             #region Secondary

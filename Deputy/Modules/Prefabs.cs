@@ -361,6 +361,7 @@ namespace Deputy.Modules {
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;
             aimAnimator.giveupDuration = 3f;
+            aimAnimator.raisedApproachSpeed = 1080f;
             aimAnimator.inputBank = prefab.GetComponent<InputBankTest>();
         }
 

@@ -16,7 +16,11 @@ namespace Deputy.Components
         private CharacterBody characterBody;
         private InputBankTest inputBank;
 
-        private const float sprintCombatGroundYaw = 1.0f;
+        private const float restYaw = 0f;
+        private const float combatYaw = 1f;
+        private const float combatRunYaw = 2f;
+        private const float sprintCombatGroundYaw = 3f;
+        private const float sprintCombatAirYaw = 4f;
 
         private bool inCombat;
         private bool isMoving;
@@ -24,6 +28,8 @@ namespace Deputy.Components
         private bool isGrounded;
 
         private bool sprintYawSet;
+
+        private float smoothDampVelocity = 0f;
 
         private void Awake()
         {
@@ -59,7 +65,7 @@ namespace Deputy.Components
                 aimAnimator.yawRangeMin = -175f;
                 aimAnimator.yawRangeMax = 175f;
             }
-            else if(sprintYawSet)
+            else if(!isSprinting && sprintYawSet)
             {
                 sprintYawSet = false;
                 aimAnimator.giveupDuration = 3f;
@@ -69,19 +75,23 @@ namespace Deputy.Components
 
             if(isSprinting && inCombat && !isGrounded)
             {
-                modelAnimator.SetFloat("yawControl", 3f);
+                modelAnimator.SetFloat("yawControl", sprintCombatAirYaw);
             }
             else if(isSprinting && inCombat && isGrounded)
             {
-                modelAnimator.SetFloat("yawControl", 2f);
+                modelAnimator.SetFloat("yawControl", sprintCombatGroundYaw);
             }
-            else if(!isSprinting && inCombat)
+            else if(!isSprinting && isMoving && inCombat)
             {
-                modelAnimator.SetFloat("yawControl", 1f);
+                modelAnimator.SetFloat("yawControl", combatRunYaw);
             }
-            else
+            else if(!isMoving && !isSprinting && inCombat)
             {
-                modelAnimator.SetFloat("yawControl", 0f);
+                modelAnimator.SetFloat("yawControl", combatYaw);
+            }
+            else if (!inCombat)
+            {
+                modelAnimator.SetFloat("yawControl", restYaw);
             }
         }
 
@@ -93,9 +103,16 @@ namespace Deputy.Components
             }
         }
 
-        public void SetCombatWeight(float weight)
+        public void SetCombatWeight(bool enterCombat)
         {
-            modelAnimator.SetLayerWeight(combatLayerIndex, weight);
+            if (enterCombat)
+            {
+                modelAnimator.SetLayerWeight(combatLayerIndex, 1f);
+            }
+            else
+            {
+                modelAnimator.SetLayerWeight(combatLayerIndex, 0f);
+            }
         }
     }
 }

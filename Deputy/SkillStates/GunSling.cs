@@ -16,9 +16,7 @@ namespace Skillstates.Deputy
             base.OnEnter();
             DAC = base.GetComponent<DeputyAnimatorController>();
 
-            DAC.SetCombatWeight(0f);
-
-            Chat.AddMessage("Leaving combat");
+            DAC.SetCombatWeight(false);
         }
 
         public override void FixedUpdate()

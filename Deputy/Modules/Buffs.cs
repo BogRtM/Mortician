@@ -13,7 +13,8 @@ namespace Deputy.Modules
 
         internal static void RegisterBuffs()
         {
-            
+            BuffDef whipBoost = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/SprintOutOfCombat/bdWhipBoost.asset").WaitForCompletion();
+            deputyBuff = AddNewBuff("DeputyMS", whipBoost.iconSprite, Color.yellow, true, false);
         }
 
         // simple helper method

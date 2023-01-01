@@ -35,7 +35,8 @@ namespace Deputy.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Dashing Beauty");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction.");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction. Hitting enemies grants a stacking " +
+                "<style=cIsUtility>movement speed</style> buff.");
                 //"Hitting enemies with <style=cIsDamage>kick</style> attacks grants a stacking movement speed bonus.");
             #endregion
 

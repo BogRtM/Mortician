@@ -13,6 +13,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System;
 using EntityStates.Merc;
+using Deputy.Modules;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -46,6 +47,7 @@ namespace Deputy
         public static DeputyPlugin instance;
 
         public static GameObject deputyBodyPrefab;
+        public static BodyIndex deputyBodyIndex;
 
         private void Awake()
         {
@@ -77,6 +79,68 @@ namespace Deputy
 
         private void Hook()
         {
+            On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
+            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
+            On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+        }
+
+        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+
+            self.moveSpeed *= 1 + (self.GetBuffCount(Modules.Buffs.deputyBuff) * StaticValues.moveSpeedPerBuff);
+        }
+
+        private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
+        {
+            if(buffDef.buffIndex == Modules.Buffs.deputyBuff.buffIndex)
+            {
+                if(self.GetBuffCount(buffDef) > 0)
+                {
+                    foreach(CharacterBody.TimedBuff timedBuff in self.timedBuffs)
+                    {
+                        if(timedBuff.buffIndex == buffDef.buffIndex)
+                        {
+                            timedBuff.timer = duration;
+                        }
+                    }
+                }
+
+                if(self.GetBuffCount(buffDef) >= Modules.StaticValues.maxBuffStacks)
+                {
+                    return;
+                }
+            }
+
+            orig(self, buffDef, duration);
+        }
+
+        private void BodyCatalog_SetBodyPrefabs(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)
+        {
+            orig(newBodyPrefabs);
+            deputyBodyIndex = BodyCatalog.FindBodyIndex(deputyBodyPrefab);
+            Log.Warning("Deputy's body index is: " + deputyBodyIndex);
+        }
+
+        private void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
+        {
+            orig(self, damageInfo, victim);
+
+            if (damageInfo.attacker)
+            {
+                CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                if (attackerBody)
+                {
+                    if(attackerBody.bodyIndex == deputyBodyIndex)
+                    {
+                        if (NetworkServer.active)
+                        {
+                            attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.StaticValues.moveSpeedBuffDuration);
+                        }
+                    }
+                }
+            }
         }
     }
 }
