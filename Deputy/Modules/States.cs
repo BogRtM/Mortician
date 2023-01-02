@@ -11,6 +11,8 @@ namespace Deputy.Modules
             #region Deputy
             Modules.Content.AddEntityState(typeof(DeputyMainState));
             Modules.Content.AddEntityState(typeof(VigorValor));
+            Modules.Content.AddEntityState(typeof(GunSling));
+            Modules.Content.AddEntityState(typeof(ShootingStar));
             #endregion
         }
     }

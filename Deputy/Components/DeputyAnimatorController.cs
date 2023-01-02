@@ -9,18 +9,23 @@ namespace Deputy.Components
     internal class DeputyAnimatorController : MonoBehaviour
     {
         private Animator modelAnimator;
-        private int combatLayerIndex;
+        public static int combatLayerIndex;
 
         private AimAnimator aimAnimator;
 
         private CharacterBody characterBody;
         private InputBankTest inputBank;
 
+        private const float combatDuration = 5f;
+
         private const float restYaw = 0f;
-        private const float combatYaw = 1f;
-        private const float combatRunYaw = 2f;
-        private const float sprintCombatGroundYaw = 3f;
-        private const float sprintCombatAirYaw = 4f;
+        private const float combatYaw = -1f;
+        private const float combatRunYaw = -2f;
+        private const float sprintCombatGroundYaw = 1f;
+        private const float sprintCombatAirYaw = 2f;
+        private float yawDampValue;
+        private float yawDampVelocity;
+        private float desiredYaw;
 
         private bool inCombat;
         private bool isMoving;
@@ -30,6 +35,19 @@ namespace Deputy.Components
         private bool sprintYawSet;
 
         private float smoothDampVelocity = 0f;
+        private float combatDampValue;
+        private float combatDampVelocity;
+
+        private combatState currentState;
+        private float currentCombatWeight;
+        private float combatTimer;
+
+        public enum combatState
+        {
+            None,
+            EnteringCombat,
+            LeavingCombat
+        }
 
         private void Awake()
         {
@@ -44,9 +62,42 @@ namespace Deputy.Components
             inputBank = base.GetComponent<InputBankTest>();
         }
 
+        private void Update()
+        {
+            currentCombatWeight = modelAnimator.GetLayerWeight(combatLayerIndex);
+
+            switch (currentState)
+            {
+                case combatState.EnteringCombat:
+                    combatDampValue = Mathf.SmoothDamp(currentCombatWeight, 1f, ref combatDampVelocity, 0.1f);
+                    modelAnimator.SetLayerWeight(combatLayerIndex, combatDampValue);
+                    break;
+
+                case combatState.LeavingCombat:
+                    combatDampValue = Mathf.SmoothDamp(currentCombatWeight, 0f, ref combatDampVelocity, 0.1f);
+                    modelAnimator.SetLayerWeight(combatLayerIndex, combatDampValue);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (inCombat)
+            {
+                combatTimer += Time.fixedDeltaTime;
+                if(combatTimer >= combatDuration)
+                {
+                    combatTimer = 0f;
+                    SetCombatState(DeputyAnimatorController.combatState.LeavingCombat);
+                }
+            }
+        }
+
         public void UpdateAnimationParams()
         {
-            inCombat = modelAnimator.GetLayerWeight(combatLayerIndex) == 1f;
             isMoving = modelAnimator.GetBool("isMoving");
             isSprinting = modelAnimator.GetBool("isSprinting");
             isGrounded = modelAnimator.GetBool("isGrounded");
@@ -75,24 +126,27 @@ namespace Deputy.Components
 
             if(isSprinting && inCombat && !isGrounded)
             {
-                modelAnimator.SetFloat("yawControl", sprintCombatAirYaw);
+                desiredYaw = sprintCombatAirYaw;
             }
             else if(isSprinting && inCombat && isGrounded)
             {
-                modelAnimator.SetFloat("yawControl", sprintCombatGroundYaw);
+                desiredYaw = sprintCombatGroundYaw;
             }
             else if(!isSprinting && isMoving && inCombat)
             {
-                modelAnimator.SetFloat("yawControl", combatRunYaw);
+                desiredYaw = combatRunYaw;
             }
             else if(!isMoving && !isSprinting && inCombat)
             {
-                modelAnimator.SetFloat("yawControl", combatYaw);
+                desiredYaw = combatYaw;
             }
             else if (!inCombat)
             {
-                modelAnimator.SetFloat("yawControl", restYaw);
+                desiredYaw = restYaw;
             }
+
+            //yawDampValue = Mathf.SmoothDamp(modelAnimator.GetFloat("yawControl"), desiredYaw, ref yawDampVelocity, 0.1f);
+            modelAnimator.SetFloat("yawControl", desiredYaw);
         }
 
         private void SetPitch()
@@ -101,18 +155,22 @@ namespace Deputy.Components
             {
                 modelAnimator.SetFloat("pitchControl", 1f);
             }
-        }
-
-        public void SetCombatWeight(bool enterCombat)
-        {
-            if (enterCombat)
-            {
-                modelAnimator.SetLayerWeight(combatLayerIndex, 1f);
-            }
             else
             {
-                modelAnimator.SetLayerWeight(combatLayerIndex, 0f);
+                modelAnimator.SetFloat("pitchControl", 0f);
             }
+        }
+
+        public void SetCombatState(combatState state)
+        {
+            currentState = state;
+
+            combatTimer = 0f;
+
+            if (state == combatState.EnteringCombat)
+                inCombat = true;
+            else if (state == combatState.LeavingCombat)
+                inCombat = false;
         }
     }
 }

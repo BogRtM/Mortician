@@ -48,19 +48,19 @@ namespace Deputy.Modules
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_NAME", "Vigor & Valor");
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire short-range revolvers for " +
-                $"<style=cIsDamage>{150f}% damage</style>.");
+                $"<style=cIsDamage>{VigorValor.damageCoefficient * 100}% damage</style>.");
             #endregion
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
-            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Evasive</style>. Throw two revolvers. " +
+            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"Throw two revolvers. " +
                 $"While in flight, each revolver will shoot a nearby enemy for <style=cIsDamage>6x100%</style> damage</style>.");
             #endregion
 
             #region Utility
-            LanguageAPI.Add(prefix + "UTILITY_KICK_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_KICK_DESCRIPTION", $"<style=cIsUtility>Leap</style> forward, rapidly shooting enemies below you for " +
-                $"<style=cIsDamage>150% damage</style>.");
+            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_NAME", "Shooting Star");
+            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"Leap forward in an arc, shooting an enemy below you for " +
+                $"<style=cIsDamage>{ShootingStar.maxShots}x{ShootingStar.damageCoefficient * 100}% damage</style>.");
             #endregion
 
             #region Special
@@ -68,6 +68,10 @@ namespace Deputy.Modules
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
                 $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, strike them for <style=cIsDamage>800% damage</style> " +
                 $"and reduce your skill cooldowns by <style=cIsUtility>2.0s</style>.");
+
+            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
+            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets all around you for " +
+                $"<style=cIsDamage>150% damage</style> each. The number of shots scales with attack speed.");
             #endregion
 
             #region Achievements

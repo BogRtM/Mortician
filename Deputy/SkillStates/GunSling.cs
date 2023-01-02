@@ -16,7 +16,10 @@ namespace Skillstates.Deputy
             base.OnEnter();
             DAC = base.GetComponent<DeputyAnimatorController>();
 
-            DAC.SetCombatWeight(false);
+            DAC.SetCombatState(DeputyAnimatorController.combatState.LeavingCombat);
+            float rightSpeed = base.GetModelAnimator().GetFloat("rightSpeed");
+            float forwardSpeed = base.GetModelAnimator().GetFloat("forwardSpeed");
+            Chat.AddMessage("forward: " + forwardSpeed + ", right: " + rightSpeed);
         }
 
         public override void FixedUpdate()
@@ -36,7 +39,7 @@ namespace Skillstates.Deputy
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

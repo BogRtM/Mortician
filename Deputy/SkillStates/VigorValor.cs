@@ -2,6 +2,7 @@
 using RoR2;
 using EntityStates;
 using EntityStates.Commando.CommandoWeapon;
+using EntityStates.ClayBruiser.Weapon;
 using Deputy.Components;
 using RoR2.Skills;
 
@@ -29,7 +30,8 @@ namespace Skillstates.Deputy
             base.OnEnter();
 
             DAC = base.GetComponent<DeputyAnimatorController>();
-            DAC.SetCombatWeight(true);
+            //DAC.SetCombatWeight(true, 0.1f);
+            DAC.SetCombatState(DeputyAnimatorController.combatState.EnteringCombat);
 
             duration = baseDuration / base.attackSpeedStat;
             aimRay = base.GetAimRay();
@@ -70,12 +72,14 @@ namespace Skillstates.Deputy
                 maxSpread = base.characterBody.spreadBloomAngle,
                 damage = damageCoefficient * this.damageStat,
                 force = FirePistol2.force,
-                tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
+                tracerEffectPrefab = MinigunFire.bulletTracerEffectPrefab,
                 muzzleName = muzzleIndex,
                 hitEffectPrefab = FirePistol2.hitEffectPrefab,
                 isCrit = base.RollCrit(),
                 radius = FireBarrage.bulletRadius,
-                smartCollision = true
+                smartCollision = true,
+                maxDistance = 80f,
+                falloffModel = BulletAttack.FalloffModel.None
             };
 
             if (base.isAuthority)

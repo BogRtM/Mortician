@@ -29,7 +29,9 @@ namespace Deputy.Modules
         private const string assetbundleName = "deputyassets";
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "Deputy";
-        
+
+        internal static GameObject shootingStarEffect;
+
         internal static void Initialize()
         {
             if (assetbundleName == "myassetbundle")
@@ -90,6 +92,8 @@ namespace Deputy.Modules
                 Log.Error("There is no AssetBundle to load assets from.");
                 return;
             }
+
+            shootingStarEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/JumpBoost/BoostJumpEffect.prefab").WaitForCompletion();
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

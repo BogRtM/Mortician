@@ -204,12 +204,12 @@ namespace Deputy.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
@@ -225,27 +225,26 @@ namespace Deputy.Modules.Survivors
             #region Utility
             SkillDef utilitySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_DEPUTY_BODY_UTILITY_KICK_NAME",
-                skillNameToken = prefix + "_DEPUTY_BODY_UTILITY_KICK_NAME",
-                skillDescriptionToken = prefix + "_DEPUTY_BODY_UTILITY_KICK_DESCRIPTION",
+                skillName = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_NAME",
+                skillNameToken = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_NAME",
+                skillDescriptionToken = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Idle)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(ShootingStar)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 6f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
-                cancelSprintingOnActivation = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_HEAVY" }
+                stockToConsume = 1
             });
 
             Modules.Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef);
