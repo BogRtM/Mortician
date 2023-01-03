@@ -59,7 +59,7 @@ namespace Deputy.Modules
 
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"Leap forward in an arc, shooting an enemy below you for " +
+            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"<style=cIsDamage>Stunning</style>. Leap forward in an arc, shooting an enemy below you for " +
                 $"<style=cIsDamage>{ShootingStar.maxShots}x{ShootingStar.damageCoefficient * 100}% damage</style>.");
             #endregion
 

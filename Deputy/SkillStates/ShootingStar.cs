@@ -14,11 +14,11 @@ namespace Skillstates.Deputy
     {
         public static float maxDuration = 2f;
         public static float minDuration;
-        public static float damageCoefficient = 2.5f;
+        public static float damageCoefficient = 2f;
         public static int maxShots = 4;
         public static float baseFireInterval = 0.18f;
         public static float prepTime = 0.2f;
-        public static float jumpPower = 3f;
+        public static float jumpPower = 35f;
         public static Vector3 jumpAngle = new Vector3(0f, 0.7f, 0f);
 
         private Animator modelAnimator;
@@ -26,7 +26,6 @@ namespace Skillstates.Deputy
         private BullseyeSearch search = new BullseyeSearch();
         private HurtBox bestCandidate;
 
-        private float fireInterval;
         private float currentShots;
         private float fireIndex;
         private float fireTimer;
@@ -54,11 +53,13 @@ namespace Skillstates.Deputy
             effectData.origin = characterBody.footPosition;
             EffectManager.SpawnEffect(Assets.shootingStarEffect, effectData, false);
 
+            jumpVector += jumpAngle;
+
             if (base.isAuthority)
             {
-                base.characterMotor.velocity *= 0.1f;
+                base.characterMotor.velocity.y = 0f;
                 base.characterMotor.Motor.ForceUnground();
-                base.characterMotor.velocity += (jumpVector * jumpPower * moveSpeedStat) + jumpAngle;
+                base.characterMotor.velocity += (jumpVector * jumpPower);
             }
         }
 
@@ -71,8 +72,8 @@ namespace Skillstates.Deputy
             if (base.fixedAge >= prepTime && fireTimer >= baseFireInterval && currentShots < maxShots)
             {
                 fireTimer = 0f;
-                SearchForTarget();
-                this.Fire();
+                this.SearchForTarget();
+                this.FireAttack();
             }
 
             if(base.fixedAge > minDuration &&
@@ -90,13 +91,13 @@ namespace Skillstates.Deputy
             this.search.searchDirection = Vector3.down;
             this.search.sortMode = BullseyeSearch.SortMode.Distance;
             this.search.maxDistanceFilter = 50f;
-            this.search.maxAngleFilter = 85f;
+            this.search.maxAngleFilter = 80f;
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(base.gameObject);
             this.bestCandidate = this.search.GetResults().FirstOrDefault<HurtBox>();
         }
 
-        private void Fire()
+        private void FireAttack()
         {
             currentShots++;
             Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
@@ -133,12 +134,13 @@ namespace Skillstates.Deputy
                 maxSpread = base.characterBody.spreadBloomAngle,
                 damage = damageCoefficient * this.damageStat,
                 force = FirePistol2.force,
-                tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
+                tracerEffectPrefab = Assets.deputyTracerEffect,
                 muzzleName = muzzleIndex,
                 hitEffectPrefab = FirePistol2.hitEffectPrefab,
                 isCrit = base.RollCrit(),
                 radius = 2f,
                 smartCollision = true,
+                damageType = DamageType.Stun1s,
                 maxDistance = 80f,
                 falloffModel = BulletAttack.FalloffModel.None
             };

@@ -5,6 +5,7 @@ using EntityStates.Commando.CommandoWeapon;
 using EntityStates.ClayBruiser.Weapon;
 using Deputy.Components;
 using RoR2.Skills;
+using Deputy.Modules;
 
 namespace Skillstates.Deputy
 {
@@ -72,7 +73,7 @@ namespace Skillstates.Deputy
                 maxSpread = base.characterBody.spreadBloomAngle,
                 damage = damageCoefficient * this.damageStat,
                 force = FirePistol2.force,
-                tracerEffectPrefab = MinigunFire.bulletTracerEffectPrefab,
+                tracerEffectPrefab = Assets.deputyTracerEffect,
                 muzzleName = muzzleIndex,
                 hitEffectPrefab = FirePistol2.hitEffectPrefab,
                 isCrit = base.RollCrit(),

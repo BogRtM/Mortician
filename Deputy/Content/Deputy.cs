@@ -216,8 +216,7 @@ namespace Deputy.Modules.Survivors
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_EVASIVE" }
+                stockToConsume = 1
             });
             Modules.Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef);
             #endregion
@@ -244,14 +243,15 @@ namespace Deputy.Modules.Survivors
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1
+                stockToConsume = 1,
+                keywordTokens = new string[] {"KEYWORD_STUNNING"}
             });
 
             Modules.Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef);
             #endregion
 
             #region Special
-            SkillDef specialSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef skullCrackerSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
                 skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
@@ -269,12 +269,36 @@ namespace Deputy.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
-                cancelSprintingOnActivation = true,
+                cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1
             });
-            Modules.Skills.AddSpecialSkills(bodyPrefab, specialSkillDef);
+
+            SkillDef bulletHeavenSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
+                skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
+                skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BulletHeavenJump)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Any,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+            Modules.Skills.AddSpecialSkills(bodyPrefab, skullCrackerSkillDef, bulletHeavenSkillDef);
             #endregion
         }
 
