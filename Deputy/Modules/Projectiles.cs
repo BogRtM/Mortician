@@ -5,6 +5,7 @@ using Deputy.Components;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using System;
 
 namespace Deputy.Modules
 {
@@ -12,11 +13,27 @@ namespace Deputy.Modules
     {
         //internal static GameObject bombPrefab;
         //internal static GameObject javelinPrefab;
-
+        internal static GameObject revolverProjectile;
         internal static void RegisterProjectiles()
         {
-
+            CreateRevolverProjectile();
+            AddProjectile(revolverProjectile);
         }
+
+        private static void CreateRevolverProjectile()
+        {
+            GameObject baseProjectile = Addressables.LoadAsset<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion();
+            revolverProjectile = PrefabAPI.InstantiateClone(baseProjectile, "RevolverProjectile");
+
+            ProjectileController projectileController = revolverProjectile.GetComponent<ProjectileController>();
+            GameObject revolverGhost = CreateGhostPrefab("RevolverProjectileGhost");
+
+            RotateObject rotateObject = revolverGhost.AddComponent<RotateObject>();
+            rotateObject.rotationSpeed = new Vector3(0f, 40f, 0f);
+
+            projectileController.ghostPrefab = revolverGhost;
+        }
+
         internal static void AddProjectile(GameObject projectileToAdd)
         {
             Modules.Content.AddProjectilePrefab(projectileToAdd);

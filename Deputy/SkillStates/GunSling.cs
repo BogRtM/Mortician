@@ -2,19 +2,26 @@
 using RoR2;
 using EntityStates;
 using EntityStates.Bandit2.Weapon;
+using EntityStates.Engi.EngiWeapon;
 using Deputy.Components;
+using Deputy.Modules;
+using RoR2.Projectile;
+using System;
 
 namespace Skillstates.Deputy
 {
     internal class GunSling : BaseState
     {
-        public static float baseDuration = 1f;
-        public static float basePrepTime = 0.5f;
+        public static float baseDuration = 1.3f;
+        public static float basePrepTime = 0.4f;
+        public static float rotationAngle = 8f;
 
         private GameObject gunsMesh;
 
         private DeputyAnimatorController DAC;
         private Animator modelAnimator;
+
+        private Ray aimRay;
 
         private float duration;
         private float prepTime;
@@ -28,6 +35,8 @@ namespace Skillstates.Deputy
             duration = baseDuration / attackSpeedStat;
             prepTime = duration * basePrepTime;
 
+            
+
             gunsMesh = base.FindModelChild("GunsMesh").gameObject;
 
             modelAnimator = base.GetModelAnimator();
@@ -38,7 +47,7 @@ namespace Skillstates.Deputy
             if (!characterMotor.isGrounded)
             {
                 characterMotor.velocity.y = 0f;
-                base.SmallHop(characterMotor, 5.5f);
+                characterMotor.velocity.y += 6f;
             }
 
             Util.PlaySound("Play_bandit2_R_load", base.gameObject);
@@ -50,9 +59,9 @@ namespace Skillstates.Deputy
         {
             base.FixedUpdate();
 
-            base.StartAimMode(0.1f, false);
+            base.StartAimMode(Time.fixedDeltaTime, false);
 
-            if(base.fixedAge >= prepTime && !hasFired)
+            if (base.fixedAge >= prepTime && !hasFired)
             {
                 ThrowGuns();
             }
@@ -67,6 +76,26 @@ namespace Skillstates.Deputy
         {
             hasFired = true;
             gunsMesh.SetActive(false);
+
+            aimRay = base.GetAimRay();
+            Vector3 newVector = aimRay.direction;
+
+            Vector3 leftRevolver = Quaternion.Euler(new Vector3(0f, -rotationAngle, 0f)) * newVector;
+            Vector3 rightRevolver = Quaternion.Euler(new Vector3(0f, rotationAngle, 0f)) * newVector;
+
+            Util.PlaySound(FireMines.throwMineSoundString, base.gameObject);
+            FireProjectileInfo fireProjectileInfo = new FireProjectileInfo();
+            fireProjectileInfo.crit = base.RollCrit();
+            fireProjectileInfo.damage = 2.5f * base.damageStat;
+            fireProjectileInfo.force = 150f;
+            fireProjectileInfo.owner = base.gameObject;
+            fireProjectileInfo.position = aimRay.origin; //leftHand.position;
+            fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(leftRevolver);
+            fireProjectileInfo.projectilePrefab = Projectiles.revolverProjectile;
+            ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+
+            fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(rightRevolver);
+            ProjectileManager.instance.FireProjectile(fireProjectileInfo);
         }
 
         public override void OnExit()
