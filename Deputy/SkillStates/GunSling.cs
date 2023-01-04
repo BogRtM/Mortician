@@ -12,7 +12,7 @@ namespace Skillstates.Deputy
 {
     internal class GunSling : BaseState
     {
-        public static float baseDuration = 1.3f;
+        public static float baseDuration = 1.1f;
         public static float basePrepTime = 0.45f;
         public static float rotationAngle = 10f;
 
@@ -46,7 +46,7 @@ namespace Skillstates.Deputy
 
             if (!characterMotor.isGrounded)
             {
-                //characterMotor.velocity.y = 0f;
+                characterMotor.velocity.y = 0f;
                 base.SmallHop(characterMotor, 10f);
             }
 
@@ -78,10 +78,11 @@ namespace Skillstates.Deputy
             gunsMesh.SetActive(false);
 
             aimRay = base.GetAimRay();
-            Vector3 newVector = aimRay.direction;
+            Vector3 rhs = Vector3.Cross(Vector3.up, aimRay.direction);
+            Vector3 axis = Vector3.Cross(rhs, aimRay.direction);
 
-            Vector3 leftRevolver = Quaternion.Euler(new Vector3(0f, -rotationAngle, 0f)) * newVector;
-            Vector3 rightRevolver = Quaternion.Euler(new Vector3(0f, rotationAngle, 0f)) * newVector;
+            Vector3 leftRevolver = Quaternion.AngleAxis(-rotationAngle, axis) * aimRay.direction;
+            Vector3 rightRevolver = Quaternion.AngleAxis(rotationAngle, axis) * aimRay.direction;
 
             Util.PlaySound(FireMines.throwMineSoundString, base.gameObject);
             FireProjectileInfo fireProjectileInfo = new FireProjectileInfo();

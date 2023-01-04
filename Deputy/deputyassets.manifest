@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 783843752
+CRC: 4159048325
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 288ac7d79ebad50e73152ca04656deeb
+    Hash: caad8cb87c0d36266952c406bcda220a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7548210c12821a833b14e371c42bfecf
@@ -122,6 +122,7 @@ Assets:
 - Assets/DeputyAssets/VFX/HenryMaterials/matHitSpark.mat
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_01c-Combat-IdleIn.anim
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02ycs-AimYaw-Sprint-Combat.anim
+- Assets/DeputyAssets/VFX/HenryMaterials/matRevolverSpin.mat
 - Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_09-BulletHeaven-Jump.anim
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02ycsj-AimYaw-Sprint-Combat-Jump.anim
 - Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_08-GunSling.anim

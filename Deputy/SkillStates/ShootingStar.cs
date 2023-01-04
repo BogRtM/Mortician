@@ -91,7 +91,7 @@ namespace Skillstates.Deputy
         }
         private void SearchForTarget()
         {
-            this.search.teamMaskFilter = TeamMask.GetUnprotectedTeams(this.teamComponent.teamIndex);
+            this.search.teamMaskFilter = TeamMask.GetEnemyTeams(this.teamComponent.teamIndex);
             this.search.filterByLoS = true;
             this.search.searchOrigin = base.characterBody.corePosition;
             this.search.searchDirection = Vector3.down;
@@ -106,7 +106,7 @@ namespace Skillstates.Deputy
         private void FireAttack()
         {
             currentShots++;
-            Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
+            Util.PlaySound("DeputyShoot", base.gameObject);
 
             if (bestCandidate)
             {

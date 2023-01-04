@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
 using RoR2;
+using EntityStates.Commando.CommandoWeapon;
 using System.IO;
 using System.Collections.Generic;
 using RoR2.UI;
@@ -32,6 +33,8 @@ namespace Deputy.Modules
 
         internal static GameObject deputyTracerEffect;
         internal static GameObject shootingStarEffect;
+
+        internal static GameObject deputyBulletImpact;
 
         internal static void Initialize()
         {
@@ -76,14 +79,13 @@ namespace Deputy.Modules
                 manifestResourceStream2.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
             }
-            /*
+
             using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.DeputyBank.bnk"))
             {
                 byte[] array = new byte[manifestResourceStream2.Length];
                 manifestResourceStream2.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
             }
-            */
         }
 
         internal static void PopulateAssets()
@@ -97,6 +99,18 @@ namespace Deputy.Modules
             deputyTracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ClayBruiser/TracerClayBruiserMinigun.prefab").WaitForCompletion();
 
             shootingStarEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/JumpBoost/BoostJumpEffect.prefab").WaitForCompletion();
+
+            GameObject hitspark = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/HitsparkCommando.prefab").WaitForCompletion();
+            deputyBulletImpact = PrefabAPI.InstantiateClone(hitspark, "HitsparkDeputy");
+
+            if (Config.bulletRicochet.Value)
+            {
+                Log.Warning("Adding deputy bullet effect: " + deputyBulletImpact);
+                AddNewEffectDef(deputyBulletImpact, "DeputyRicochet");
+            }
+                
+            
+
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

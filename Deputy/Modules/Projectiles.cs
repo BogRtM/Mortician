@@ -41,7 +41,7 @@ namespace Deputy.Modules
             UnityEngine.Object.Destroy(revolverProjectile.GetComponent<ProjectileImpactExplosion>());
 
             Rigidbody rigidBody = revolverProjectile.GetComponent<Rigidbody>();
-            rigidBody.drag = 4f;
+            rigidBody.drag = 4.5f;
 
             ProjectileExplosion projectileExplosion = revolverProjectile.AddComponent<ProjectileExplosion>();
             projectileExplosion.blastDamageCoefficient = 1f;

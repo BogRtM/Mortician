@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <None Remove="deputyassets" />
+    <None Remove="DeputyBank.bnk" />
     <None Remove="HenryBank.bnk" />
     <None Remove="Modules\Characters\Henry.cs~RF6221a098.TMP" />    
     <None Remove="myassetbundle" />
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="deputyassets" />
+    <EmbeddedResource Include="DeputyBank.bnk" />
     <EmbeddedResource Include="HenryBank.bnk" />
     <EmbeddedResource Include="myassetbundle" />
   </ItemGroup>

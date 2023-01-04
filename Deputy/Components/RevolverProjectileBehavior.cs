@@ -94,7 +94,7 @@ namespace Deputy.Components
 
             Vector3 shootVector = (bestCandidate.transform.position - base.transform.position).normalized;
 
-            Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
+            Util.PlaySound("DeputyShoot", base.gameObject);
 
             if (Util.HasEffectiveAuthority(owner))
             {

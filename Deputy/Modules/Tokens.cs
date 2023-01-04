@@ -23,7 +23,7 @@ namespace Deputy.Modules
 
             LanguageAPI.Add(prefix + "NAME", "Deputy");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "The Long Legs of the Law");
+            LanguageAPI.Add(prefix + "SUBTITLE", "Dashing Beauty");
             LanguageAPI.Add(prefix + "LORE", lore);
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
@@ -34,7 +34,7 @@ namespace Deputy.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Dashing Beauty");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Hot Pursuit");
             LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction. Hitting enemies grants a stacking " +
                 "<style=cIsUtility>movement speed</style> buff.");
                 //"Hitting enemies with <style=cIsDamage>kick</style> attacks grants a stacking movement speed bonus.");
@@ -53,7 +53,7 @@ namespace Deputy.Modules
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
-            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"Throw two revolvers. " +
+            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Throw two revolvers. " +
                 $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x{RevolverProjectileBehavior.bulletDamage * 100}%</style> damage</style>," +
                 $"then explode for <style=cIsDamage>{RevolverProjectileBehavior.blastDamage * 100}% damage</style>.");
             #endregion

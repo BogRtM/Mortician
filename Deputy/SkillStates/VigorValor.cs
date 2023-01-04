@@ -60,7 +60,7 @@ namespace Skillstates.Deputy
             }
 
             base.PlayAnimation(layerName, animationName, "Hand.playbackRate", duration);
-            Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
+            Util.PlaySound("DeputyShoot", base.gameObject);
             EffectManager.SimpleMuzzleFlash(FirePistol2.muzzleEffectPrefab, base.gameObject, muzzleIndex, false);
 
             bulletAttack = new BulletAttack

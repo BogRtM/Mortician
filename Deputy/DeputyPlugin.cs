@@ -54,8 +54,8 @@ namespace Deputy
             instance = this;
 
             Log.Init(Logger);
-            Modules.Assets.Initialize(); // load assets and read config
             Modules.Config.ReadConfig(this);
+            Modules.Assets.Initialize(); // load assets and read config
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
             Modules.Projectiles.RegisterProjectiles(); // add and register custom projectiles
