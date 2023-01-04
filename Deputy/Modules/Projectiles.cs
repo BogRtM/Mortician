@@ -25,13 +25,29 @@ namespace Deputy.Modules
             GameObject baseProjectile = Addressables.LoadAsset<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion();
             revolverProjectile = PrefabAPI.InstantiateClone(baseProjectile, "RevolverProjectile");
 
+            revolverProjectile.AddComponent<RevolverProjectileBehavior>();
+
+            RotateObject rotateObject = revolverProjectile.AddComponent<RotateObject>();
+            rotateObject.rotationSpeed = new Vector3(0f, -1440f, 0f);
+
             ProjectileController projectileController = revolverProjectile.GetComponent<ProjectileController>();
-            GameObject revolverGhost = CreateGhostPrefab("RevolverProjectileGhost");
-
-            RotateObject rotateObject = revolverGhost.AddComponent<RotateObject>();
-            rotateObject.rotationSpeed = new Vector3(0f, 40f, 0f);
-
+            GameObject revolverGhost = CreateGhostPrefab("RevolverGhost");
             projectileController.ghostPrefab = revolverGhost;
+
+            ProjectileSimple projectileSimple = revolverProjectile.GetComponent<ProjectileSimple>();
+            projectileSimple.lifetime = 10f;
+            projectileSimple.desiredForwardSpeed = 150f;
+
+            UnityEngine.Object.Destroy(revolverProjectile.GetComponent<ProjectileImpactExplosion>());
+
+            Rigidbody rigidBody = revolverProjectile.GetComponent<Rigidbody>();
+            rigidBody.drag = 4f;
+
+            ProjectileExplosion projectileExplosion = revolverProjectile.AddComponent<ProjectileExplosion>();
+            projectileExplosion.blastDamageCoefficient = 1f;
+            projectileExplosion.blastRadius = 10f;
+            projectileExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            projectileExplosion.explosionEffect = baseProjectile.GetComponent<ProjectileImpactExplosion>().impactEffect;
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)

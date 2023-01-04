@@ -14,12 +14,12 @@ namespace Skillstates.Deputy
     {
         public static float maxDuration = 2f;
         public static float minDuration;
-        public static float damageCoefficient = 2f;
+        public static float damageCoefficient = 1.5f;
         public static int maxShots = 4;
         public static float baseFireInterval = 0.18f;
         public static float prepTime = 0.2f;
         public static float jumpPower = 35f;
-        public static Vector3 jumpAngle = new Vector3(0f, 0.7f, 0f);
+        public static float minYPower = 0.7f;
 
         private Animator modelAnimator;
 
@@ -29,7 +29,9 @@ namespace Skillstates.Deputy
         private float currentShots;
         private float fireIndex;
         private float fireTimer;
+        private float yPower;
         private Vector3 jumpVector;
+        private Vector3 jumpAngle;
         private Vector3 shootVector = Vector3.down;
 
         private string shootLayer;
@@ -52,6 +54,10 @@ namespace Skillstates.Deputy
             effectData.rotation = Util.QuaternionSafeLookRotation(jumpVector);
             effectData.origin = characterBody.footPosition;
             EffectManager.SpawnEffect(Assets.shootingStarEffect, effectData, false);
+
+            Ray aimRay = base.GetAimRay();
+            yPower = Mathf.Max(minYPower, aimRay.direction.y);
+            jumpAngle = new Vector3(0f, yPower, 0f);
 
             jumpVector += jumpAngle;
 
@@ -134,9 +140,9 @@ namespace Skillstates.Deputy
                 maxSpread = base.characterBody.spreadBloomAngle,
                 damage = damageCoefficient * this.damageStat,
                 force = FirePistol2.force,
-                tracerEffectPrefab = Assets.deputyTracerEffect,
+                tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
                 muzzleName = muzzleIndex,
-                hitEffectPrefab = FirePistol2.hitEffectPrefab,
+                hitEffectPrefab = FireBarrage.hitEffectPrefab,
                 isCrit = base.RollCrit(),
                 radius = 2f,
                 smartCollision = true,

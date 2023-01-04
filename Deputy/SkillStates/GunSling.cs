@@ -13,8 +13,8 @@ namespace Skillstates.Deputy
     internal class GunSling : BaseState
     {
         public static float baseDuration = 1.3f;
-        public static float basePrepTime = 0.4f;
-        public static float rotationAngle = 8f;
+        public static float basePrepTime = 0.45f;
+        public static float rotationAngle = 10f;
 
         private GameObject gunsMesh;
 
@@ -46,8 +46,8 @@ namespace Skillstates.Deputy
 
             if (!characterMotor.isGrounded)
             {
-                characterMotor.velocity.y = 0f;
-                characterMotor.velocity.y += 6f;
+                //characterMotor.velocity.y = 0f;
+                base.SmallHop(characterMotor, 10f);
             }
 
             Util.PlaySound("Play_bandit2_R_load", base.gameObject);
@@ -86,8 +86,8 @@ namespace Skillstates.Deputy
             Util.PlaySound(FireMines.throwMineSoundString, base.gameObject);
             FireProjectileInfo fireProjectileInfo = new FireProjectileInfo();
             fireProjectileInfo.crit = base.RollCrit();
-            fireProjectileInfo.damage = 2.5f * base.damageStat;
-            fireProjectileInfo.force = 150f;
+            fireProjectileInfo.damage = RevolverProjectileBehavior.blastDamage * base.damageStat;
+            fireProjectileInfo.force = 100f;
             fireProjectileInfo.owner = base.gameObject;
             fireProjectileInfo.position = aimRay.origin; //leftHand.position;
             fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(leftRevolver);

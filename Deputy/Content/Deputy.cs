@@ -204,7 +204,7 @@ namespace Deputy.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -216,8 +216,9 @@ namespace Deputy.Modules.Survivors
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1
-            });
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+        });
             Modules.Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef);
             #endregion
 

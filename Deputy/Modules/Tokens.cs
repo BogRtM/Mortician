@@ -54,7 +54,8 @@ namespace Deputy.Modules
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
             LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"Throw two revolvers. " +
-                $"While in flight, each revolver will shoot a nearby enemy for <style=cIsDamage>6x100%</style> damage</style>.");
+                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x{RevolverProjectileBehavior.bulletDamage * 100}%</style> damage</style>," +
+                $"then explode for <style=cIsDamage>{RevolverProjectileBehavior.blastDamage * 100}% damage</style>.");
             #endregion
 
             #region Utility
