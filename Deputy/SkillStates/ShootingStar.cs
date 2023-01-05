@@ -106,7 +106,7 @@ namespace Skillstates.Deputy
         private void FireAttack()
         {
             currentShots++;
-            Util.PlaySound("DeputyShoot", base.gameObject);
+            
 
             if (bestCandidate)
             {
@@ -127,6 +127,7 @@ namespace Skillstates.Deputy
                 muzzleIndex = "MuzzleR";
             }
 
+            Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
             base.PlayAnimation(shootLayer, shootAnimName, "Hand.playbackRate", baseFireInterval);
             EffectManager.SimpleMuzzleFlash(FirePistol2.muzzleEffectPrefab, base.gameObject, muzzleIndex, false);
 

@@ -13,8 +13,17 @@ namespace Deputy.Modules
             string devPrefix = DeputyPlugin.DEVELOPER_PREFIX;
             string prefix = devPrefix + "_DEPUTY_BODY_";
 
-            string desc = "Test";
-            
+            string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting>Thank you for showing interest in <color=#e1c100>The Deputy</color>! " +
+                "For feedback and bug reports, please contact <style=cIsUtility>Bog#4770</style> on Discord.</style>";
+
+            string desc = "The Deputy is a high-octane, hyper-aggressive speed demon who dispenses justice via her twin revolvers and lethal kick attacks." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Vigor & Valor have perfect accuracy and no damage falloff, but their maximum range is quite short compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > The revolvers thrown out by Gun Sling will always prioritize the enemy closest to them." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Shooting Star is an excellent tool both for jumping into fights, and getting out of them." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Skull Cracker can deal crushing burst damage at higher movement speed values." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
+
+            desc += modderNote;
+
             string lore =
                 "";
 

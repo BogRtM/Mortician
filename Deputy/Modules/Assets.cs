@@ -96,7 +96,7 @@ namespace Deputy.Modules
                 return;
             }
 
-            deputyTracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ClayBruiser/TracerClayBruiserMinigun.prefab").WaitForCompletion();
+            deputyTracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GoldGat/TracerGoldGat.prefab").WaitForCompletion();
 
             shootingStarEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/JumpBoost/BoostJumpEffect.prefab").WaitForCompletion();
 

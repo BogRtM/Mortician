@@ -7,6 +7,7 @@ using System.Text;
 using HG;
 using UnityEngine.UIElements;
 using EntityStates.Commando.CommandoWeapon;
+using EntityStates.EngiTurret.EngiTurretWeapon;
 using System.Linq;
 using Deputy.Modules;
 
@@ -16,9 +17,9 @@ namespace Deputy.Components
     internal class RevolverProjectileBehavior : MonoBehaviour
     {
         public static int maxShots = 6;
-        public static float bulletDamage = 0.7f;
+        public static float bulletDamage = 1f;
         public static float fireInterval = 0.3f;
-        public static float blastDamage = 4f;
+        public static float blastDamage = 3f;
         public static float searchRadius = 30f;
 
         public static float lifeTime = 7f;
@@ -40,12 +41,16 @@ namespace Deputy.Components
         private float fireStopwatch;
 
         private int currentShots;
+        private bool isCrit;
 
         public void Start()
         {
             projectileController = base.GetComponent<ProjectileController>();
             owner = projectileController.owner;
             ownerBody = owner.GetComponent<CharacterBody>();
+
+            projectileDamage = base.GetComponent<ProjectileDamage>();
+            isCrit = projectileDamage.crit;
 
             projectileDamage = base.GetComponent<ProjectileDamage>();
             projectileExplosion = base.GetComponent<ProjectileExplosion>();
@@ -94,7 +99,15 @@ namespace Deputy.Components
 
             Vector3 shootVector = (bestCandidate.transform.position - base.transform.position).normalized;
 
-            Util.PlaySound("DeputyShoot", base.gameObject);
+            Util.PlaySound(FireGauss.attackSoundString, base.gameObject);
+
+            Vector3 effectOrigin = base.transform.position + (shootVector * 0.75f);
+            EffectData effectData = new EffectData()
+            {
+                origin = effectOrigin
+            };
+
+            EffectManager.SpawnEffect(FirePistol2.muzzleEffectPrefab, effectData, false);
 
             if (Util.HasEffectiveAuthority(owner))
             {
@@ -111,7 +124,7 @@ namespace Deputy.Components
                     force = FirePistol2.force,
                     tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
                     hitEffectPrefab = FirePistol2.hitEffectPrefab,
-                    isCrit = Util.CheckRoll(ownerBody.crit, ownerBody.master),
+                    isCrit = isCrit,
                     radius = 2f,
                     smartCollision = true,
                     damageType = DamageType.Generic,

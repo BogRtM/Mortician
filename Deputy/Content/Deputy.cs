@@ -128,10 +128,9 @@ namespace Deputy.Modules.Survivors
         {
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
-            /*
-            Transform thrustHitbox = childLocator.FindChild("SpearHitbox");
-            Modules.Prefabs.SetupHitbox(model, thrustHitbox, "Spear");
-            */
+            
+            Transform dashHitbox = childLocator.FindChild("DashHitbox");
+            Modules.Prefabs.SetupHitbox(model, dashHitbox, "Dash");
         }
 
         public override void InitializeSkills()
@@ -204,7 +203,7 @@ namespace Deputy.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 8f,
+                baseRechargeInterval = 7f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -258,18 +257,18 @@ namespace Deputy.Modules.Survivors
                 skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Idle)),
-                activationStateMachineName = "Weapon",
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkullCrackerDash)),
+                activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
-                forceSprintDuringState = false,
+                forceSprintDuringState = true,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,

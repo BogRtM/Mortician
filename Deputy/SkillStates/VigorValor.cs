@@ -60,7 +60,7 @@ namespace Skillstates.Deputy
             }
 
             base.PlayAnimation(layerName, animationName, "Hand.playbackRate", duration);
-            Util.PlaySound("DeputyShoot", base.gameObject);
+            Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
             EffectManager.SimpleMuzzleFlash(FirePistol2.muzzleEffectPrefab, base.gameObject, muzzleIndex, false);
 
             bulletAttack = new BulletAttack
@@ -79,7 +79,7 @@ namespace Skillstates.Deputy
                 isCrit = base.RollCrit(),
                 radius = FireBarrage.bulletRadius,
                 smartCollision = true,
-                maxDistance = 80f,
+                maxDistance = 70f,
                 falloffModel = BulletAttack.FalloffModel.None
             };
 

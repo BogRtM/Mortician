@@ -12,8 +12,8 @@ namespace Skillstates.Deputy
 {
     internal class GunSling : BaseState
     {
-        public static float baseDuration = 1.1f;
-        public static float basePrepTime = 0.45f;
+        public static float baseDuration = 1f;
+        public static float basePrepTime = 0.46f;
         public static float rotationAngle = 10f;
 
         private GameObject gunsMesh;
@@ -46,7 +46,7 @@ namespace Skillstates.Deputy
 
             if (!characterMotor.isGrounded)
             {
-                characterMotor.velocity.y = 0f;
+                //characterMotor.velocity.y = 0f;
                 base.SmallHop(characterMotor, 10f);
             }
 

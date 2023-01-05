@@ -28,7 +28,8 @@ namespace Deputy
         "PrefabAPI",
         "LanguageAPI",
         "SoundAPI",
-        "UnlockableAPI"
+        "UnlockableAPI",
+        "DamageAPI"
     })]
 
     public class DeputyPlugin : BaseUnityPlugin
@@ -49,6 +50,8 @@ namespace Deputy
         public static GameObject deputyBodyPrefab;
         public static BodyIndex deputyBodyIndex;
 
+        public static DamageAPI.ModdedDamageType grantDeputyBuff;
+
         private void Awake()
         {
             instance = this;
@@ -62,6 +65,7 @@ namespace Deputy
             Modules.Tokens.AddTokens(); // register name tokens
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
 
+            grantDeputyBuff = DamageAPI.ReserveDamageType();
 
             // survivor initialization
             new Modules.Survivors.Deputy().Initialize();
@@ -89,7 +93,7 @@ namespace Deputy
         {
             orig(self);
 
-            self.moveSpeed *= 1 + (self.GetBuffCount(Modules.Buffs.deputyBuff) * StaticValues.moveSpeedPerBuff);
+            self.moveSpeed *= 1 + (self.GetBuffCount(Modules.Buffs.deputyBuff) * StaticValues.msPerStack);
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
@@ -136,7 +140,7 @@ namespace Deputy
                     {
                         if (NetworkServer.active)
                         {
-                            attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.StaticValues.moveSpeedBuffDuration);
+                            attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.StaticValues.msBuffDuration);
                         }
                     }
                 }
