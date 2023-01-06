@@ -51,6 +51,7 @@ namespace Deputy
         public static BodyIndex deputyBodyIndex;
 
         public static DamageAPI.ModdedDamageType grantDeputyBuff;
+        public static DamageAPI.ModdedDamageType resetUtilityOnKill;
 
         private void Awake()
         {
@@ -66,6 +67,7 @@ namespace Deputy
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
 
             grantDeputyBuff = DamageAPI.ReserveDamageType();
+            resetUtilityOnKill = DamageAPI.ReserveDamageType();
 
             // survivor initialization
             new Modules.Survivors.Deputy().Initialize();

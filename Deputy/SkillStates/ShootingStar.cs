@@ -13,12 +13,12 @@ namespace Skillstates.Deputy
     internal class ShootingStar : BaseState
     {
         public static float maxDuration = 2f;
-        public static float minDuration;
+        public static float minDuration = 1f;
         public static float damageCoefficient = 1.5f;
         public static int maxShots = 4;
         public static float baseFireInterval = 0.18f;
         public static float prepTime = 0.2f;
-        public static float jumpPower = 35f;
+        public static float jumpPower = 40f;
         public static float minYPower = 0.7f;
 
         private Animator modelAnimator;
@@ -61,12 +61,11 @@ namespace Skillstates.Deputy
 
             jumpVector += jumpAngle;
 
-            if (base.isAuthority)
-            {
-                base.characterMotor.velocity.y = 0f;
-                base.characterMotor.Motor.ForceUnground();
-                base.characterMotor.velocity += (jumpVector * jumpPower);
-            }
+            base.characterMotor.disableAirControlUntilCollision = false;
+
+            base.characterMotor.velocity.y = 0f;
+            base.characterMotor.Motor.ForceUnground();
+            base.characterMotor.velocity += (jumpVector * jumpPower);
         }
 
         public override void FixedUpdate()
@@ -82,11 +81,13 @@ namespace Skillstates.Deputy
                 this.FireAttack();
             }
 
-            if(base.fixedAge > minDuration &&
-                (base.fixedAge >= maxDuration || (base.characterMotor.Motor.GroundingStatus.IsStableOnGround && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)) 
-                && base.isAuthority)
+            if(base.isAuthority)
             {
-                this.outer.SetNextStateToMain();
+                if (base.fixedAge >= maxDuration ||
+                (base.fixedAge >= minDuration && (base.characterMotor.Motor.GroundingStatus.IsStableOnGround && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)))
+                {
+                    this.outer.SetNextStateToMain();
+                }
             }
         }
         private void SearchForTarget()
@@ -152,7 +153,8 @@ namespace Skillstates.Deputy
                 falloffModel = BulletAttack.FalloffModel.None
             };
 
-            bulletAttack.Fire();
+            if(base.isAuthority)
+                bulletAttack.Fire();
 
             fireIndex++;
         }

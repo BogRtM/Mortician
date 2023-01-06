@@ -1,16 +1,34 @@
 ﻿using UnityEngine;
 using RoR2;
+using R2API;
 using EntityStates;
-using EntityStates.Merc;
+using Deputy.Modules;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.Networking;
+using Deputy;
+
 namespace Skillstates.Deputy
 {
     internal class SkullCrackerDash : BaseState
     {
-        public static float baseDuration = 0.2f;
+        public static float baseDuration = 0.5f;
         public static float speedCoefficient = 15f;
+        public static float dashPower = 65f;
+        public static float damageCoefficient = 10f;
+        public static float pushAwayForce = 30f;
+        //public static Vector3 pushAwayDirection = new Vector3(0f, 0.7f, 0f);
 
         private Ray aimRay;
         private Vector3 dashVector;
+
+        private OverlapAttack attack;
+        private List<HurtBox> victimsStruck = new List<HurtBox>();
+
+        private bool hasHit;
+        private bool hasKnockedBack;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -18,7 +36,46 @@ namespace Skillstates.Deputy
             aimRay = base.GetAimRay();
             dashVector = aimRay.direction;
 
+            base.characterMotor.disableAirControlUntilCollision = false;
+
+            Transform modelTransform = base.GetModelTransform();
+            HitBoxGroup hitBoxGroup = null;
+
+            if (modelTransform)
+            {
+                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Dash");
+            }
+
+            this.attack = new OverlapAttack();
+            attack.attacker = base.gameObject;
+            attack.inflictor = base.gameObject;
+            attack.damageType = DamageType.Stun1s;
+            attack.procCoefficient = 1f;
+            attack.teamIndex = base.GetTeam();
+            attack.isCrit = base.RollCrit();
+            attack.forceVector = Vector3.zero;
+            attack.pushAwayForce = 1f;
+            attack.damage = damageCoefficient * damageStat * this.GetDamageBoostFromSpeed();
+            attack.hitBoxGroup = hitBoxGroup;
+            attack.hitEffectPrefab = null;
+            attack.AddModdedDamageType(DeputyPlugin.resetUtilityOnKill);
+
+            EffectData effectData = new EffectData()
+            {
+                origin = base.characterBody.corePosition,
+                rotation = Util.QuaternionSafeLookRotation(dashVector)
+            };
+            EffectManager.SpawnEffect(Assets.skullCrackerEffect, effectData, true);
+
             base.PlayAnimation("FullBody, Override", "Dash");
+
+            base.characterMotor.velocity.y = 0f;
+            base.characterMotor.velocity += dashVector * (dashPower + moveSpeedStat);
+
+            if (NetworkServer.active)
+            {
+                characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+            }
         }
 
         public override void FixedUpdate()
@@ -27,19 +84,41 @@ namespace Skillstates.Deputy
 
             if (base.isAuthority)
             {
-                base.characterMotor.rootMotion += dashVector * (speedCoefficient * moveSpeedStat * Time.fixedDeltaTime);
-            }
+                base.characterDirection.forward = dashVector;
+                base.characterBody.isSprinting = true;
 
-            if(base.fixedAge >= baseDuration && base.isAuthority)
-            {
-                this.outer.SetNextStateToMain();
+                if (attack.Fire())
+                {
+                    hasHit = true;
+                    base.characterMotor.Motor.ForceUnground();
+                    Vector3 knockback = new Vector3(0f, 0.7f, -dashVector.z);
+                    base.characterMotor.velocity = knockback * pushAwayForce;
+                    this.outer.SetNextStateToMain();
+                }
+
+                if (base.fixedAge >= baseDuration)
+                {
+                    this.outer.SetNextStateToMain();
+                }
             }
+        }
+
+        private float GetDamageBoostFromSpeed()
+        {
+            return Mathf.Max(1f, base.characterBody.moveSpeed / base.characterBody.baseMoveSpeed);
         }
 
         public override void OnExit()
         {
-            base.characterMotor.velocity *= 0.1f;
-            base.PlayAnimation("FullBody, Override", "BufferEmpty");
+            if (!hasHit)
+                base.characterMotor.velocity *= 0.4f;
+
+            if (NetworkServer.active)
+            {
+                characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+            }
+
+            base.PlayCrossfade("FullBody, Override", "BufferEmpty", 0.1f);
             base.OnExit();
         }
 

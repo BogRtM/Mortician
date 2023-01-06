@@ -16,7 +16,7 @@ namespace Deputy.Modules
             string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting>Thank you for showing interest in <color=#e1c100>The Deputy</color>! " +
                 "For feedback and bug reports, please contact <style=cIsUtility>Bog#4770</style> on Discord.</style>";
 
-            string desc = "The Deputy is a high-octane, hyper-aggressive speed demon who dispenses justice via her twin revolvers and lethal kick attacks." + Environment.NewLine + Environment.NewLine;
+            string desc = "The Deputy is a high-octane, hyper-aggressive speed demon who dispenses justice via her twin revolvers and lethal kick attacks.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Vigor & Valor have perfect accuracy and no damage falloff, but their maximum range is quite short compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > The revolvers thrown out by Gun Sling will always prioritize the enemy closest to them." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Shooting Star is an excellent tool both for jumping into fights, and getting out of them." + Environment.NewLine + Environment.NewLine;
@@ -50,8 +50,6 @@ namespace Deputy.Modules
             #endregion
 
             #region Keywords
-            LanguageAPI.Add("KEYWORD_EVASIVE", $"<style=cKeywordName>Evasive</style><style=cSub>If this skill is used while sprinting, perform a short " +
-                $"<style=cIsUtility>dash</style> in the target direction.</style>");
             #endregion
 
             #region Primary
@@ -63,7 +61,7 @@ namespace Deputy.Modules
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
             LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Throw two revolvers. " +
-                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x{RevolverProjectileBehavior.bulletDamage * 100}%</style> damage</style>," +
+                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x{RevolverProjectileBehavior.bulletDamage * 100}%</style> damage</style>, " +
                 $"then explode for <style=cIsDamage>{RevolverProjectileBehavior.blastDamage * 100}% damage</style>.");
             #endregion
 
@@ -76,8 +74,9 @@ namespace Deputy.Modules
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_NAME", "Skull Cracker");
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
-                $"<style=cIsUtility>Dash</style> forward. On contact with an enemy, strike them for <style=cIsDamage>800% damage</style> " +
-                $"and reduce your skill cooldowns by <style=cIsUtility>2.0s</style>.");
+                $"<style=cIsUtility>Dash</style> forward and vault off an enemy, dealing " +
+                $"<style=cIsDamage>{SkullCrackerDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
+                $"utility</style> skill.");                
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets all around you for " +

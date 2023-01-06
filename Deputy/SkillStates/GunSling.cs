@@ -93,10 +93,14 @@ namespace Skillstates.Deputy
             fireProjectileInfo.position = aimRay.origin; //leftHand.position;
             fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(leftRevolver);
             fireProjectileInfo.projectilePrefab = Projectiles.revolverProjectile;
-            ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+
+            if(base.isAuthority)
+                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
 
             fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(rightRevolver);
-            ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+
+            if (base.isAuthority)
+                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
         }
 
         public override void OnExit()

@@ -105,6 +105,7 @@ namespace Deputy.Modules.Survivors
             //SetCoreTransform();
 
             bodyPrefab.AddComponent<DeputyAnimatorController>();
+            bodyPrefab.AddComponent<ResetUtilityOnKill>();
         }
 
         private void SetCoreTransform()
@@ -258,9 +259,9 @@ namespace Deputy.Modules.Survivors
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkullCrackerDash)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = true,

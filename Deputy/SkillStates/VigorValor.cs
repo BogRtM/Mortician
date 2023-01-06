@@ -79,7 +79,7 @@ namespace Skillstates.Deputy
                 isCrit = base.RollCrit(),
                 radius = FireBarrage.bulletRadius,
                 smartCollision = true,
-                maxDistance = 70f,
+                maxDistance = 60f,
                 falloffModel = BulletAttack.FalloffModel.None
             };
 

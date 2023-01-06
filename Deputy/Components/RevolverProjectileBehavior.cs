@@ -69,19 +69,9 @@ namespace Deputy.Components
                 fireStopwatch = 0f;
 
                 DoSearch();
+
                 if(bestCandidate && bestCandidate.healthComponent.alive)
                     FireBullet();
-                /*
-                if (bestCandidate && bestCandidate.healthComponent.alive)
-                {
-                    FireBullet();
-                }
-                else
-                {
-                    DoSearch();
-                    FireBullet();
-                }
-                */
             }
 
             if(lifeStopwatch >= lifeTime || (currentShots >= maxShots && fireStopwatch >= fireInterval))
@@ -109,30 +99,30 @@ namespace Deputy.Components
 
             EffectManager.SpawnEffect(FirePistol2.muzzleEffectPrefab, effectData, false);
 
+            BulletAttack bulletAttack = new BulletAttack
+            {
+                owner = owner,
+                weapon = base.gameObject,
+                origin = base.transform.position,
+                procCoefficient = 0.8f,
+                aimVector = shootVector,
+                minSpread = 0f,
+                maxSpread = 0f,
+                damage = bulletDamage * ownerBody.damage,
+                force = FirePistol2.force,
+                tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
+                hitEffectPrefab = FirePistol2.hitEffectPrefab,
+                isCrit = isCrit,
+                radius = 2f,
+                smartCollision = true,
+                damageType = DamageType.Generic,
+                maxDistance = 80f,
+                falloffModel = BulletAttack.FalloffModel.None,
+                stopperMask = LayerIndex.entityPrecise.mask
+            };
+
             if (Util.HasEffectiveAuthority(owner))
             {
-                BulletAttack bulletAttack = new BulletAttack
-                {
-                    owner = owner,
-                    weapon = base.gameObject,
-                    origin = base.transform.position,
-                    procCoefficient = 0.8f,
-                    aimVector = shootVector,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    damage = bulletDamage * ownerBody.damage,
-                    force = FirePistol2.force,
-                    tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
-                    hitEffectPrefab = FirePistol2.hitEffectPrefab,
-                    isCrit = isCrit,
-                    radius = 2f,
-                    smartCollision = true,
-                    damageType = DamageType.Generic,
-                    maxDistance = 80f,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    stopperMask = LayerIndex.entityPrecise.mask
-                };
-
                 bulletAttack.Fire();
             }
         }

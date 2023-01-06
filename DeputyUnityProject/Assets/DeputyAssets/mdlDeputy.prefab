@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 1337239962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.026, z: 0}
-  m_LocalScale: {x: 2.3566, y: 2.3566, z: 2.3566}
+  m_LocalScale: {x: 3.734504, y: 3.734504, z: 3.734504}
   m_Children: []
   m_Father: {fileID: 6365128066527925335}
   m_RootOrder: 11
@@ -2623,6 +2623,10 @@ MonoBehaviour:
     transform: {fileID: 444383140}
   - name: DashHitbox
     transform: {fileID: 1337239963}
+  - name: FootL
+    transform: {fileID: 5794631370791225618}
+  - name: FootR
+    transform: {fileID: 1364268685939238579}
 --- !u!1 &6097871766326271210
 GameObject:
   m_ObjectHideFlags: 0

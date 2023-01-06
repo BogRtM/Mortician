@@ -36,6 +36,8 @@ namespace Deputy.Modules
 
         internal static GameObject deputyBulletImpact;
 
+        internal static GameObject skullCrackerEffect;
+
         internal static void Initialize()
         {
             if (assetbundleName == "myassetbundle")
@@ -108,10 +110,8 @@ namespace Deputy.Modules
                 Log.Warning("Adding deputy bullet effect: " + deputyBulletImpact);
                 AddNewEffectDef(deputyBulletImpact, "DeputyRicochet");
             }
-                
-            
 
-
+            skullCrackerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MoveSpeedOnKill/MoveSpeedOnKillActivate.prefab").WaitForCompletion();
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*
