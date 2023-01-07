@@ -28,7 +28,7 @@ namespace Deputy.Modules
             revolverProjectile.AddComponent<RevolverProjectileBehavior>();
 
             RotateObject rotateObject = revolverProjectile.AddComponent<RotateObject>();
-            rotateObject.rotationSpeed = new Vector3(0f, -1440f, 0f);
+            rotateObject.rotationSpeed = new Vector3(0f, -1800f, 0f);
 
             ProjectileController projectileController = revolverProjectile.GetComponent<ProjectileController>();
             GameObject revolverGhost = CreateGhostPrefab("RevolverGhost");

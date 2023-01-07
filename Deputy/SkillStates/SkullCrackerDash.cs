@@ -2,6 +2,8 @@
 using RoR2;
 using R2API;
 using EntityStates;
+using EntityStates.Merc;
+using EntityStates.Loader;
 using Deputy.Modules;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,12 @@ namespace Skillstates.Deputy
 {
     internal class SkullCrackerDash : BaseState
     {
-        public static float baseDuration = 0.5f;
+        public static float baseDuration = 0.3f;
         public static float speedCoefficient = 15f;
-        public static float dashPower = 65f;
+        public static float dashPower = 85f;
         public static float damageCoefficient = 10f;
         public static float pushAwayForce = 30f;
+        public static float pushAwayYFactor = 0.5f;
         //public static Vector3 pushAwayDirection = new Vector3(0f, 0.7f, 0f);
 
         private Ray aimRay;
@@ -57,7 +60,7 @@ namespace Skillstates.Deputy
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * damageStat * this.GetDamageBoostFromSpeed();
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = null;
+            attack.hitEffectPrefab = BaseSwingChargedFist.overchargeImpactEffectPrefab;
             attack.AddModdedDamageType(DeputyPlugin.resetUtilityOnKill);
 
             EffectData effectData = new EffectData()
@@ -65,7 +68,7 @@ namespace Skillstates.Deputy
                 origin = base.characterBody.corePosition,
                 rotation = Util.QuaternionSafeLookRotation(dashVector)
             };
-            EffectManager.SpawnEffect(Assets.skullCrackerEffect, effectData, true);
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, true);
 
             base.PlayAnimation("FullBody, Override", "Dash");
 
@@ -87,13 +90,20 @@ namespace Skillstates.Deputy
                 base.characterDirection.forward = dashVector;
                 base.characterBody.isSprinting = true;
 
-                if (attack.Fire())
+                if (attack.Fire(victimsStruck))
                 {
                     hasHit = true;
                     base.characterMotor.Motor.ForceUnground();
-                    Vector3 knockback = new Vector3(0f, 0.7f, -dashVector.z);
+                    Vector3 knockback = -base.characterDirection.forward;
+                    knockback.y = pushAwayYFactor;
                     base.characterMotor.velocity = knockback * pushAwayForce;
-                    this.outer.SetNextStateToMain();
+
+                    SkullCrackerImpact nextState = new SkullCrackerImpact()
+                    {
+                        impactPoint = victimsStruck.FirstOrDefault<HurtBox>().transform.position
+                    };
+
+                    this.outer.SetNextState(nextState);
                 }
 
                 if (base.fixedAge >= baseDuration)

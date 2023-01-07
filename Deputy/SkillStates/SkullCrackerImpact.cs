@@ -8,84 +8,37 @@ namespace Skillstates.Deputy
 {
     internal class SkullCrackerImpact : BaseState
     {
-        public static float baseDuration = 0.5f;
-        public static float baseHitStopDuration = 0.2f;
-        public static float pushAwayForce = 25f;
+        public static float baseDuration = 1f;
 
-        internal HealthComponent victim;
-        internal Vector3 knockbackDirection;
+        internal Vector3 impactPoint;
 
-        private Vector3 impactPoint;
-        private float duration;
-        private float windUpTime;
-        private float hitStopDuration;
-
-        private Animator animator;
-        private BaseState.HitStopCachedState hitStop;
-        private bool hasPaused;
-        private bool inHitPause;
-        private float hitPauseTimer;
-        private float stopwatch;
         public override void OnEnter()
         {
             base.OnEnter();
 
-            animator = base.GetModelAnimator();
-
-            impactPoint = victim.transform.position;
-
+            base.StartAimMode(baseDuration, true);
             base.PlayAnimation("FullBody, Override", "Kick1", "Flip.playbackRate", baseDuration);
 
-            EffectManager.SimpleImpactEffect(SwingZapFist.overchargeImpactEffectPrefab, impactPoint, base.characterDirection.forward, false);
+            if (impactPoint == null)
+                impactPoint = base.transform.position;
 
-            base.characterMotor.velocity = knockbackDirection * pushAwayForce;
+            //EffectManager.SimpleImpactEffect(SwingZapFist.overchargeImpactEffectPrefab, impactPoint, base.characterDirection.forward, false);
+
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= baseDuration && base.isAuthority)
-            {
-                this.outer.SetNextStateToMain();
-            }
-
-            //hitPauseTimer -= Time.fixedDeltaTime;
-
-            /*
             if (base.isAuthority)
             {
+                base.characterBody.isSprinting = true;
 
-                if(base.fixedAge >= windUpTime && !hasPaused)
-                {
-                    if (!inHitPause)
-                    {
-                        hasPaused = true;
-                        hitStop = CreateHitStopCachedState(characterMotor, animator, "Flip.playbackRate");
-                        hitPauseTimer = hitStopDuration;
-                        inHitPause = true;
-                    }
-                }
-
-                if (!inHitPause)
-                    stopwatch += Time.fixedDeltaTime;
-                else
-                {
-                    characterMotor.velocity = Vector3.zero;
-                    animator.SetFloat("Flip.playbackRate", 0f);
-                }
-
-                if(inHitPause && hitPauseTimer <= 0f)
-                {
-                    base.ConsumeHitStopCachedState(hitStop, characterMotor, animator);
-                    inHitPause = false;
-                }
-
-                if (stopwatch >= duration + hitStopDuration)
+                if (base.fixedAge >= baseDuration)
                 {
                     this.outer.SetNextStateToMain();
                 }
-            }*/
+            }
         }
 
         public override void OnExit()
@@ -95,7 +48,7 @@ namespace Skillstates.Deputy
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Skill;
         }
     }
 }

@@ -61,11 +61,12 @@ namespace Skillstates.Deputy
 
             jumpVector += jumpAngle;
 
-            base.characterMotor.disableAirControlUntilCollision = false;
+            if (base.isAuthority)
+                base.characterBody.isSprinting = true;
 
-            base.characterMotor.velocity.y = 0f;
             base.characterMotor.Motor.ForceUnground();
-            base.characterMotor.velocity += (jumpVector * jumpPower);
+            base.characterMotor.velocity.y = 0f;
+            base.characterMotor.velocity += jumpVector * jumpPower;
         }
 
         public override void FixedUpdate()
@@ -83,6 +84,9 @@ namespace Skillstates.Deputy
 
             if(base.isAuthority)
             {
+                //base.characterBody.isSprinting = true;
+                base.characterDirection.forward = jumpVector;
+
                 if (base.fixedAge >= maxDuration ||
                 (base.fixedAge >= minDuration && (base.characterMotor.Motor.GroundingStatus.IsStableOnGround && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)))
                 {
@@ -130,7 +134,7 @@ namespace Skillstates.Deputy
 
             Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
             base.PlayAnimation(shootLayer, shootAnimName, "Hand.playbackRate", baseFireInterval);
-            EffectManager.SimpleMuzzleFlash(FirePistol2.muzzleEffectPrefab, base.gameObject, muzzleIndex, false);
+            EffectManager.SimpleMuzzleFlash(FireBarrage.effectPrefab, base.gameObject, muzzleIndex, false);
 
             BulletAttack bulletAttack = new BulletAttack
             {

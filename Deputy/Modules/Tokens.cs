@@ -54,7 +54,7 @@ namespace Deputy.Modules
 
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_NAME", "Vigor & Valor");
-            LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire short-range revolvers for " +
+            LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire mid-range revolvers for " +
                 $"<style=cIsDamage>{VigorValor.damageCoefficient * 100}% damage</style>.");
             #endregion
 
@@ -74,9 +74,9 @@ namespace Deputy.Modules
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_NAME", "Skull Cracker");
             LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
-                $"<style=cIsUtility>Dash</style> forward and vault off an enemy, dealing " +
+                $"<style=cIsUtility>Dash</style> forward and bounce off an enemy, dealing " +
                 $"<style=cIsDamage>{SkullCrackerDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
-                $"utility</style> skill.");                
+                $"utility skill</style>.");
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets all around you for " +
