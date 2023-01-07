@@ -46,7 +46,6 @@ namespace Deputy.Modules
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Hot Pursuit");
             LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction. Hitting enemies grants a stacking " +
                 "<style=cIsUtility>movement speed</style> buff.");
-                //"Hitting enemies with <style=cIsDamage>kick</style> attacks grants a stacking movement speed bonus.");
             #endregion
 
             #region Keywords
@@ -67,7 +66,7 @@ namespace Deputy.Modules
 
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"<style=cIsDamage>Stunning</style>. Leap forward in an arc, shooting an enemy below you for " +
+            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"<style=cIsDamage>Stunning</style>. Leap forward and shoot an enemy below you for " +
                 $"<style=cIsDamage>{ShootingStar.maxShots}x{ShootingStar.damageCoefficient * 100}% damage</style>.");
             #endregion
 
@@ -80,7 +79,7 @@ namespace Deputy.Modules
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets all around you for " +
-                $"<style=cIsDamage>150% damage</style> each. The number of shots scales with attack speed.");
+                $"<style=cIsDamage>{BulletHeaven.damageCoefficient * 100f}% damage</style> each. The number of shots scales with attack speed.");
             #endregion
 
             #region Achievements

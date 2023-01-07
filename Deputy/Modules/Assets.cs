@@ -31,6 +31,8 @@ namespace Deputy.Modules
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "Deputy";
 
+        internal static GameObject landImpactEffect;
+
         internal static GameObject deputyTracerEffect;
         internal static GameObject shootingStarEffect;
 
@@ -97,6 +99,8 @@ namespace Deputy.Modules
                 Log.Error("There is no AssetBundle to load assets from.");
                 return;
             }
+
+            landImpactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/CharacterLandImpact.prefab").WaitForCompletion();
 
             deputyTracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GoldGat/TracerGoldGat.prefab").WaitForCompletion();
 

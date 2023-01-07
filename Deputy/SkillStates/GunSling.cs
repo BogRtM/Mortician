@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
-using EntityStates.Bandit2.Weapon;
+using EntityStates.Huntress.HuntressWeapon;
 using EntityStates.Engi.EngiWeapon;
 using Deputy.Components;
 using Deputy.Modules;
@@ -48,6 +48,13 @@ namespace Skillstates.Deputy
             {
                 //characterMotor.velocity.y = 0f;
                 base.SmallHop(characterMotor, 10f);
+
+                EffectData effectData = new EffectData()
+                {
+                    origin = base.characterBody.footPosition,
+                    scale = base.characterBody.radius
+                };
+                EffectManager.SpawnEffect(Assets.landImpactEffect, effectData, false);
             }
 
             Util.PlaySound("Play_bandit2_R_load", base.gameObject);
@@ -85,6 +92,7 @@ namespace Skillstates.Deputy
             Vector3 rightRevolver = Quaternion.AngleAxis(rotationAngle, axis) * aimRay.direction;
 
             Util.PlaySound(FireMines.throwMineSoundString, base.gameObject);
+
             FireProjectileInfo fireProjectileInfo = new FireProjectileInfo();
             fireProjectileInfo.crit = base.RollCrit();
             fireProjectileInfo.damage = RevolverProjectileBehavior.blastDamage * base.damageStat;

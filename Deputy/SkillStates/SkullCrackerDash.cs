@@ -98,7 +98,7 @@ namespace Skillstates.Deputy
                     knockback.y = pushAwayYFactor;
                     base.characterMotor.velocity = knockback * pushAwayForce;
 
-                    SkullCrackerImpact nextState = new SkullCrackerImpact()
+                    SkullCrackerBounce nextState = new SkullCrackerBounce()
                     {
                         impactPoint = victimsStruck.FirstOrDefault<HurtBox>().transform.position
                     };

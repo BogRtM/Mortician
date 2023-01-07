@@ -3156,6 +3156,7 @@ Transform:
   - {fileID: 2350677177398808305}
   - {fileID: 8086852624062934521}
   - {fileID: 1337239963}
+  - {fileID: 2814092109748576011}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3236,31 +3237,31 @@ MonoBehaviour:
   - name: CalfR
     transform: {fileID: 1974895570291243383}
   - name: Stomach
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 8178111315984392554}
   - name: Stomach1
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 5248776557282544003}
   - name: Chest
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 7918015864158142424}
   - name: ShoulderL
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 3506937599254497321}
   - name: ShoulderR
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 2958707024254460915}
   - name: UpperArmL
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 2804017675123541016}
   - name: UpperArmR
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 4864831543221823904}
   - name: ForeArmL
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 4708914138778633294}
   - name: ForeArmR
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 7206088318335960083}
   - name: HandL
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 2979777938611645170}
   - name: HandR
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 4284111120166324186}
   - name: RevolverL
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 5949412544207516791}
   - name: RevolverR
-    transform: {fileID: 1974895570291243383}
+    transform: {fileID: 5314500490826046883}
   - name: Neck
     transform: {fileID: 9177171739357897961}
   - name: Head
@@ -3269,6 +3270,8 @@ MonoBehaviour:
     transform: {fileID: 303387993677213710}
   - name: Star
     transform: {fileID: 4906644957328842651}
+  - name: GunSlingEffectPos
+    transform: {fileID: 2814092109748576011}
 --- !u!114 &310185143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5527,6 +5530,36 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0024956614, y: 0.01598112, z: 1.3247875}
     m_Extent: {x: 0.13946147, y: 0.12197001, z: 0.06575954}
   m_DirtyAABB: 0
+--- !u!1 &8760865695498366953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2814092109748576011}
+  m_Layer: 0
+  m_Name: GunSlingSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2814092109748576011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760865695498366953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.248, z: 0.882}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6365128066527925335}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8845208948014111872
 GameObject:
   m_ObjectHideFlags: 0
