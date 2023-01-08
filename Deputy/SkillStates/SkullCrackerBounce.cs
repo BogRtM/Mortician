@@ -10,17 +10,12 @@ namespace Skillstates.Deputy
     {
         public static float baseDuration = 1f;
 
-        internal Vector3 impactPoint;
+        internal Vector3 faceDirection;
 
         public override void OnEnter()
         {
             base.OnEnter();
-
-            base.StartAimMode(baseDuration, true);
             base.PlayAnimation("FullBody, Override", "Kick1", "Flip.playbackRate", baseDuration);
-
-            if (impactPoint == null)
-                impactPoint = base.transform.position;
 
             //EffectManager.SimpleImpactEffect(SwingZapFist.overchargeImpactEffectPrefab, impactPoint, base.characterDirection.forward, false);
 
@@ -32,6 +27,7 @@ namespace Skillstates.Deputy
 
             if (base.isAuthority)
             {
+                base.characterDirection.forward = faceDirection;
                 base.characterBody.isSprinting = true;
 
                 if (base.fixedAge >= baseDuration)

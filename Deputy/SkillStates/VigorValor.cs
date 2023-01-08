@@ -6,6 +6,8 @@ using EntityStates.ClayBruiser.Weapon;
 using Deputy.Components;
 using RoR2.Skills;
 using Deputy.Modules;
+using Deputy;
+using R2API;
 
 namespace Skillstates.Deputy
 {
@@ -82,6 +84,8 @@ namespace Skillstates.Deputy
                 maxDistance = 60f,
                 falloffModel = BulletAttack.FalloffModel.None
             };
+
+            bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
 
             if (base.isAuthority)
                 bulletAttack.Fire();

@@ -133,6 +133,19 @@ namespace Deputy
         {
             orig(self, damageInfo, victim);
 
+            if (damageInfo.HasModdedDamageType(grantDeputyBuff) && damageInfo.attacker)
+            {
+                CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                if (attackerBody)
+                {
+                    if (NetworkServer.active)
+                    {
+                        attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.StaticValues.msBuffDuration);
+                    }
+                }
+            }
+
+            /*
             if (damageInfo.attacker)
             {
                 CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
@@ -147,6 +160,7 @@ namespace Deputy
                     }
                 }
             }
+            */
         }
     }
 }

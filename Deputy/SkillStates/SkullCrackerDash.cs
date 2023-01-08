@@ -17,7 +17,7 @@ namespace Skillstates.Deputy
     {
         public static float baseDuration = 0.3f;
         public static float speedCoefficient = 15f;
-        public static float dashPower = 85f;
+        public static float dashPower = 7f;
         public static float damageCoefficient = 10f;
         public static float pushAwayForce = 30f;
         public static float pushAwayYFactor = 0.5f;
@@ -47,6 +47,14 @@ namespace Skillstates.Deputy
             if (modelTransform)
             {
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Dash");
+
+                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = baseDuration * 2f;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
             }
 
             this.attack = new OverlapAttack();
@@ -61,6 +69,7 @@ namespace Skillstates.Deputy
             attack.damage = damageCoefficient * damageStat * this.GetDamageBoostFromSpeed();
             attack.hitBoxGroup = hitBoxGroup;
             attack.hitEffectPrefab = BaseSwingChargedFist.overchargeImpactEffectPrefab;
+            attack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
             attack.AddModdedDamageType(DeputyPlugin.resetUtilityOnKill);
 
             EffectData effectData = new EffectData()
@@ -73,7 +82,7 @@ namespace Skillstates.Deputy
             base.PlayAnimation("FullBody, Override", "Dash");
 
             base.characterMotor.velocity.y = 0f;
-            base.characterMotor.velocity += dashVector * (dashPower + moveSpeedStat);
+            base.characterMotor.velocity += dashVector * (dashPower * moveSpeedStat);
 
             if (NetworkServer.active)
             {
@@ -100,7 +109,7 @@ namespace Skillstates.Deputy
 
                     SkullCrackerBounce nextState = new SkullCrackerBounce()
                     {
-                        impactPoint = victimsStruck.FirstOrDefault<HurtBox>().transform.position
+                        faceDirection = -knockback
                     };
 
                     this.outer.SetNextState(nextState);
@@ -134,7 +143,7 @@ namespace Skillstates.Deputy
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Pain;
         }
     }
 }

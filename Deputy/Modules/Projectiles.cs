@@ -27,6 +27,8 @@ namespace Deputy.Modules
 
             revolverProjectile.AddComponent<RevolverProjectileBehavior>();
 
+            revolverProjectile.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>().Add(DeputyPlugin.grantDeputyBuff);
+
             RotateObject rotateObject = revolverProjectile.AddComponent<RotateObject>();
             rotateObject.rotationSpeed = new Vector3(0f, -1800f, 0f);
 

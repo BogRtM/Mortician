@@ -7,6 +7,8 @@ using Deputy.Modules;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Bindings;
+using Deputy;
+using R2API;
 
 namespace Skillstates.Deputy
 {
@@ -88,7 +90,7 @@ namespace Skillstates.Deputy
                 base.characterDirection.forward = jumpVector;
 
                 if (base.fixedAge >= maxDuration ||
-                (base.fixedAge >= minDuration && (base.characterMotor.Motor.GroundingStatus.IsStableOnGround && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)))
+                (base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround))// && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)))
                 {
                     this.outer.SetNextStateToMain();
                 }
@@ -157,7 +159,9 @@ namespace Skillstates.Deputy
                 falloffModel = BulletAttack.FalloffModel.None
             };
 
-            if(base.isAuthority)
+            bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
+
+            if (base.isAuthority)
                 bulletAttack.Fire();
 
             fireIndex++;

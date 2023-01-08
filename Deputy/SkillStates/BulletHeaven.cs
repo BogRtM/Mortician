@@ -2,6 +2,8 @@
 using RoR2;
 using EntityStates;
 using EntityStates.Commando.CommandoWeapon;
+using Deputy;
+using R2API;
 
 namespace Skillstates.Deputy
 {
@@ -10,8 +12,8 @@ namespace Skillstates.Deputy
         public static float jumpDuration = 0.6f;
         public static float loopDuration = 3f;
         public static float jumpPower = 40f;
-        public static float baseFireInterval = 0.08f;
-        public static float damageCoefficient = 2f;
+        public static float baseFireInterval = 0.1f;
+        public static float damageCoefficient = 1.5f;
         public static float minDampingStrength = 0.5f;
         public static float maxDampingStrength = 0.1f;
         public static float procCoefficient = 0.7f;
@@ -125,6 +127,7 @@ namespace Skillstates.Deputy
                 maxDistance = 120,
                 falloffModel = BulletAttack.FalloffModel.None
             };
+            bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
 
             currentShots++;
 

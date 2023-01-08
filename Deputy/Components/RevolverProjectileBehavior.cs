@@ -1,5 +1,6 @@
 ﻿using RoR2;
 using RoR2.Projectile;
+using R2API;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -120,6 +121,8 @@ namespace Deputy.Components
                 falloffModel = BulletAttack.FalloffModel.None,
                 stopperMask = LayerIndex.entityPrecise.mask
             };
+
+            bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
 
             if (Util.HasEffectiveAuthority(owner))
             {
