@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1417553461
+CRC: 1068416384
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: e0fb07a36fb281248e3dc6eda5cf77ee
+    Hash: 415289a4da6d9d0ca8563643c4f2f6c1
   TypeTreeHash:
     serializedVersion: 2
     Hash: 25daeeca6e02097279beb5c145ad70b2
@@ -177,6 +177,7 @@ Assets:
 - Assets/DeputyAssets/VFX/EffectMaterials/matSlash.mat
 - Assets/DeputyAssets/VFX/HenryMaterials/matDust.mat
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texSmoke.png
+- Assets/DeputyAssets/VFX/GunSlingFlash.prefab
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texEmbers.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texLightning.tif
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_03c-Sprint-Combat.anim

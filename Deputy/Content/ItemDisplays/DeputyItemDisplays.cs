@@ -6,8 +6,30 @@ namespace Deputy.Modules.Characters
 {
     internal class DeputyItemDisplays : ItemDisplaysBase
     {
+
         protected override void SetItemDisplayRules(List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules)
         {
+            /*
+            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
+            {
+                keyAsset = RoR2Content.Items.Hoof,
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayHoof"),
+childName = "CalfR",
+localPos = new Vector3(-0.00002F, 0.52257F, -0.00726F),
+localAngles = new Vector3(89.30003F, 180F, 0F),
+localScale = new Vector3(0.08509F, 0.08509F, 0.07624F),
+                            limbMask = LimbFlags.RightCalf
+                        }
+                    }
+                }
+            });
             //paste all your displays here
             //sotv item displays not added yet. you can add them yourself from DLC1Content if you like. I believe in ya
             /*
@@ -174,27 +196,6 @@ childName = "ClavicleR",
 localPos = new Vector3(-0.10263F, 0.12256F, 0.10249F),
 localAngles = new Vector3(327.8841F, 66.20565F, 21.50795F),
 localScale = new Vector3(0.70138F, 0.70138F, 0.6941F),
-                            limbMask = LimbFlags.None
-                        }
-                    }
-                }
-            });
-
-            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
-            {
-                keyAsset = RoR2Content.Items.Hoof,
-                displayRuleGroup = new DisplayRuleGroup
-                {
-                    rules = new ItemDisplayRule[]
-                    {
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplayHoof"),
-childName = "CalfR",
-localPos = new Vector3(-0.00001F, 0.36964F, -0.02345F),
-localAngles = new Vector3(75.07835F, 0F, 0F),
-localScale = new Vector3(0.07237F, 0.07237F, 0.06484F),
                             limbMask = LimbFlags.None
                         }
                     }

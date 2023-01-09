@@ -64,6 +64,7 @@ namespace Skillstates.Deputy
             base.PlayAnimation(layerName, animationName, "Hand.playbackRate", duration);
             Util.PlaySound(FireBarrage.fireBarrageSoundString, base.gameObject);
             EffectManager.SimpleMuzzleFlash(FirePistol2.muzzleEffectPrefab, base.gameObject, muzzleIndex, false);
+            base.AddRecoil(-0.4f * FirePistol2.recoilAmplitude, -0.8f * FirePistol2.recoilAmplitude, -0.3f * FirePistol2.recoilAmplitude, 0.3f * FirePistol2.recoilAmplitude);
 
             bulletAttack = new BulletAttack
             {

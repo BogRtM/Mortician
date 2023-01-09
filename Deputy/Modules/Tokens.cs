@@ -44,7 +44,7 @@ namespace Deputy.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Hot Pursuit");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction. Hitting enemies grants a stacking " +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Deputy can sprint in any direction. Hitting enemies with your skills grants a stacking " +
                 "<style=cIsUtility>movement speed</style> buff.");
             #endregion
 

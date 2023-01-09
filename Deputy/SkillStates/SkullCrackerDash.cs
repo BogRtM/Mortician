@@ -18,10 +18,9 @@ namespace Skillstates.Deputy
         public static float baseDuration = 0.3f;
         public static float speedCoefficient = 15f;
         public static float dashPower = 7f;
-        public static float damageCoefficient = 10f;
+        public static float damageCoefficient = 8f;
         public static float pushAwayForce = 30f;
         public static float pushAwayYFactor = 0.5f;
-        //public static Vector3 pushAwayDirection = new Vector3(0f, 0.7f, 0f);
 
         private Ray aimRay;
         private Vector3 dashVector;
@@ -78,7 +77,7 @@ namespace Skillstates.Deputy
                 rotation = Util.QuaternionSafeLookRotation(dashVector)
             };
             EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, true);
-
+            //Util.PlaySound(, base.gameObject);
             base.PlayAnimation("FullBody, Override", "Dash");
 
             base.characterMotor.velocity.y = 0f;
@@ -130,7 +129,7 @@ namespace Skillstates.Deputy
         public override void OnExit()
         {
             if (!hasHit)
-                base.characterMotor.velocity *= 0.4f;
+                base.characterMotor.velocity *= 0.2f;
 
             if (NetworkServer.active)
             {

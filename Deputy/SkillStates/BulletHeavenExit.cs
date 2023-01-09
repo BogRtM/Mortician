@@ -18,7 +18,7 @@ namespace Skillstates.Deputy
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= baseDuration && base.isAuthority)
+            if((base.fixedAge >= baseDuration || base.characterMotor.isGrounded) && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
             }

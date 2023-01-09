@@ -23,8 +23,6 @@ namespace Deputy.Components
         private const float combatRunYaw = -2f;
         private const float sprintCombatGroundYaw = 1f;
         private const float sprintCombatAirYaw = 2f;
-        private float yawDampValue;
-        private float yawDampVelocity;
         private float desiredYaw;
 
         private bool inCombat;
@@ -33,8 +31,6 @@ namespace Deputy.Components
         private bool isGrounded;
 
         private bool sprintYawSet;
-
-        private float smoothDampVelocity = 0f;
         private float combatDampValue;
         private float combatDampVelocity;
 
@@ -91,6 +87,7 @@ namespace Deputy.Components
                 if(combatTimer >= combatDuration)
                 {
                     combatTimer = 0f;
+                    combatDampVelocity = 0f;
                     SetCombatState(DeputyAnimatorController.combatState.LeavingCombat);
                 }
             }
@@ -108,7 +105,6 @@ namespace Deputy.Components
 
         private void SetYaw()
         {
-
             if (isSprinting && inCombat && !sprintYawSet)
             {
                 sprintYawSet = true;
@@ -166,6 +162,7 @@ namespace Deputy.Components
             currentState = state;
 
             combatTimer = 0f;
+            combatDampVelocity = 0f;
 
             if (state == combatState.EnteringCombat)
                 inCombat = true;

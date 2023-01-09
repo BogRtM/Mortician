@@ -64,7 +64,10 @@ namespace Skillstates.Deputy
             jumpVector += jumpAngle;
 
             if (base.isAuthority)
+            {
+                base.characterDirection.forward = jumpVector;
                 base.characterBody.isSprinting = true;
+            }
 
             base.characterMotor.Motor.ForceUnground();
             base.characterMotor.velocity.y = 0f;
@@ -86,9 +89,6 @@ namespace Skillstates.Deputy
 
             if(base.isAuthority)
             {
-                //base.characterBody.isSprinting = true;
-                base.characterDirection.forward = jumpVector;
-
                 if (base.fixedAge >= maxDuration ||
                 (base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround))// && !base.characterMotor.Motor.LastGroundingStatus.IsStableOnGround)))
                 {
