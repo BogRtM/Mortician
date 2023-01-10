@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 781, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 0
-  controlID: 189
+  controlID: 18
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_MinSize: {x: 505, y: 492}
   m_MaxSize: {x: 12005, y: 14042}
   vertical: 1
-  controlID: 18
+  controlID: 65
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_MinSize: {x: 505, y: 221}
   m_MaxSize: {x: 12005, y: 4021}
   vertical: 0
-  controlID: 19
+  controlID: 66
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -659,19 +659,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/DeputyAssets/VFX
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/DeputyAssets/VFX
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\rtmbo\source\repos\Deputy\Deputy-master\DeputyUnityProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 7}
-    m_SelectedIDs: e6370000
-    m_LastClickedID: 14310
+    m_SelectedIDs: c4370000
+    m_LastClickedID: 14276
     m_ExpandedIDs: 00000000c4370000c6370000c8370000ca370000cc37000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 06ebffff2a410000
+      m_ExpandedIDs: 68fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -878,14 +878,14 @@ MonoBehaviour:
   m_ShowContextualTools: 1
   m_WindowGUID: 361d2202a6336b747bf4dad5bda832be
   m_Gizmos: 1
-  m_SceneIsLit: 0
+  m_SceneIsLit: 1
   m_SceneLighting: 1
   m_2DMode: 0
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.14352039, y: -2.9830732, z: 7.796075}
+    m_Target: {x: -0.107711315, y: 1.1632663, z: -0.8188007}
     speed: 2
     m_Value: {x: 0.14352039, y: -2.9830732, z: 7.796075}
   m_RenderMode: 0
@@ -933,13 +933,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.16127959, y: 0.012436459, z: -0.002032537, w: 0.98682827}
+    m_Target: {x: -0.02897888, y: 0.9632814, z: -0.116151854, w: -0.24033056}
     speed: 2
-    m_Value: {x: 0.16275966, y: 0.012433397, z: -0.0020511895, w: 0.9865853}
+    m_Value: {x: -0.16127959, y: -0.012436459, z: 0.002032537, w: -0.98682827}
   m_Size:
-    m_Target: 6.2542405
+    m_Target: 1.6749315
     speed: 2
-    m_Value: 6.2542405
+    m_Value: 1.9749315
   m_Ortho:
     m_Target: 0
     speed: 2

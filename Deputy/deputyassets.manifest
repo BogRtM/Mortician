@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1068416384
+CRC: 582489948
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 415289a4da6d9d0ca8563643c4f2f6c1
+    Hash: a55a8e0de80a1210f0d5863591c13d1c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 25daeeca6e02097279beb5c145ad70b2
+    Hash: 46627e38267b9d0f4ae1d366cea1fd30
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -57,6 +57,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 199
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
 - Class: 319
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
@@ -104,6 +106,7 @@ Assets:
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05cd-Landing-Combat.anim
 - Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_08-ShootingStar.anim
 - Assets/DeputyAssets/Animations/Clips/Shooting/Rig_06c-ShootL.anim
+- Assets/DeputyAssets/FBX/SwingMesh.fbx
 - Assets/DeputyAssets/VFX/EffectMaterials/Blots Inner No Emit.mat
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_02cs-AimYaw-Sprint-Combat.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/texFire.tga
@@ -133,6 +136,7 @@ Assets:
 - Assets/DeputyAssets/VFX/HenryMaterials/matTrail.mat
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunL-Combat.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/matHitSpark.mat
+- Assets/DeputyAssets/Icons/texMainSkin.png
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_01c-Combat-IdleIn.anim
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02ycs-AimYaw-Sprint-Combat.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/matRevolverSpin.mat
@@ -183,6 +187,7 @@ Assets:
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_03c-Sprint-Combat.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/matRipple.mat
 - Assets/DeputyAssets/VFX/EffectMaterials/Flash.mat
+- Assets/DeputyAssets/VFX/SwingMesh.mesh
 - Assets/DeputyAssets/VFX/HenryMaterials/texPunchImpactShadow.png
 - Assets/DeputyAssets/Animations/Clips/Body/Rig_02-AimPitchMoving.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/ShockOuter.mat
@@ -190,6 +195,7 @@ Assets:
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02yc-AimYaw-Combat.anim
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02y-AimYaw.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Speartip.png
+- Assets/DeputyAssets/Icons/texDeputyIcon.png
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunR-Combat.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Blots.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Javelin Trail 1.png
