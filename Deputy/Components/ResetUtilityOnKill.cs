@@ -4,10 +4,11 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Networking;
 
 namespace Deputy.Components
 {
-    internal class ResetUtilityOnKill : MonoBehaviour, IOnKilledOtherServerReceiver
+    internal class ResetUtilityOnKill : NetworkBehaviour, IOnKilledOtherServerReceiver
     {
         private SkillLocator skillLocator;
 
@@ -18,9 +19,21 @@ namespace Deputy.Components
 
         public void OnKilledOtherServer(DamageReport damageReport)
         {
-            if (damageReport.damageInfo.HasModdedDamageType(DeputyPlugin.resetUtilityOnKill))
+            if (damageReport.damageInfo.HasModdedDamageType(DeputyPlugin.resetUtilityOnKill) && NetworkServer.active)
             {
-                skillLocator.utility.RestockSteplike();
+                RpcAddUtilityStock();
+            }
+        }
+
+        [ClientRpc]
+        public void RpcAddUtilityStock()
+        {
+            if (base.hasAuthority)
+            {
+                if(skillLocator && skillLocator.utility.stock < skillLocator.utility.maxStock)
+                {
+                    skillLocator.utility.AddOneStock();
+                }
             }
         }
     }

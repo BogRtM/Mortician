@@ -17,10 +17,10 @@ namespace Deputy.Modules
                 "For feedback and bug reports, please contact <style=cIsUtility>Bog#4770</style> on Discord.</style>";
 
             string desc = "The Deputy is a high-octane, hyper-aggressive speed demon who dispenses justice via her twin revolvers and lethal kick attacks.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > Vigor & Valor have perfect accuracy and no damage falloff, but their maximum range is quite short compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Vigor & Valor have perfect accuracy and no damage falloff, but their maximum range is quite limited compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > The revolvers thrown out by Gun Sling will always prioritize the enemy closest to them." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Shooting Star is an excellent tool both for jumping into fights, and getting out of them." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > Skull Cracker can deal crushing burst damage at higher movement speed values." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Skull Breaker can deal crushing burst damage at higher movement speed values." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
 
             desc += modderNote;
 
@@ -71,14 +71,14 @@ namespace Deputy.Modules
             #endregion
 
             #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_NAME", "Skull Cracker");
-            LanguageAPI.Add(prefix + "SPECIAL_SKULLCRACKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
+            LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_NAME", "Skull Breaker");
+            LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
                 $"<style=cIsUtility>Dash</style> forward and bounce off of an enemy, dealing " +
-                $"<style=cIsDamage>{SkullCrackerDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
+                $"<style=cIsDamage>{SkullBreakerDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
                 $"utility skill</style>.");
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets all around you for " +
+            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets downwards for " +
                 $"<style=cIsDamage>{BulletHeaven.damageCoefficient * 100f}% damage</style> each. The number of shots scales with attack speed.");
             #endregion
 

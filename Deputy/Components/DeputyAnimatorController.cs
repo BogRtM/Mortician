@@ -70,7 +70,7 @@ namespace Deputy.Components
                     break;
 
                 case combatState.LeavingCombat:
-                    combatDampValue = Mathf.SmoothDamp(currentCombatWeight, 0f, ref combatDampVelocity, 0.1f);
+                    combatDampValue = Mathf.SmoothDamp(currentCombatWeight, 0f, ref combatDampVelocity, 0.2f);
                     modelAnimator.SetLayerWeight(combatLayerIndex, combatDampValue);
                     break;
 

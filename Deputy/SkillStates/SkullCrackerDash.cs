@@ -4,6 +4,7 @@ using R2API;
 using EntityStates;
 using EntityStates.Merc;
 using EntityStates.Loader;
+using EntityStates.BrotherMonster;
 using Deputy.Modules;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using Deputy;
 
 namespace Skillstates.Deputy
 {
-    internal class SkullCrackerDash : BaseState
+    internal class SkullBreakerDash : BaseState
     {
         public static float baseDuration = 0.3f;
         public static float speedCoefficient = 15f;
@@ -67,7 +68,7 @@ namespace Skillstates.Deputy
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * damageStat * this.GetDamageBoostFromSpeed();
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = BaseSwingChargedFist.overchargeImpactEffectPrefab;
+            attack.hitEffectPrefab = Assets.skullCrackerImpact;
             attack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
             attack.AddModdedDamageType(DeputyPlugin.resetUtilityOnKill);
 
@@ -76,8 +77,9 @@ namespace Skillstates.Deputy
                 origin = base.characterBody.corePosition,
                 rotation = Util.QuaternionSafeLookRotation(dashVector)
             };
-            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, true);
-            //Util.PlaySound(, base.gameObject);
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
+            EffectManager.SpawnEffect(BaseSlideState.slideEffectPrefab, effectData, false);
+            Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             base.PlayAnimation("FullBody, Override", "Dash");
 
             base.characterMotor.velocity.y = 0f;
@@ -106,7 +108,7 @@ namespace Skillstates.Deputy
                     knockback.y = pushAwayYFactor;
                     base.characterMotor.velocity = knockback * pushAwayForce;
 
-                    SkullCrackerBounce nextState = new SkullCrackerBounce()
+                    SkullBreakerBounce nextState = new SkullBreakerBounce()
                     {
                         faceDirection = -knockback
                     };

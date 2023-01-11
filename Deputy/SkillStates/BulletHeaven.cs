@@ -66,7 +66,10 @@ namespace Skillstates.Deputy
             if(base.fixedAge >= jumpDuration)
             {
                 stopwatch += Time.fixedDeltaTime;
-                base.characterMotor.velocity.y *= 0.2f;
+                if(base.characterMotor.velocity.y <= 0f)
+                {
+                    base.characterMotor.velocity.y *= 0.2f;
+                }
 
                 dampingStrength = Mathf.SmoothDamp(dampingStrength, maxDampingStrength, ref dampingVelocity, loopDuration);
 

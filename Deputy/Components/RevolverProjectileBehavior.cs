@@ -2,6 +2,7 @@
 using RoR2.Projectile;
 using R2API;
 using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -86,8 +87,6 @@ namespace Deputy.Components
             if (!owner || !ownerBody) return;
             if (!bestCandidate) return;
 
-            currentShots++;
-
             Vector3 shootVector = (bestCandidate.transform.position - base.transform.position).normalized;
 
             Util.PlaySound(FireGauss.attackSoundString, base.gameObject);
@@ -100,32 +99,34 @@ namespace Deputy.Components
 
             EffectManager.SpawnEffect(FirePistol2.muzzleEffectPrefab, effectData, false);
 
-            BulletAttack bulletAttack = new BulletAttack
+            if (NetworkServer.active)
             {
-                owner = owner,
-                weapon = base.gameObject,
-                origin = base.transform.position,
-                procCoefficient = 0.8f,
-                aimVector = shootVector,
-                minSpread = 0f,
-                maxSpread = 0f,
-                damage = bulletDamage * ownerBody.damage,
-                force = FirePistol2.force,
-                tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
-                hitEffectPrefab = FirePistol2.hitEffectPrefab,
-                isCrit = isCrit,
-                radius = 2f,
-                smartCollision = true,
-                damageType = DamageType.Generic,
-                maxDistance = 80f,
-                falloffModel = BulletAttack.FalloffModel.None,
-                stopperMask = LayerIndex.entityPrecise.mask
-            };
+                currentShots++;
 
-            bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
+                BulletAttack bulletAttack = new BulletAttack
+                {
+                    owner = owner,
+                    weapon = base.gameObject,
+                    origin = base.transform.position,
+                    procCoefficient = 0.8f,
+                    aimVector = shootVector,
+                    minSpread = 0f,
+                    maxSpread = 0f,
+                    damage = bulletDamage * ownerBody.damage,
+                    force = FirePistol2.force,
+                    tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
+                    hitEffectPrefab = FirePistol2.hitEffectPrefab,
+                    isCrit = isCrit,
+                    radius = 2f,
+                    smartCollision = true,
+                    damageType = DamageType.Generic,
+                    maxDistance = 80f,
+                    falloffModel = BulletAttack.FalloffModel.None,
+                    stopperMask = LayerIndex.entityPrecise.mask
+                };
 
-            if (Util.HasEffectiveAuthority(owner))
-            {
+                bulletAttack.AddModdedDamageType(DeputyPlugin.grantDeputyBuff);
+
                 bulletAttack.Fire();
             }
         }

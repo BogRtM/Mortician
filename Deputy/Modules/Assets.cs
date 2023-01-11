@@ -38,7 +38,7 @@ namespace Deputy.Modules
 
         internal static GameObject deputyBulletImpact;
 
-        internal static GameObject skullCrackerEffect;
+        internal static GameObject skullCrackerImpact;
 
         internal static void Initialize()
         {
@@ -115,7 +115,10 @@ namespace Deputy.Modules
                 AddNewEffectDef(deputyBulletImpact, "DeputyRicochet");
             }
 
-            skullCrackerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MoveSpeedOnKill/MoveSpeedOnKillActivate.prefab").WaitForCompletion();
+            skullCrackerImpact = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/OmniImpactVFXLoader.prefab").WaitForCompletion(), 
+                "SkullCrackerImpact");
+
+            AddNewEffectDef(skullCrackerImpact, "DeputyKick");
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*

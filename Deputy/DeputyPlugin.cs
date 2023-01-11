@@ -87,8 +87,26 @@ namespace Deputy
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
+            //On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+        }
+
+        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        {
+            orig(self, damageReport);
+
+            if (NetworkServer.active)
+            {
+                if (damageReport.damageInfo.HasModdedDamageType(resetUtilityOnKill) && damageReport.attackerBody)
+                {
+                    SkillLocator skillLocator = damageReport.attackerBody.skillLocator;
+                    if (skillLocator)
+                    {
+                        skillLocator.utility.RestockSteplike();
+                    }
+                }
+            }
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -133,7 +151,7 @@ namespace Deputy
         {
             orig(self, damageInfo, victim);
 
-            if (damageInfo.HasModdedDamageType(grantDeputyBuff) && damageInfo.attacker)
+            if (damageInfo.HasModdedDamageType(grantDeputyBuff) && damageInfo.attacker && !damageInfo.rejected)
             {
                 CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                 if (attackerBody)

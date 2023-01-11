@@ -254,11 +254,11 @@ namespace Deputy.Modules.Survivors
             #region Special
             SkillDef skullCrackerSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
-                skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_NAME",
-                skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLCRACKER_DESCRIPTION",
+                skillName = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_NAME",
+                skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_NAME",
+                skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkullCrackerDash)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkullBreakerDash)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
