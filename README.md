@@ -2,11 +2,13 @@
 
 Animation smoothing is currently jank. This isn't something that will affect gameplay, but under certain conditions you may see weird snapping between animations. It is something I am actively working on.
 
+This survivor is still in active development, and thus is still lacking quite a lot of polish. Thank you for your understanding.
+
 # The Deputy
 
 The Deputy is an extremely mobile run-and-gun survivor who whittles enemies down with her revolvers before finishing them off with massive burst damage from her Special.
 
-Tips
+Tips<br/>
 • Use Shooting Star immediately after Crashing Comet to quickly traverse long distances.<br/>
 • Get a Wax Quail.<br/>
 • Gun Sling can be used to cancel your downwards momentum.
@@ -49,11 +51,11 @@ For feedback and bug reports, please reach out to `Bog#4770` on Discord. You can
 • Logbook entry
 • Emotes
 • Fix animation smoothing issue
-• Create custom muzzle flash VFX
+• Add more VFX for pretty much everything
 • Add more custom SFX
 • Remake icons for Gun Sling and Shooting Star
 • Add SFX to lobby intro animation
-• General visual polishing
+• General animation polishing
 ```
 
 Unless I get a sudden flash of inspiration, I have no plans to make additional alt skills.
