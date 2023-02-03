@@ -28,8 +28,8 @@ namespace Deputy.Modules
             string lore =
                 "";
 
-            string outro = "..and so she left, ";
-            string outroFailure = "..and so she vanished, ";
+            string outro = "..and so she left, to the sound of roaring applause.";
+            string outroFailure = "..and so she vanished, her performance finally put to an end.";
 
             LanguageAPI.Add(prefix + "NAME", "Deputy");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
@@ -55,7 +55,7 @@ namespace Deputy.Modules
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_NAME", "Trigger Tap");
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire mid-range revolvers for " +
-                $"<style=cIsDamage>{VigorValor.damageCoefficient * 100}% damage</style>.");
+                $"<style=cIsDamage>{TriggerTap.damageCoefficient * 100}% damage</style>.");
             #endregion
 
             #region Secondary

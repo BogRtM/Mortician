@@ -10,15 +10,17 @@ namespace Deputy.Modules
         {
             #region Deputy
             Modules.Content.AddEntityState(typeof(DeputyMainState));
-            Modules.Content.AddEntityState(typeof(VigorValor));
+            Modules.Content.AddEntityState(typeof(TriggerTap));
 
             Modules.Content.AddEntityState(typeof(GunSling));
             
             Modules.Content.AddEntityState(typeof(ShootingStar));
 
             Modules.Content.AddEntityState(typeof(SkullBreakerDash));
-            
+            Modules.Content.AddEntityState(typeof(SkullBreakerBounce));
+
             Modules.Content.AddEntityState(typeof(BulletHeaven));
+            Modules.Content.AddEntityState(typeof(BulletHeavenExit));
             Modules.Content.AddEntityState(typeof(BulletHeavenLoop));
             #endregion
         }

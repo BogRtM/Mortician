@@ -171,7 +171,7 @@ namespace Deputy.Modules.Survivors
             deputyPrimarySkillDef.skillNameToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
             deputyPrimarySkillDef.skillDescriptionToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_DESCRIPTION";
             deputyPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
-            deputyPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(VigorValor));
+            deputyPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(TriggerTap));
             deputyPrimarySkillDef.activationStateMachineName = "Weapon";
             deputyPrimarySkillDef.baseMaxStock = 1;
             deputyPrimarySkillDef.baseRechargeInterval = 0f;
