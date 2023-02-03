@@ -46,6 +46,8 @@ For feedback and bug reports, please reach out to `Bog#4770` on Discord. You can
 ```
 • Mastery skin
 • Item displays
+• Logbook entry
+• Emotes
 • Fix animation smoothing issue
 • Create custom muzzle flash VFX
 • Add more custom SFX
