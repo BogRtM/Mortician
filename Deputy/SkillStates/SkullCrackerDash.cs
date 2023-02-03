@@ -17,8 +17,8 @@ namespace Skillstates.Deputy
     internal class SkullBreakerDash : BaseState
     {
         public static float baseDuration = 0.3f;
-        public static float speedCoefficient = 15f;
-        public static float dashPower = 7f;
+        //public static float speedCoefficient = 30f;
+        public static float dashPower = 11f;
         public static float damageCoefficient = 8f;
         public static float pushAwayForce = 30f;
         public static float pushAwayYFactor = 0.5f;
@@ -30,7 +30,6 @@ namespace Skillstates.Deputy
         private List<HurtBox> victimsStruck = new List<HurtBox>();
 
         private bool hasHit;
-        private bool hasKnockedBack;
 
         public override void OnEnter()
         {
@@ -49,7 +48,7 @@ namespace Skillstates.Deputy
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Dash");
 
                 TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = baseDuration * 2f;
+                temporaryOverlay.duration = baseDuration * 3f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
@@ -75,7 +74,8 @@ namespace Skillstates.Deputy
             EffectData effectData = new EffectData()
             {
                 origin = base.characterBody.corePosition,
-                rotation = Util.QuaternionSafeLookRotation(dashVector)
+                rotation = Util.QuaternionSafeLookRotation(dashVector),
+                scale = 3f
             };
             EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
             EffectManager.SpawnEffect(BaseSlideState.slideEffectPrefab, effectData, false);

@@ -11,7 +11,7 @@ namespace Skillstates.Deputy
     {
         public static float jumpDuration = 0.6f;
         public static float loopDuration = 3f;
-        public static float jumpPower = 40f;
+        public static float jumpPower = 30f;
         public static float baseFireInterval = 0.1f;
         public static float damageCoefficient = 1.5f;
         public static float minDampingStrength = 0.5f;
@@ -42,6 +42,8 @@ namespace Skillstates.Deputy
             dampingStrength = minDampingStrength;
 
             isCrit = base.RollCrit();
+
+            base.characterMotor.disableAirControlUntilCollision = false;
 
             base.PlayCrossfade("FullBody, Override", "BulletHeaven Jump", "Flip.playbackRate", jumpDuration, 0.1f);
 

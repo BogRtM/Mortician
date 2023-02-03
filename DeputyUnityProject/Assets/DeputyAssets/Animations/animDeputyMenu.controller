@@ -160,7 +160,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3a88a51381621c14481784f3096998fd, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1dbe70022ef541447b23508746706fbd, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -174,7 +174,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IdleIn
-  m_Speed: 1
+  m_Speed: 0.9
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6326901163616686394}
@@ -187,7 +187,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3a88a51381621c14481784f3096998fd, type: 2}
+  m_Motion: {fileID: 7400000, guid: b166089f6e68c3b4c82d57b05ff1370e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

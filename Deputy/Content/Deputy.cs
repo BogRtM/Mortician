@@ -93,7 +93,6 @@ namespace Deputy.Modules.Survivors
         public override ConfigEntry<bool> characterEnabledConfig => Modules.Config.CharacterEnableConfig(bodyName);
 
         private static UnlockableDef masterySkinUnlockableDef;
-        public static SkinDef HeadhunterSkin;
 
         public override void InitializeCharacter()
         {
@@ -171,7 +170,7 @@ namespace Deputy.Modules.Survivors
             deputyPrimarySkillDef.skillName = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
             deputyPrimarySkillDef.skillNameToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_NAME";
             deputyPrimarySkillDef.skillDescriptionToken = prefix + "_DEPUTY_BODY_PRIMARY_SHOOT_DESCRIPTION";
-            deputyPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon");
+            deputyPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
             deputyPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(VigorValor));
             deputyPrimarySkillDef.activationStateMachineName = "Weapon";
             deputyPrimarySkillDef.baseMaxStock = 1;
@@ -200,7 +199,7 @@ namespace Deputy.Modules.Survivors
                 skillName = prefix + "_DEPUTY_BODY_SECONDARY_SLING_NAME",
                 skillNameToken = prefix + "_DEPUTY_BODY_SECONDARY_SLING_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SECONDARY_SLING_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("GunSlingIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -228,7 +227,7 @@ namespace Deputy.Modules.Survivors
                 skillName = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_NAME",
                 skillNameToken = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_UTILITY_SHOOTINGSTAR_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ShootingStarIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ShootingStar)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -257,7 +256,7 @@ namespace Deputy.Modules.Survivors
                 skillName = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_NAME",
                 skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkullBreakerDash)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -273,7 +272,8 @@ namespace Deputy.Modules.Survivors
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_HEAVY" }
             });
 
             SkillDef bulletHeavenSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -281,7 +281,7 @@ namespace Deputy.Modules.Survivors
                 skillName = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
                 skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_BULLETHEAVEN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("BulletHeavenIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(BulletHeaven)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,

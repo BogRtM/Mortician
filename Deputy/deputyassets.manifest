@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 582489948
+CRC: 2873630743
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a55a8e0de80a1210f0d5863591c13d1c
+    Hash: 9bca80eda1e21da527bc5924e54515c2
   TypeTreeHash:
     serializedVersion: 2
     Hash: 46627e38267b9d0f4ae1d366cea1fd30
@@ -65,10 +65,12 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/DeputyAssets/Animations/Clips/Body/Rig_05-Jump.anim
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunB-Combat.anim
+- Assets/DeputyAssets/Icons/Skill Icons/ShootingStarIcon.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Cone Center.mesh
 - Assets/DeputyAssets/VFX/HenryMaterials/texPunchImpact.png
 - Assets/DeputyAssets/Animations/Clips/Shooting/Rig_06cs-ShootR-Sprint.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/matAnimeShapes.mat
+- Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_09-BulletHeaven-Jump2.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texPunchImpactShadow.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texHenrySwing2.png
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-DescentFast-Combat.anim
@@ -84,6 +86,7 @@ Assets:
 - Assets/DeputyAssets/VFX/HenryMaterials/matSmoke.mat
 - Assets/DeputyAssets/Animations/rightArmMask.mask
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texSwingEffect.png
+- Assets/DeputyAssets/Animations/Clips/Lobby/Rig_11-LobbyIntro2-Loop.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Blots Weak Emit.mat
 - Assets/DeputyAssets/Animations/Clips/Body/Rig_04-RunB New.anim
 - Assets/DeputyAssets/Animations/newMeshAvatar.asset
@@ -110,6 +113,7 @@ Assets:
 - Assets/DeputyAssets/VFX/EffectMaterials/Blots Inner No Emit.mat
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_02cs-AimYaw-Sprint-Combat.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/texFire.tga
+- Assets/DeputyAssets/Icons/Skill Icons/SkullBreakerIcon.png
 - Assets/DeputyAssets/DeputyDisplay.prefab
 - Assets/DeputyAssets/VFX/EffectMaterials/texLightning.tif
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02p-AimPitchMoving.anim
@@ -154,6 +158,7 @@ Assets:
 - Assets/DeputyAssets/VFX/HenryMaterials/matSwingShadow.mat
 - Assets/DeputyAssets/VFX/HenryMaterials/texSlash.png
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunF-Combat.anim
+- Assets/DeputyAssets/Icons/Skill Icons/GunSlingIcon.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Trail.mat
 - Assets/DeputyAssets/VFX/EffectMaterials/LightningOrb.mat
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-Jump-Combat.anim
@@ -175,6 +180,7 @@ Assets:
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Motion lines.png
 - Assets/DeputyAssets/FBX/DeputyBody.fbx
 - Assets/DeputyAssets/VFX/EffectMaterials/ShockField.mat
+- Assets/DeputyAssets/Icons/Skill Icons/QuickTriggerIcon.png
 - Assets/DeputyAssets/Materials/matHatAndStar.mat
 - Assets/DeputyAssets/Textures/deputyEM2.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Flash.png
@@ -190,21 +196,27 @@ Assets:
 - Assets/DeputyAssets/VFX/SwingMesh.mesh
 - Assets/DeputyAssets/VFX/HenryMaterials/texPunchImpactShadow.png
 - Assets/DeputyAssets/Animations/Clips/Body/Rig_02-AimPitchMoving.anim
+- Assets/DeputyAssets/Icons/Skill Icons/BulletHeavenIcon.png
 - Assets/DeputyAssets/VFX/EffectMaterials/ShockOuter.mat
 - Assets/DeputyAssets/VFX/HenryMaterials/matFire.mat
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02yc-AimYaw-Combat.anim
 - Assets/DeputyAssets/Animations/Clips/Pitch and Yaw/Rig_02y-AimYaw.anim
+- Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_10-SkullCracker-Flip.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Speartip.png
 - Assets/DeputyAssets/Icons/texDeputyIcon.png
+- Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_09-BulletHeaven-Loop2.anim
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_04c-RunR-Combat.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Blots.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Javelin Trail 1.png
 - Assets/DeputyAssets/Materials/HitboxPreview.mat
+- Assets/DeputyAssets/Icons/Skill Icons/HotPursuitIcon.png
 - Assets/DeputyAssets/VFX/EffectMaterials/matLightning.mat
 - Assets/DeputyAssets/VFX/HenryMaterials/texDust.png
 - Assets/DeputyAssets/VFX/EffectMaterials/Blots Inner.mat
+- Assets/DeputyAssets/Animations/Clips/Fullbody, Override/Rig_09-BulletHeaven-Exit2.anim
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_02c-AimYaw-Combat.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texSlash.png
+- Assets/DeputyAssets/Animations/Clips/Lobby/Rig_11-LobbyIntro2.anim
 - Assets/DeputyAssets/VFX/HenryMaterials/texHitSpark.png
 - Assets/DeputyAssets/VFX/EffectMaterials/LightningSphere.mat
 - Assets/DeputyAssets/Animations/animDeputy.controller

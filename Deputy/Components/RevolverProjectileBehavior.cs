@@ -20,6 +20,7 @@ namespace Deputy.Components
     {
         public static int maxShots = 6;
         public static float bulletDamage = 1f;
+        public static float procCoefficient = 0.7f;
         public static float fireInterval = 0.3f;
         public static float blastDamage = 3f;
         public static float searchRadius = 30f;
@@ -91,7 +92,7 @@ namespace Deputy.Components
 
             Util.PlaySound(FireGauss.attackSoundString, base.gameObject);
 
-            Vector3 effectOrigin = base.transform.position + (shootVector * 0.75f);
+            Vector3 effectOrigin = base.transform.position + (shootVector * 0.9f);
             EffectData effectData = new EffectData()
             {
                 origin = effectOrigin
@@ -108,7 +109,7 @@ namespace Deputy.Components
                     owner = owner,
                     weapon = base.gameObject,
                     origin = base.transform.position,
-                    procCoefficient = 0.8f,
+                    procCoefficient = procCoefficient,
                     aimVector = shootVector,
                     minSpread = 0f,
                     maxSpread = 0f,

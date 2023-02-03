@@ -28,6 +28,7 @@ namespace Skillstates.Deputy
         private BullseyeSearch search = new BullseyeSearch();
         private HurtBox bestCandidate;
 
+        private bool isCrit;
         private float currentShots;
         private float fireIndex;
         private float fireTimer;
@@ -43,6 +44,8 @@ namespace Skillstates.Deputy
         public override void OnEnter()
         {
             base.OnEnter();
+
+            isCrit = base.RollCrit();
 
             modelAnimator = base.GetModelAnimator();
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("AimYaw"), 0f);
@@ -151,7 +154,7 @@ namespace Skillstates.Deputy
                 tracerEffectPrefab = FireBarrage.tracerEffectPrefab,
                 muzzleName = muzzleIndex,
                 hitEffectPrefab = FireBarrage.hitEffectPrefab,
-                isCrit = base.RollCrit(),
+                isCrit = isCrit,
                 radius = 2f,
                 smartCollision = true,
                 damageType = DamageType.Stun1s,
