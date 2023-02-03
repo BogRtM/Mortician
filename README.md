@@ -45,7 +45,8 @@ For feedback and bug reports, please reach out to `Bog#4770` on Discord. You can
 ## Planned Updates
 ```
 • Mastery skin
-• Fix animation smoothing
+• Item displays
+• Fix animation smoothing issue
 • Create custom muzzle flash VFX
 • Add more custom SFX
 • Remake icons for Gun Sling and Shooting Star
