@@ -15,7 +15,7 @@ This survivor was inspired by the Ranger from Dungeon & Fighter.
 
 ![image](https://user-images.githubusercontent.com/55299061/216573294-edc2b9a6-6252-4f1b-9f7e-c672a16c73e1.png)
 ![image](https://user-images.githubusercontent.com/55299061/216577065-f5636858-64be-4e57-a220-5b82303c37e8.png)
-![image](https://user-images.githubusercontent.com/55299061/216580201-8b4e19c0-9e9e-4179-b361-9599074de78a.png)
+![image](https://user-images.githubusercontent.com/55299061/216604383-33a8dd7a-779a-45be-9d38-19a9fb58bccc.png)
 ![image](https://user-images.githubusercontent.com/55299061/216581639-9be53fde-0990-43ae-a258-23bb59d00779.png)
 
 ## Contact Me
@@ -46,6 +46,8 @@ For feedback and bug reports, please reach out to `Bog#4770` on Discord. You can
 ```
 • Mastery skin
 • Item displays
+• Logbook entry
+• Emotes
 • Fix animation smoothing issue
 • Create custom muzzle flash VFX
 • Add more custom SFX
