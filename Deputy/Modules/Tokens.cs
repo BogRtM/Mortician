@@ -40,7 +40,7 @@ namespace Deputy.Modules
 
             #region Skins
             LanguageAPI.Add(prefix + "DEFAULT_SKIN_NAME", "Default");
-            LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "Headhunter");
+            LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "");
             #endregion
 
             #region Passive

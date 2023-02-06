@@ -90,7 +90,8 @@ namespace Deputy.Components
 
             Vector3 shootVector = (bestCandidate.transform.position - base.transform.position).normalized;
 
-            Util.PlaySound(FireGauss.attackSoundString, base.gameObject);
+            if(Util.HasEffectiveAuthority(owner))
+                Util.PlaySound(FireGauss.attackSoundString, base.gameObject);
 
             Vector3 effectOrigin = base.transform.position + (shootVector * 0.9f);
             EffectData effectData = new EffectData()

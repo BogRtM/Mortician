@@ -136,6 +136,7 @@ namespace Skillstates.Deputy
             if (NetworkServer.active)
             {
                 characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+                characterBody.AddTimedBuff(RoR2Content.Buffs.HiddenInvincibility, 0.3f);
             }
 
             base.PlayCrossfade("FullBody, Override", "BufferEmpty", 0.1f);
