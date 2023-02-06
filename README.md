@@ -72,12 +72,20 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 ## Change Log
 
 ### Latest Patch
-`0.1.0`
+`0.1.1`
 ```
-• Initial release
+• Changed Trigger Tap SFX (Thank you Moffein for the suggestion!)
+
+• Crashing Comet's hidden invincibility buff will now extend for 0.3 seconds after the dash is done
+
+• Gun Sling's gunshot SFX should now only play for the client that owns the projectile
 ```
 
 <details>
     <summary>Previous patches</summary>
-    
+
+`0.1.0`
+```
+• Initial release
+```
 </details>
