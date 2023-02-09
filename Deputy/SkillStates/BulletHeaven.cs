@@ -145,6 +145,8 @@ namespace Skillstates.Deputy
             if (aimRequest != null)
                 aimRequest.Dispose();
 
+            base.PlayAnimation("FullBody, Override", "BufferEmpty");
+
             base.characterMotor.airControl = previousAirControl;
 
             base.OnExit();

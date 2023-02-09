@@ -3223,6 +3223,32 @@ MonoBehaviour:
     transform: {fileID: 4906644957328842651}
   - name: GunSlingEffectPos
     transform: {fileID: 2814092109748576011}
+  - name: Scarf0
+    transform: {fileID: 2218307735259252196}
+  - name: Scarf1
+    transform: {fileID: 7627680536788964046}
+  - name: Scarf2
+    transform: {fileID: 3490774639508964807}
+  - name: Scarf3
+    transform: {fileID: 1958109631739778891}
+  - name: Scarf4
+    transform: {fileID: 8464038439064142011}
+  - name: Scarf5
+    transform: {fileID: 3623604387717179747}
+  - name: Scarf6
+    transform: {fileID: 3758312743936163973}
+  - name: Scarf7
+    transform: {fileID: 2738201616538355820}
+  - name: Scarf8
+    transform: {fileID: 4552094906792543194}
+  - name: Scarf9
+    transform: {fileID: 3674268461909283281}
+  - name: Scarf10
+    transform: {fileID: 7212571555334992012}
+  - name: Scarf11
+    transform: {fileID: 1002830696760142336}
+  - name: Scarf12
+    transform: {fileID: 4158675800750503738}
 --- !u!114 &310185143
 MonoBehaviour:
   m_ObjectHideFlags: 0

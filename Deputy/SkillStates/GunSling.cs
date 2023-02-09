@@ -17,6 +17,8 @@ namespace Skillstates.Deputy
         public static float rotationAngle = 10f;
 
         private GameObject gunsMesh;
+        private GameObject RevolverL;
+        private GameObject RevolverR;
 
         private DeputyAnimatorController DAC;
         private Animator modelAnimator;
@@ -35,9 +37,9 @@ namespace Skillstates.Deputy
             duration = baseDuration / attackSpeedStat;
             prepTime = duration * basePrepTime;
 
-            
-
             gunsMesh = base.FindModelChild("GunsMesh").gameObject;
+            RevolverL = base.FindModelChild("RevolverL").gameObject;
+            RevolverR = base.FindModelChild("RevolverR").gameObject;
 
             modelAnimator = base.GetModelAnimator();
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("AimYaw"), 0f);
@@ -83,6 +85,8 @@ namespace Skillstates.Deputy
         {
             hasFired = true;
             gunsMesh.SetActive(false);
+            RevolverL.SetActive(false);
+            RevolverR.SetActive(false);
 
             aimRay = base.GetAimRay();
             Vector3 rhs = Vector3.Cross(Vector3.up, aimRay.direction);
@@ -114,6 +118,9 @@ namespace Skillstates.Deputy
         public override void OnExit()
         {
             gunsMesh.SetActive(true);
+            RevolverL.SetActive(true);
+            RevolverR.SetActive(true);
+
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("AimYaw"), 1f);
             base.OnExit();
         }
