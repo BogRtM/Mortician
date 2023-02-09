@@ -1,3 +1,7 @@
+## News
+
+I am still currently undecided as to what kind of balancing needs to be done. I've received a couple of requests for some kind of fall damage negation, but I'm rather averse to this. Let me know what you think.
+
 ## Known issues
 
 Animation smoothing is currently jank. This isn't something that will affect gameplay, but under certain conditions you may see weird snapping between animations. It is something I am actively working on.
@@ -72,6 +76,18 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 ## Change Log
 
 ### Latest Patch
+`0.2.0`
+```
+• Added item displays
+
+• Changed a tooltip in the survivor overview
+
+• Fixed issue causing her to get stuck in the Bullet Heaven looping animation
+```
+
+<details>
+    <summary>Previous patches</summary>
+
 `0.1.1`
 ```
 • Changed Trigger Tap SFX (Thank you Moffein for the suggestion!)
@@ -80,9 +96,6 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 
 • Gun Sling's gunshot SFX should now only play for the client that owns the projectile
 ```
-
-<details>
-    <summary>Previous patches</summary>
 
 `0.1.0`
 ```
