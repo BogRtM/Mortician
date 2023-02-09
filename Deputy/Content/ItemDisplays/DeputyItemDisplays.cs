@@ -2488,11 +2488,11 @@ localScale = new Vector3(1F, 1F, 1F),
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplaySawmerang"),
-childName = "Chest",
-localPos = new Vector3(0F, -1.7606F, -0.9431F),
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplaySawmerangFollower"),
+childName = "RootBone",
+localPos = new Vector3(-0.78393F, 0.78781F, 2.12936F),
 localAngles = new Vector3(0F, 0F, 0F),
-localScale = new Vector3(0.1F, 0.1F, 0.1F),
+localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -3278,6 +3278,7 @@ localScale = new Vector3(0.39193F, 0.35848F, 0.35848F),
                 }
             });
             
+            /*
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
                 keyAsset = DLC1Content.Items.DroneWeapons,
@@ -3298,6 +3299,7 @@ localScale = new Vector3(0.39193F, 0.35848F, 0.35848F),
                     }
                 }
             });
+            */
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
@@ -3329,21 +3331,43 @@ localScale = new Vector3(0.3F, 0.3F, 0.3F),
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            childName = "Chest",
-localPos = new Vector3(0.59484F, -0.10141F, -0.42196F),
-localAngles = new Vector3(0F, 0F, 343.4456F),
-localScale = new Vector3(1F, 1F, 1F),
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayTricornGhost"),
+                            childName = "Hat",
+localPos = new Vector3(0.00084F, 0.16239F, -0.02365F),
+localAngles = new Vector3(35.3707F, 0.2041F, 0.6995F),
+localScale = new Vector3(0.55017F, 0.55017F, 0.55017F),
                             limbMask = LimbFlags.None
                         },
 
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplayBlunderbussFollower"),
-                            childName = "Chest",
-                            localPos = new Vector3(0F, 0f, 0f),
-                            localAngles = new Vector3(0f, 0F, 0F),
-                            localScale = new Vector3(0.22762F, 0.20819F, 0.20819F),
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayBlunderbuss"),
+                            childName = "RootBone",
+localPos = new Vector3(0.7868F, 0.23809F, 1.89449F),
+localAngles = new Vector3(-0.00001F, 180F, 180F),
+localScale = new Vector3(1F, 1F, 1F),
+                            limbMask = LimbFlags.None
+                        }
+                    }
+                }
+            });
+
+            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
+            {
+                keyAsset = DLC1Content.Equipment.BossHunterConsumed,
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayTricornUsed"),
+                            childName = "Hat",
+localPos = new Vector3(0.00084F, 0.16239F, -0.02365F),
+localAngles = new Vector3(35.3707F, 0.2041F, 0.6995F),
+localScale = new Vector3(0.55017F, 0.55017F, 0.55017F),
                             limbMask = LimbFlags.None
                         }
                     }
