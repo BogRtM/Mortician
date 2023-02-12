@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 551296822
+CRC: 4221360542
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f886ab4e6030e170dbb9cce904a36ee1
+    Hash: 6a19d3f30651adc664cc0f66336d4917
   TypeTreeHash:
     serializedVersion: 2
     Hash: 46627e38267b9d0f4ae1d366cea1fd30
@@ -75,6 +75,7 @@ Assets:
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texHenrySwing2.png
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-DescentFast-Combat.anim
 - Assets/DeputyAssets/VFX/EffectMaterials/Cone.mesh
+- Assets/DeputyAssets/FBX/DeputyHumanoidSkeleton.fbx
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/Javelin Trail.png
 - Assets/DeputyAssets/VFX/HenryMaterials/SwordSwingMesh.fbx
 - Assets/DeputyAssets/Animations/Clips/Body Combat/Rig_05c-Ascent-Combat.anim
@@ -87,6 +88,7 @@ Assets:
 - Assets/DeputyAssets/Animations/rightArmMask.mask
 - Assets/DeputyAssets/VFX/EffectMaterials/Textures/texSwingEffect.png
 - Assets/DeputyAssets/Animations/Clips/Lobby/Rig_11-LobbyIntro2-Loop.anim
+- Assets/DeputyAssets/DeputyHumanoidSkeleton.prefab
 - Assets/DeputyAssets/VFX/EffectMaterials/Blots Weak Emit.mat
 - Assets/DeputyAssets/Animations/Clips/Body/Rig_04-RunB New.anim
 - Assets/DeputyAssets/Animations/newMeshAvatar.asset

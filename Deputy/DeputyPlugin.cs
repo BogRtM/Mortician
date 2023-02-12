@@ -14,6 +14,7 @@ using UnityEngine.UI;
 using System;
 using EntityStates.Merc;
 using Deputy.Modules;
+using EmotesAPI;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -101,7 +102,9 @@ namespace Deputy
             {
                 if(survivor.bodyPrefab.name == "DeputyBody")
                 {
-                    var skeleton = Assets.mainAssetBundle.LoadAsset<GameObject>("");
+                    GameObject skeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DeputyHumanoidSkeleton");
+                    CustomEmotesAPI.ImportArmature(survivor.bodyPrefab, skeleton);
+                    skeleton.GetComponentInChildren<BoneMapper>().scale = 1.5f;
                 }
             }
         }
