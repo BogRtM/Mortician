@@ -25,7 +25,7 @@ namespace Deputy.Modules.Survivors
 
         public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
-            bodyName = "Deputy",
+            bodyName = "DeputyBody",
             bodyNameToken = DeputyPlugin.DEVELOPER_PREFIX + "_DEPUTY_BODY_NAME",
             subtitleNameToken = DeputyPlugin.DEVELOPER_PREFIX + "_DEPUTY_BODY_SUBTITLE",
 

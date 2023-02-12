@@ -14,6 +14,7 @@ using UnityEngine.UI;
 using System;
 using EntityStates.Merc;
 using Deputy.Modules;
+using EmotesAPI;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -21,6 +22,7 @@ using Deputy.Modules;
 namespace Deputy
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     [R2APISubmoduleDependency(new string[]
@@ -40,7 +42,7 @@ namespace Deputy
         public const string MODUID = "com.Bog.Deputy";
         public const string MODNAME = "Deputy";
 
-        public const string MODVERSION = "0.2.0";
+        public const string MODVERSION = "0.2.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";
@@ -86,9 +88,25 @@ namespace Deputy
         private void Hook()
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
+            On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+        }
+
+        private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
+        {
+            orig();
+
+            foreach(var survivor in SurvivorCatalog.survivorDefs)
+            {
+                if(survivor.bodyPrefab.name == "DeputyBody")
+                {
+                    GameObject skeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DeputyHumanoidSkeleton");
+                    CustomEmotesAPI.ImportArmature(survivor.bodyPrefab, skeleton);
+                    skeleton.GetComponentInChildren<BoneMapper>().scale = 1.5f;
+                }
+            }
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
