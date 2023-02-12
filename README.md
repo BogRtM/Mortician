@@ -6,6 +6,8 @@ I am still currently undecided as to what kind of balancing needs to be done. I'
 
 Animation smoothing is currently jank. This isn't something that will affect gameplay, but under certain conditions you may see weird snapping between animations. It is something I am actively working on.
 
+It appears that under certain conditions, Brilliant Behemoth will not work with her. If you run into this bug, please contact me and send me a log report.
+
 This survivor is still in active development, and thus is still lacking quite a lot of polish. Thank you for your understanding.
 
 # The Deputy
@@ -51,9 +53,7 @@ For feedback and bug reports, please reach out to `Bog#4770` on Discord. You can
 ## Planned Updates
 ```
 • Mastery skin
-• Item displays
 • Logbook entry
-• Emotes
 • Fix animation smoothing issue
 • Add more VFX for pretty much everything
 • Add more custom SFX
@@ -76,6 +76,14 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 ## Change Log
 
 ### Latest Patch
+`0.2.1`
+```
+• Added CustomEmotesAPI support
+```
+
+<details>
+    <summary>Previous patches</summary>
+
 `0.2.0`
 ```
 • Added item displays
@@ -84,9 +92,6 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 
 • Fixed issue causing her to get stuck in the Bullet Heaven looping animation
 ```
-
-<details>
-    <summary>Previous patches</summary>
 
 `0.1.1`
 ```
