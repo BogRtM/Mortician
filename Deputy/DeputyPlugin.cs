@@ -42,7 +42,7 @@ namespace Deputy
         public const string MODUID = "com.Bog.Deputy";
         public const string MODNAME = "Deputy";
 
-        public const string MODVERSION = "0.2.1";
+        public const string MODVERSION = "0.3.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";
@@ -119,7 +119,7 @@ namespace Deputy
         {
             orig(self);
 
-            self.moveSpeed *= 1 + (self.GetBuffCount(Modules.Buffs.deputyBuff) * StaticValues.msPerStack);
+            self.moveSpeed *= 1 + (self.GetBuffCount(Modules.Buffs.deputyBuff) * Modules.Config.msPerStack.Value);
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
@@ -137,7 +137,7 @@ namespace Deputy
                     }
                 }
 
-                if(self.GetBuffCount(buffDef) >= Modules.StaticValues.maxBuffStacks)
+                if(self.GetBuffCount(buffDef) >= Modules.Config.maxStacks.Value)
                 {
                     return;
                 }
@@ -160,11 +160,11 @@ namespace Deputy
             if (damageInfo.HasModdedDamageType(grantDeputyBuff) && damageInfo.attacker && !damageInfo.rejected)
             {
                 CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                if (attackerBody)
+                if (attackerBody && attackerBody.bodyIndex == deputyBodyIndex)
                 {
                     if (NetworkServer.active)
                     {
-                        attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.StaticValues.msBuffDuration);
+                        attackerBody.AddTimedBuff(Modules.Buffs.deputyBuff, Modules.Config.msBuffDuration.Value);
                     }
                 }
             }

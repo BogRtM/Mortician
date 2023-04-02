@@ -13,7 +13,7 @@ namespace Skillstates.Deputy
 {
     internal class TriggerTap : BaseSkillState, SteppedSkillDef.IStepSetter
     {
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = Config.primaryDamage.Value;
         public static float baseDuration = 0.3f;
 
         private DeputyAnimatorController DAC;

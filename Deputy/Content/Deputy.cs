@@ -257,7 +257,7 @@ namespace Deputy.Modules.Survivors
                 skillNameToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_NAME",
                 skillDescriptionToken = prefix + "_DEPUTY_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkullBreakerDash)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(CometDash)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,

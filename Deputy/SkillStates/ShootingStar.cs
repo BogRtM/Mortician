@@ -16,7 +16,7 @@ namespace Skillstates.Deputy
     {
         public static float maxDuration = 2f;
         public static float minDuration = 1f;
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = Config.shootingStarDamage.Value;
         public static int maxShots = 4;
         public static float baseFireInterval = 0.18f;
         public static float prepTime = 0.2f;

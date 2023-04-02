@@ -14,12 +14,12 @@ using Deputy;
 
 namespace Skillstates.Deputy
 {
-    internal class SkullBreakerDash : BaseState
+    internal class CometDash : BaseState
     {
         public static float baseDuration = 0.3f;
         //public static float speedCoefficient = 30f;
         public static float dashPower = 11f;
-        public static float damageCoefficient = 8f;
+        public static float damageCoefficient = Config.cometDamageCoefficient.Value;
         public static float pushAwayForce = 30f;
         public static float pushAwayYFactor = 0.5f;
 
@@ -108,7 +108,7 @@ namespace Skillstates.Deputy
                     knockback.y = pushAwayYFactor;
                     base.characterMotor.velocity = knockback * pushAwayForce;
 
-                    SkullBreakerBounce nextState = new SkullBreakerBounce()
+                    CometBounce nextState = new CometBounce()
                     {
                         faceDirection = -knockback
                     };

@@ -16,8 +16,8 @@ namespace Deputy.Modules
             
             Modules.Content.AddEntityState(typeof(ShootingStar));
 
-            Modules.Content.AddEntityState(typeof(SkullBreakerDash));
-            Modules.Content.AddEntityState(typeof(SkullBreakerBounce));
+            Modules.Content.AddEntityState(typeof(CometDash));
+            Modules.Content.AddEntityState(typeof(CometBounce));
 
             Modules.Content.AddEntityState(typeof(BulletHeaven));
             Modules.Content.AddEntityState(typeof(BulletHeavenExit));

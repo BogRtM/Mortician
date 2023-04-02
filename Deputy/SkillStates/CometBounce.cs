@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace Skillstates.Deputy
 {
-    internal class SkullBreakerBounce : BaseState
+    internal class CometBounce : BaseState
     {
         public static float baseDuration = 1f;
 
