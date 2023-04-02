@@ -19,10 +19,10 @@ namespace Deputy.Components
     internal class RevolverProjectileBehavior : MonoBehaviour
     {
         public static int maxShots = 6;
-        public static float bulletDamage = 1f;
-        public static float procCoefficient = 0.7f;
+        public static float bulletDamage = Config.gunSlingBulletDamage.Value;
+        public static float procCoefficient = Config.gunSlingProcCoefficient.Value;
         public static float fireInterval = 0.3f;
-        public static float blastDamage = 3f;
+        public static float blastDamage = Config.gunSlingBlastDamage.Value;
         public static float searchRadius = 30f;
 
         public static float lifeTime = 7f;

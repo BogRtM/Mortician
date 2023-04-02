@@ -80,60 +80,60 @@ namespace Deputy.Modules
     {
         public static void AddCharacterBodyPrefab(GameObject bprefab)
         {
-            Log.Warning("AddCharacterBodyPrefab - " + bprefab);
+            ////Log.Warning(.*);
             ContentPacks.bodyPrefabs.Add(bprefab);
         }
         public static void AddMasterPrefab(GameObject prefab)
         {
-            Log.Warning("AddMasterPrefab - " + prefab);
+            ////Log.Warning(.*);
             ContentPacks.masterPrefabs.Add(prefab);
         }
         public static void AddProjectilePrefab(GameObject prefab)
         {
-            Log.Warning("AddProjectilePrefab - " + prefab);
+            ////Log.Warning(.*);
             ContentPacks.projectilePrefabs.Add(prefab);
         }
 
         public static void AddSurvivorDef(SurvivorDef survivorDef)
         {
-            Log.Warning( "AddSurvivorDef - " + survivorDef);
+            ////Log.Warning(.*);
             ContentPacks.survivorDefs.Add(survivorDef);
         }
         public static void AddUnlockableDef(UnlockableDef unlockableDef)
         {
-            Log.Warning("AddUnlockableDef - " + unlockableDef);
+            ////Log.Warning(.*);
             ContentPacks.unlockableDefs.Add(unlockableDef);
         }
         public static void AddSkillDef(SkillDef skillDef)
         {
-            Log.Warning("AddSkillDef - " + skillDef);
+            ////Log.Warning(.*);
             ContentPacks.skillDefs.Add(skillDef);
         }
         public static void AddSkillFamily(SkillFamily skillFamily)
         {
-            Log.Warning("AddSkillFamily - " + skillFamily);
+            ////Log.Warning(.*);
             ContentPacks.skillFamilies.Add(skillFamily);
         }
         public static void AddEntityState(Type entityState)
         {
-            Log.Warning("AddEntityState - " + entityState);
+            //Log.Warning(.*);
             ContentPacks.entityStates.Add(entityState);
         }
 
         public static void AddBuffDef(BuffDef buffDef)
         {
-            Log.Warning("AddBuffDef - " + buffDef);
+            //Log.Warning(.*);
             ContentPacks.buffDefs.Add(buffDef);
         }
         public static void AddEffectDef(EffectDef effectDef)
         {
-            Log.Warning("AddEffectDef - " + effectDef);
+            //Log.Warning(.*);
             ContentPacks.effectDefs.Add(effectDef);
         }
 
         public static void AddNetworkSoundEventDef(NetworkSoundEventDef networkSoundEventDef)
         {
-            Log.Warning("AddNetworkSoundEventDef - " + networkSoundEventDef);
+            //Log.Warning(.*);
             ContentPacks.networkSoundEventDefs.Add(networkSoundEventDef);
         }
     }

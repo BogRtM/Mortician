@@ -75,7 +75,7 @@ namespace Deputy.Modules
             LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_NAME", "Crashing Comet");
             LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
                 $"<style=cIsUtility>Dash</style> forward and bounce off of an enemy, dealing " +
-                $"<style=cIsDamage>{SkullBreakerDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
+                $"<style=cIsDamage>{CometDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
                 $"utility skill</style>.");
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");

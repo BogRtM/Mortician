@@ -147,7 +147,7 @@ namespace Deputy.Components
 
         private void SetPitch()
         {
-            if(isMoving && !isSprinting)
+            if((!isGrounded || isMoving) && !isSprinting)
             {
                 modelAnimator.SetFloat("pitchControl", 1f);
             }
