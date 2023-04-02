@@ -47,11 +47,26 @@
     <Reference Include="CustomEmotesAPI">
       <HintPath>..\libs\CustomEmotesAPI.dll</HintPath>
     </Reference>
-    <Reference Include="R2API">
-      <HintPath>..\libs\R2API.dll</HintPath>
+    <Reference Include="MMHOOK_Assembly-CSharp">
+      <HintPath>..\libs\RiskofThunder-HookGenPatcher\MMHOOK\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_RoR2">
-      <HintPath>..\libs\MMHOOK_RoR2.dll</HintPath>
+    <Reference Include="R2API.Core">
+      <HintPath>..\libs\RiskofThunder-R2API_Core\R2API.Core\R2API.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="R2API.DamageType">
+      <HintPath>..\libs\RiskofThunder-R2API_DamageType\R2API.DamageType\R2API.DamageType.dll</HintPath>
+    </Reference>
+    <Reference Include="R2API.Language">
+      <HintPath>..\libs\RiskofThunder-R2API_Language\R2API.Language\R2API.Language.dll</HintPath>
+    </Reference>
+    <Reference Include="R2API.Prefab">
+      <HintPath>..\libs\RiskofThunder-R2API_Prefab\R2API.Prefab\R2API.Prefab.dll</HintPath>
+    </Reference>
+    <Reference Include="R2API.Sound">
+      <HintPath>..\libs\RiskofThunder-R2API_Sound\R2API.Sound\R2API.Sound.dll</HintPath>
+    </Reference>
+    <Reference Include="R2API.Unlockable">
+      <HintPath>..\libs\RiskofThunder-R2API_Unlockable\R2API.Unlockable\R2API.Unlockable.dll</HintPath>
     </Reference>
     <Reference Include="UNetWeaverPatcher">
       <HintPath>..\..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Modding\BepInEx\patchers\UNetWeaver\UNetWeaverPatcher.dll</HintPath>
