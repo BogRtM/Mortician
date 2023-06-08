@@ -124,7 +124,7 @@ namespace Deputy
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
         {
-            if(buffDef.buffIndex == Modules.Buffs.deputyBuff.buffIndex)
+            if(buffDef.buffIndex == Modules.Buffs.deputyBuff.buffIndex) // && self.bodyIndex == deputyBodyIndex)
             {
                 if(self.GetBuffCount(buffDef) > 0)
                 {
