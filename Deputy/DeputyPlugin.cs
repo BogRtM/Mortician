@@ -60,10 +60,9 @@ namespace Deputy
         private void Awake()
         {
             instance = this;
-
-            PInfo = Info;
-
             Log.Init(Logger);
+            PInfo = Info;
+            
             Modules.Config.ReadConfig(this);
             Modules.Assets.Initialize(); // load assets and read config
             Modules.States.RegisterStates(); // register states for networking
@@ -83,6 +82,11 @@ namespace Deputy
 
             Subscriptions();
             Hook();
+        }
+
+        private void Start()
+        {
+            Modules.Assets.LoadSoundbank();
         }
 
         private void Subscriptions()
