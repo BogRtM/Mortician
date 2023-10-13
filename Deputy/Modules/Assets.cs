@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using RoR2.UI;
 using System;
 using TMPro;
+using Path = System.IO.Path;
 
 namespace Deputy.Modules
 {
@@ -27,9 +28,28 @@ namespace Deputy.Modules
         private static string[] assetNames = new string[0];
 
         // CHANGE THIS
+        private const string assetFolder = "DeputyAssetBundle";
         private const string assetbundleName = "deputyassets";
+        private const string soundbankFolder = "DeputySoundbanks";
+        private const string soundbankName = "DeputyBank.bnk";
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "Deputy";
+
+        public static string AssetBundlePath
+        {
+            get
+            {
+                return Path.Combine(Path.GetDirectoryName(DeputyPlugin.PInfo.Location), assetFolder, assetbundleName);
+            }
+        }
+
+        public static string SoundBankPath
+        {
+            get
+            {
+                return Path.Combine(Path.GetDirectoryName(DeputyPlugin.PInfo.Location), soundbankFolder);
+            }
+        }
 
         internal static GameObject landImpactEffect;
 
@@ -49,7 +69,6 @@ namespace Deputy.Modules
             }
 
             LoadAssetBundle();
-            LoadSoundbank();
             PopulateAssets();
         }
 
@@ -59,10 +78,12 @@ namespace Deputy.Modules
             {
                 if (mainAssetBundle == null)
                 {
-                    using (var assetStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.{assetbundleName}"))
-                    {
-                        mainAssetBundle = AssetBundle.LoadFromStream(assetStream);
-                    }
+                    mainAssetBundle = AssetBundle.LoadFromFile(AssetBundlePath);
+                }
+
+                if (mainAssetBundle)
+                {
+                    Log.Warning("Deputy asset bundle loaded succesfully");
                 }
             }
             catch (Exception e)
@@ -75,20 +96,29 @@ namespace Deputy.Modules
         }
 
         internal static void LoadSoundbank()
-        {                                                                
-            //soundbank currently broke, but this is how you should load yours
-            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.HenryBank.bnk"))
+        {
+            var akResult = AkSoundEngine.AddBasePath(SoundBankPath);
+            if (akResult == AKRESULT.AK_Success)
             {
-                byte[] array = new byte[manifestResourceStream2.Length];
-                manifestResourceStream2.Read(array, 0, array.Length);
-                SoundAPI.SoundBanks.Add(array);
+                Log.Warning($"Added bank base path : {SoundBankPath}");
+            }
+            else
+            {
+                Log.Error(
+                    $"Error adding base path : {SoundBankPath} " +
+                    $"Error code : {akResult}");
             }
 
-            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.DeputyBank.bnk"))
+            akResult = AkSoundEngine.LoadBank(soundbankName, out _);
+            if (akResult == AKRESULT.AK_Success)
             {
-                byte[] array = new byte[manifestResourceStream2.Length];
-                manifestResourceStream2.Read(array, 0, array.Length);
-                SoundAPI.SoundBanks.Add(array);
+                Log.Warning($"Added bank : {soundbankName}");
+            }
+            else
+            {
+                Log.Error(
+                    $"Error loading bank : {soundbankName} " +
+                    $"Error code : {akResult}");
             }
         }
 

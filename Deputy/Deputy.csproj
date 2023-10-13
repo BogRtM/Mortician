@@ -21,9 +21,7 @@
   <ItemGroup>
     <None Remove="deputyassets" />
     <None Remove="DeputyBank.bnk" />
-    <None Remove="HenryBank.bnk" />
-    <None Remove="Modules\Characters\Henry.cs~RF6221a098.TMP" />    
-    <None Remove="myassetbundle" />
+    <None Remove="Modules\Characters\Henry.cs~RF6221a098.TMP" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,13 +32,6 @@
     <PackageReference Include="BepInEx.Core" Version="5.4.19" />
     <PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.1-r.1" />
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="deputyassets" />
-    <EmbeddedResource Include="DeputyBank.bnk" />
-    <EmbeddedResource Include="HenryBank.bnk" />
-    <EmbeddedResource Include="myassetbundle" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,7 +77,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if &quot;$(Username)&quot; == &quot;rtmbo&quot; copy &quot;$(TargetPath)&quot; &quot;C:\Users\rtmbo\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Modding\BepInEx\plugins\Test&quot;" />
+    <Exec Command="if &quot;$(Username)&quot; == &quot;rtmbo&quot; copy &quot;$(TargetPath)&quot; &quot;C:\Users\rtmbo\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Modding\BepInEx\plugins\DeputyTest&quot;" />
   </Target>
 
 </Project>

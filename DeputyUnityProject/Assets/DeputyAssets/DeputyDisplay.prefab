@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5295806959215161070, guid: 2d52b1f31103c9141befa73b10d33a91,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2959467708922500008, guid: 0325d529e7506184696b24ace98e67ca,
+        type: 3}
     - target: {fileID: 5989412485876436717, guid: 2d52b1f31103c9141befa73b10d33a91,
         type: 3}
       propertyPath: m_Name
@@ -16,7 +22,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: f9365717e20930744ae6cf383b985f2f, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5989412485876436719, guid: 2d52b1f31103c9141befa73b10d33a91,
         type: 3}
       propertyPath: m_Controller
