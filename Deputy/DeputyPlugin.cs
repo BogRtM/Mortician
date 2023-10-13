@@ -48,6 +48,8 @@ namespace Deputy
         public const string DEVELOPER_PREFIX = "BOG";
 
         public static DeputyPlugin instance;
+        public static PluginInfo PInfo;
+
 
         public static GameObject deputyBodyPrefab;
         public static BodyIndex deputyBodyIndex;
@@ -58,6 +60,8 @@ namespace Deputy
         private void Awake()
         {
             instance = this;
+
+            PInfo = Info;
 
             Log.Init(Logger);
             Modules.Config.ReadConfig(this);
