@@ -196,7 +196,7 @@ namespace Morris.Modules.Characters
                     _cameraParams.data.maxPitch = 70;
                     _cameraParams.data.wallCushion = 0.1f;
                     _cameraParams.data.pivotVerticalOffset = cameraParamsVerticalOffset;
-                    _cameraParams.data.idealLocalCameraPos = new Vector3(0, 0, cameraParamsDepth);
+                    _cameraParams.data.idealLocalCameraPos = new Vector3(0, 1.25f, cameraParamsDepth);
                 }
                 return _cameraParams;
             }

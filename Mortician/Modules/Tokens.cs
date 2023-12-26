@@ -55,32 +55,32 @@ namespace Morris.Modules
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_NAME", "Trigger Tap");
             LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire mid-range revolvers for " +
-                $"<style=cIsDamage>{TriggerTap.damageCoefficient * 100}% damage</style>.");
+                $"<style=cIsDamage>100% damage</style>.");
             #endregion
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
             LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Throw two revolvers. " +
-                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x{RevolverProjectileBehavior.bulletDamage * 100}%</style> damage</style>, " +
-                $"then explode for <style=cIsDamage>{RevolverProjectileBehavior.blastDamage * 100}% damage</style>.");
+                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x100%</style> damage</style>, " +
+                $"then explode for <style=cIsDamage>100% damage</style>.");
             #endregion
 
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_NAME", "Shooting Star");
             LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"<style=cIsDamage>Stunning</style>. Leap forward and shoot an enemy below you for " +
-                $"<style=cIsDamage>{ShootingStar.maxShots}x{ShootingStar.damageCoefficient * 100}% damage</style>.");
+                $"<style=cIsDamage>100% damage</style>.");
             #endregion
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_NAME", "Crashing Comet");
             LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
                 $"<style=cIsUtility>Dash</style> forward and bounce off of an enemy, dealing " +
-                $"<style=cIsDamage>{CometDash.damageCoefficient * 100}% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
+                $"<style=cIsDamage>100% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
                 $"utility skill</style>.");
 
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
             LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets downwards for " +
-                $"<style=cIsDamage>{BulletHeaven.damageCoefficient * 100f}% damage</style> each. The number of shots scales with attack speed.");
+                $"<style=cIsDamage>100% damage</style> each. The number of shots scales with attack speed.");
             #endregion
 
             #region Achievements

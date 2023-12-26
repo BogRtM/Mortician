@@ -9,12 +9,11 @@ namespace Morris.Modules
 {
     public static class Buffs
     {
-        internal static BuffDef MorrisBuff;
+        //internal static BuffDef MorrisBuff;
 
         internal static void RegisterBuffs()
         {
-            BuffDef whipBoost = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/SprintOutOfCombat/bdWhipBoost.asset").WaitForCompletion();
-            MorrisBuff = AddNewBuff("MorrisMS", whipBoost.iconSprite, Color.yellow, true, false);
+            
         }
 
         // simple helper method

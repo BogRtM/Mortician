@@ -34,6 +34,7 @@ localScale = new Vector3(0.08509F, 0.08509F, 0.07624F),
             //paste all your displays here
             //sotv item displays not added yet. you can add them yourself from DLC1Content if you like. I believe in ya
             
+            /*
             #region Vanilla Item Displays
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
@@ -2267,7 +2268,7 @@ localScale = new Vector3(0.50885F, 0.50885F, 0.50885F),
                     }
                 }
             });
-            */
+
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
                 keyAsset = RoR2Content.Equipment.BurnNearby,
@@ -3299,7 +3300,6 @@ localScale = new Vector3(0.39193F, 0.35848F, 0.35848F),
                     }
                 }
             });
-            */
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
@@ -3478,7 +3478,8 @@ localScale = new Vector3(0.14324F, 0.13101F, 0.13101F),
                     }
                 }
             });
-            #endregion
+            //#endregion
+            */
         }
     }
 }

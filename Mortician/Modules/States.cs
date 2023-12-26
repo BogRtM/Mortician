@@ -9,6 +9,8 @@ namespace Morris.Modules
         internal static void RegisterStates()
         {
             #region Morris
+            Modules.Content.AddEntityState(typeof(SkillTemplate));
+            /*
             Modules.Content.AddEntityState(typeof(MorrisMainState));
             Modules.Content.AddEntityState(typeof(TriggerTap));
 
@@ -22,6 +24,7 @@ namespace Morris.Modules
             Modules.Content.AddEntityState(typeof(BulletHeaven));
             Modules.Content.AddEntityState(typeof(BulletHeavenExit));
             Modules.Content.AddEntityState(typeof(BulletHeavenLoop));
+            */
             #endregion
         }
     }

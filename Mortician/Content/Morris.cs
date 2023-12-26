@@ -17,7 +17,7 @@ namespace Morris.Modules.Survivors
 {
     internal class Morris : SurvivorBase
     {
-        public override string bodyName => "Mortician";
+        public override string bodyName => "Morris";
 
         public const string Morris_PREFIX = MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_";
         //used when registering your survivor's language tokens
@@ -31,60 +31,49 @@ namespace Morris.Modules.Survivors
 
             characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texMorrisIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
-            bodyColor = new Color32(225, 193, 0, 255),
+            bodyColor = new Color32(33, 255, 189, 255),
 
-            crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion(),
-            podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
+            crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
+            podPrefab = null,
 
-            maxHealth = 200f,
-            healthGrowth = 66f,
+            maxHealth = 210f,
+            healthGrowth = 70f,
+            healthRegen = 2.5f,
+            regenGrowth = 0.5f,
+            damage = 15f,
+            damageGrowth = 3f,
+            armor = 20f,
             sortPosition = 1f,
-            cameraParamsDepth = -8.18f
+            cameraParamsDepth = -12f
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
         {
                 new CustomRendererInfo
                 {
-                    childName = "BodyMesh"
+                    childName = "MorrisMesh"
                 },
                 new CustomRendererInfo
                 {
-                    childName = "BeltsMesh",
+                    childName = "NecklaceMesh"
                 },
                 new CustomRendererInfo
                 {
-                    childName = "HatMesh",
+                    childName = "ShawlMesh"
                 },
                 new CustomRendererInfo
                 {
-                    childName = "ScarfMesh",
+                    childName = "ShovelMesh"
                 },
                 new CustomRendererInfo
                 {
-                    childName = "GunsMesh",
-                },
-                new CustomRendererInfo
-                {
-                    childName = "StarMesh",
-                },
-                new CustomRendererInfo
-                {
-                    childName = "VisorMesh",
-                },
-                new CustomRendererInfo
-                {
-                    childName = "ShoulderPadsMesh",
-                },
-                new CustomRendererInfo
-                {
-                    childName = "CuffsMesh",
+                    childName = "LanternMesh"
                 }
         };
 
         public override UnlockableDef characterUnlockableDef => null;
 
-        public override Type characterMainState => typeof(Skillstates.Morris.MorrisMainState);
+        public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 
@@ -98,12 +87,10 @@ namespace Morris.Modules.Survivors
             base.InitializeCharacter();
             MorrisPlugin.MorrisBodyPrefab = this.bodyPrefab;
 
-            CharacterBody MorrisBody = bodyPrefab.GetComponent<CharacterBody>();
-            MorrisBody.bodyFlags |= CharacterBody.BodyFlags.SprintAnyDirection;
-            //SetCoreTransform();
-
-            bodyPrefab.AddComponent<MorrisAnimatorController>();
-            bodyPrefab.AddComponent<ResetUtilityOnKill>();
+            Rigidbody rb = bodyPrefab.GetComponent<Rigidbody>();
+            rb.mass = 300f;
+            CharacterMotor cm = bodyPrefab.GetComponent<CharacterMotor>();
+            cm.mass = 300f;
         }
 
         private void SetCoreTransform()
@@ -128,8 +115,8 @@ namespace Morris.Modules.Survivors
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
             
-            Transform dashHitbox = childLocator.FindChild("DashHitbox");
-            Modules.Prefabs.SetupHitbox(model, dashHitbox, "Dash");
+            //Transform dashHitbox = childLocator.FindChild("DashHitbox");
+            //Modules.Prefabs.SetupHitbox(model, dashHitbox, "Dash");
         }
 
         public override void InitializeSkills()
@@ -137,7 +124,9 @@ namespace Morris.Modules.Survivors
             Modules.Skills.CreateSkillFamilies(bodyPrefab);
             string prefix = MorrisPlugin.DEVELOPER_PREFIX;
 
+            
             #region Primary
+            
             /*
             SkillDef primarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -145,7 +134,7 @@ namespace Morris.Modules.Survivors
                 skillNameToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_NAME",
                 skillDescriptionToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(VigorValor)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -166,11 +155,11 @@ namespace Morris.Modules.Survivors
             */
 
             SteppedSkillDef MorrisPrimarySkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
-            MorrisPrimarySkillDef.skillName = prefix + "_Morris_BODY_PRIMARY_SHOOT_NAME";
-            MorrisPrimarySkillDef.skillNameToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_NAME";
-            MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_DESCRIPTION";
+            MorrisPrimarySkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_NAME";
+            MorrisPrimarySkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_NAME";
+            MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_DESCRIPTION";
             MorrisPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
-            MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(TriggerTap));
+            MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate));
             MorrisPrimarySkillDef.activationStateMachineName = "Weapon";
             MorrisPrimarySkillDef.baseMaxStock = 1;
             MorrisPrimarySkillDef.baseRechargeInterval = 0f;
@@ -182,11 +171,10 @@ namespace Morris.Modules.Survivors
             MorrisPrimarySkillDef.resetCooldownTimerOnUse = false;
             MorrisPrimarySkillDef.isCombatSkill = true;
             MorrisPrimarySkillDef.mustKeyPress = false;
-            MorrisPrimarySkillDef.cancelSprintingOnActivation = false;
+            MorrisPrimarySkillDef.cancelSprintingOnActivation = true;
             MorrisPrimarySkillDef.rechargeStock = 1;
             MorrisPrimarySkillDef.requiredStock = 1;
             MorrisPrimarySkillDef.stockToConsume = 1;
-            MorrisPrimarySkillDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
 
 
             Modules.Skills.AddPrimarySkills(bodyPrefab, MorrisPrimarySkillDef);
@@ -195,11 +183,11 @@ namespace Morris.Modules.Survivors
             #region Secondary
             SkillDef secondarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_Morris_BODY_SECONDARY_SLING_NAME",
-                skillNameToken = prefix + "_Morris_BODY_SECONDARY_SLING_NAME",
-                skillDescriptionToken = prefix + "_Morris_BODY_SECONDARY_SLING_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_SECONDARY_SLING_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_SLING_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_SECONDARY_SLING_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("GunSlingIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(GunSling)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -211,11 +199,10 @@ namespace Morris.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
-                cancelSprintingOnActivation = false,
+                cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                stockToConsume = 1
         });
             Modules.Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef);
             #endregion
@@ -223,11 +210,11 @@ namespace Morris.Modules.Survivors
             #region Utility
             SkillDef utilitySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_Morris_BODY_UTILITY_SHOOTINGSTAR_NAME",
-                skillNameToken = prefix + "_Morris_BODY_UTILITY_SHOOTINGSTAR_NAME",
-                skillDescriptionToken = prefix + "_Morris_BODY_UTILITY_SHOOTINGSTAR_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ShootingStarIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ShootingStar)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 6f,
@@ -239,7 +226,7 @@ namespace Morris.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = true,
-                cancelSprintingOnActivation = false,
+                cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
@@ -252,40 +239,15 @@ namespace Morris.Modules.Survivors
             #region Special
             SkillDef skullCrackerSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_Morris_BODY_SPECIAL_SKULLBREAKER_NAME",
-                skillNameToken = prefix + "_Morris_BODY_SPECIAL_SKULLBREAKER_NAME",
-                skillDescriptionToken = prefix + "_Morris_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(CometDash)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = false,
-                canceledFromSprinting = false,
-                forceSprintDuringState = true,
-                fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
-                resetCooldownTimerOnUse = false,
-                isCombatSkill = true,
-                mustKeyPress = true,
-                cancelSprintingOnActivation = false,
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_HEAVY" }
-            });
-
-            SkillDef bulletHeavenSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = prefix + "_Morris_BODY_SPECIAL_BULLETHEAVEN_NAME",
-                skillNameToken = prefix + "_Morris_BODY_SPECIAL_BULLETHEAVEN_NAME",
-                skillDescriptionToken = prefix + "_Morris_BODY_SPECIAL_BULLETHEAVEN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("BulletHeavenIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BulletHeaven)),
-                activationStateMachineName = "Weapon",
-                baseMaxStock = 1,
-                baseRechargeInterval = 10f,
-                beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
@@ -293,12 +255,13 @@ namespace Morris.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = true,
-                cancelSprintingOnActivation = false,
+                cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_HEAVY" }
             });
-            Modules.Skills.AddSpecialSkills(bodyPrefab, skullCrackerSkillDef, bulletHeavenSkillDef);
+            Modules.Skills.AddSpecialSkills(bodyPrefab, skullCrackerSkillDef);
             #endregion
         }
 

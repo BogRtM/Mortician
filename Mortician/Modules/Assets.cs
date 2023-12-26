@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
 using RoR2;
-using EntityStates.Commando.CommandoWeapon;
 using System.IO;
 using System.Collections.Generic;
 using RoR2.UI;
@@ -28,8 +27,8 @@ namespace Morris.Modules
         private static string[] assetNames = new string[0];
 
         // CHANGE THIS
-        private const string assetFolder = "MorrisAssetBundle";
-        private const string assetbundleName = "Morrisassets";
+        private const string assetFolder = "MorticianAssets";
+        private const string assetbundleName = "morrisassets";
         private const string soundbankFolder = "MorrisSoundbanks";
         private const string soundbankName = "MorrisBank.bnk";
         //change this to your project's name if/when you've renamed it
@@ -130,25 +129,6 @@ namespace Morris.Modules
                 return;
             }
 
-            landImpactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/CharacterLandImpact.prefab").WaitForCompletion();
-
-            MorrisTracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GoldGat/TracerGoldGat.prefab").WaitForCompletion();
-
-            shootingStarEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/JumpBoost/BoostJumpEffect.prefab").WaitForCompletion();
-
-            GameObject hitspark = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/HitsparkCommando.prefab").WaitForCompletion();
-            MorrisBulletImpact = PrefabAPI.InstantiateClone(hitspark, "HitsparkMorris");
-
-            if (Config.bulletRicochet.Value)
-            {
-                Log.Warning("Adding Morris bullet effect: " + MorrisBulletImpact);
-                AddNewEffectDef(MorrisBulletImpact, "MorrisRicochet");
-            }
-
-            skullCrackerImpact = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/OmniImpactVFXLoader.prefab").WaitForCompletion(), 
-                "SkullCrackerImpact");
-
-            AddNewEffectDef(skullCrackerImpact, "MorrisKick");
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*
@@ -240,7 +220,7 @@ namespace Morris.Modules
         public static GameObject LoadSurvivorModel(string modelName) {
             GameObject model = mainAssetBundle.LoadAsset<GameObject>(modelName);
             if (model == null) {
-                Log.Error("Trying to load a null model- check to see if the name in your code matches the name of the object in Unity");
+                Log.Error("Trying to load a null model- " + modelName + " - check to see if the name in your code matches the name of the object in Unity");
                 return null;
             }
 

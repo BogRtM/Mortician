@@ -58,6 +58,7 @@ namespace Morris.Modules
             tempMat.SetColor("_Color", tempMat.GetColor("_Color"));
             tempMat.SetTexture("_MainTex", tempMat.GetTexture("_MainTex"));
             tempMat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
+            tempMat.SetTexture("_NormalTex", tempMat.GetTexture("_BumpMap"));
             tempMat.EnableKeyword("DITHER");
 
             if (bumpScale != null)

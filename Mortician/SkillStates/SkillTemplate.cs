@@ -13,6 +13,8 @@ namespace Skillstates.Morris
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            this.outer.SetNextStateToMain();
         }
 
         public override void OnExit()
