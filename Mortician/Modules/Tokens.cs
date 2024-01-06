@@ -16,7 +16,7 @@ namespace Morris.Modules
             string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting>Thank you for showing interest in <color=#e1c100>The Morris</color>! " +
                 "For feedback and bug reports, please contact <style=cIsUtility>Bog#4770</style> on Discord.</style>";
 
-            string desc = "The Morris is a high-octane, hyper-aggressive speed demon who dispenses justice via her twin revolvers and lethal kick attacks.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            string desc = "The Mortician is a lumbering melee tank who faces the horde with an army of undead and an array of ghastly powers.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Trigger Tap has perfect accuracy and no damage falloff, but its maximum range is quite limited compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > The revolvers thrown out by Gun Sling will always prioritize the enemy closest to them." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Shooting Star can be slightly angled upwards by looking up." + Environment.NewLine + Environment.NewLine;

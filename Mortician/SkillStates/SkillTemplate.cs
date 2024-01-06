@@ -8,6 +8,8 @@ namespace Skillstates.Morris
         public override void OnEnter()
         {
             base.OnEnter();
+
+            base.StartAimMode(2f, false);
         }
 
         public override void FixedUpdate()

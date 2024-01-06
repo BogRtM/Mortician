@@ -115,8 +115,8 @@ namespace Morris.Modules.Survivors
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
             
-            //Transform dashHitbox = childLocator.FindChild("DashHitbox");
-            //Modules.Prefabs.SetupHitbox(model, dashHitbox, "Dash");
+            Transform swingHitbox = childLocator.FindChild("SwingHitbox");
+            Modules.Prefabs.SetupHitbox(model, swingHitbox, "Swing");
         }
 
         public override void InitializeSkills()
@@ -159,7 +159,7 @@ namespace Morris.Modules.Survivors
             MorrisPrimarySkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_NAME";
             MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_DESCRIPTION";
             MorrisPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
-            MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate));
+            MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
             MorrisPrimarySkillDef.activationStateMachineName = "Weapon";
             MorrisPrimarySkillDef.baseMaxStock = 1;
             MorrisPrimarySkillDef.baseRechargeInterval = 0f;
@@ -190,7 +190,7 @@ namespace Morris.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 8f,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

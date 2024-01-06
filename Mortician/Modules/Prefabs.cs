@@ -16,6 +16,7 @@ namespace Morris.Modules {
 
         public static GameObject CreateDisplayPrefab(string displayModelName, GameObject prefab, BodyInfo bodyInfo)
         {
+            Log.Warning("Attempting to load display model: " + displayModelName);
             GameObject model = Assets.LoadSurvivorModel(displayModelName);
 
             CharacterModel characterModel = model.GetComponent<CharacterModel>();
