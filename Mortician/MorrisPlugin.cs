@@ -45,8 +45,10 @@ namespace Morris
         public static GameObject MorrisBodyPrefab;
         public static BodyIndex MorrisBodyIndex;
 
-        public static DamageAPI.ModdedDamageType grantMorrisBuff;
-        public static DamageAPI.ModdedDamageType resetUtilityOnKill;
+        public static GameObject GhoulBodyPrefab;
+        public static BodyIndex GhoulBodyIndex;
+
+        public static DamageAPI.ModdedDamageType LaunchGhoul;
 
         private void Awake()
         {
@@ -62,11 +64,13 @@ namespace Morris
             Modules.Tokens.AddTokens(); // register name tokens
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
 
-            grantMorrisBuff = DamageAPI.ReserveDamageType();
-            resetUtilityOnKill = DamageAPI.ReserveDamageType();
+            LaunchGhoul = DamageAPI.ReserveDamageType();
 
             // survivor initialization
             new Modules.Survivors.Morris().Initialize();
+            Log.Warning("Mortician created successfully");
+            new Modules.NPC.Ghoul().Initialize();
+            Log.Warning("Ghoul created successfully");
 
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
@@ -93,6 +97,18 @@ namespace Morris
             {
                 //On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
+
+            //On.RoR2.GlobalEventManager.OnHitAll += GlobalEventManager_OnHitAll;
+        }
+
+        private void GlobalEventManager_OnHitAll(On.RoR2.GlobalEventManager.orig_OnHitAll orig, GlobalEventManager self, DamageInfo damageInfo, GameObject hitObject)
+        {
+            orig(self, damageInfo, hitObject);
+
+            if(damageInfo.HasModdedDamageType(LaunchGhoul))
+            {
+                Chat.AddMessage("You hit: " + hitObject.name);
+            }
         }
 
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
@@ -115,6 +131,8 @@ namespace Morris
             orig(newBodyPrefabs);
             MorrisBodyIndex = BodyCatalog.FindBodyIndex(MorrisBodyPrefab);
             Log.Warning("Mortician's body index is: " + MorrisBodyIndex);
+            GhoulBodyIndex = BodyCatalog.FindBodyIndex(GhoulBodyPrefab);
+            Log.Warning("Mortician's ghoul body index is: " + GhoulBodyIndex);
         }
 
     }

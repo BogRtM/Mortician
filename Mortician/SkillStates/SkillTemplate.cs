@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
-namespace Skillstates.Morris
+namespace SkillStates.Morris
 {
     internal class SkillTemplate : BaseState
     {
@@ -9,14 +9,14 @@ namespace Skillstates.Morris
         {
             base.OnEnter();
 
-            base.StartAimMode(2f, false);
+            StartAimMode(2f, false);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            this.outer.SetNextStateToMain();
+            outer.SetNextStateToMain();
         }
 
         public override void OnExit()

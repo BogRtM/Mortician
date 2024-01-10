@@ -44,43 +44,35 @@ namespace Morris.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Hot Pursuit");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "The Morris can sprint in any direction. Hitting enemies with your skills grants a stacking " +
-                "<style=cIsUtility>movement speed</style> buff.");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Corpse Explosion");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls explode for <style=cIsDamage>{250f}% damage</style> and " +
+                $"<style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
             #endregion
 
             #region Keywords
             #endregion
 
             #region Primary
-            LanguageAPI.Add(prefix + "PRIMARY_SHOOT_NAME", "Trigger Tap");
-            LanguageAPI.Add(prefix + "PRIMARY_SHOOT_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Fire mid-range revolvers for " +
-                $"<style=cIsDamage>100% damage</style>.");
+            LanguageAPI.Add(prefix + "PRIMARY_SHOVEL_NAME", "Shovel Strike");
+            LanguageAPI.Add(prefix + "PRIMARY_SHOVEL_DESCRIPTION", $"Swing your shovel for <style=cIsDamage>{SwingShovel.damageCoefficient * 100f} damage</style>. " +
+                $"Hit ghouls and tombstones to <style=cIsUtility>launch</style> them for <style=cIsDamage>{400f}% damage</style>.");
             #endregion
 
             #region Secondary
-            LanguageAPI.Add(prefix + "SECONDARY_SLING_NAME", "Gun Sling");
-            LanguageAPI.Add(prefix + "SECONDARY_SLING_DESCRIPTION", $"<style=cIsUtility>Agile</style>. Throw two revolvers. " +
-                $"Each revolver will shoot a nearby enemy for <style=cIsDamage>6x100%</style> damage</style>, " +
-                $"then explode for <style=cIsDamage>100% damage</style>.");
+            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_NAME", "Raise Dead");
+            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"Spawn a ghoul on the ground in front of you. Ghouls bite for <style=cIsDamage>{200f}% damage</style>, " +
+                $"spit bile for <style=cIsDamage>{150f}% damage</style>, and inflict <style=cEvent>Rot</style> with every attack.");
             #endregion
 
             #region Utility
-            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_NAME", "Shooting Star");
-            LanguageAPI.Add(prefix + "UTILITY_SHOOTINGSTAR_DESCRIPTION", $"<style=cIsDamage>Stunning</style>. Leap forward and shoot an enemy below you for " +
-                $"<style=cIsDamage>100% damage</style>.");
+            LanguageAPI.Add(prefix + "UTILITY_LANTERN_NAME", "Charon's Lantern");
+            LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", $"If used on an enemy, cast <style=cIsDamage>Soul Drain</style>." + Environment.NewLine +
+                "If used on a ghoul, cast <style=cIsUtility>Sacrifice</style>.");
             #endregion
 
             #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_NAME", "Crashing Comet");
-            LanguageAPI.Add(prefix + "SPECIAL_SKULLBREAKER_DESCRIPTION", $"<style=cIsUtility>Heavy</style>. " +
-                $"<style=cIsUtility>Dash</style> forward and bounce off of an enemy, dealing " +
-                $"<style=cIsDamage>100% damage</style>. <style=cIsUtility>Kills reset the cooldown of your " +
-                $"utility skill</style>.");
-
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_NAME", "Bullet Heaven");
-            LanguageAPI.Add(prefix + "SPECIAL_BULLETHEAVEN_DESCRIPTION", $"Jump high into the air, then wildly fire bullets downwards for " +
-                $"<style=cIsDamage>100% damage</style> each. The number of shots scales with attack speed.");
+            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_NAME", "Tombstone");
+            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a Tombstone.");
             #endregion
 
             #region Achievements
@@ -90,6 +82,10 @@ namespace Morris.Modules
             #endregion
             #endregion
 
+            #region Ghoul
+            string ghoulPrefix = devPrefix + "_GHOUL_BODY_";
+            LanguageAPI.Add(ghoulPrefix + "NAME", "Ghoul");
+            #endregion
         }
     }
 }

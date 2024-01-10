@@ -3,6 +3,8 @@ using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
 using Morris.Modules.Characters;
+using System;
+using Morris.EditorScripts;
 
 namespace Morris.Modules {
     // module for creating body prefabs and whatnot
@@ -16,7 +18,6 @@ namespace Morris.Modules {
 
         public static GameObject CreateDisplayPrefab(string displayModelName, GameObject prefab, BodyInfo bodyInfo)
         {
-            Log.Warning("Attempting to load display model: " + displayModelName);
             GameObject model = Assets.LoadSurvivorModel(displayModelName);
 
             CharacterModel characterModel = model.GetComponent<CharacterModel>();
@@ -285,7 +286,8 @@ namespace Morris.Modules {
 
             if (!childLocator.FindChild("MainHurtbox"))
             {
-                Debug.LogWarning("Could not set up main hurtbox: make sure you have a transform pair in your prefab's ChildLocator component called 'MainHurtbox'");
+                Debug.LogWarning("Could not set up main hurtbox for object: " + model + ", creating individual hurtboxes instead");
+                CreateNewHurtboxes(prefab, model);
                 return;
             }
 
@@ -307,13 +309,39 @@ namespace Morris.Modules {
             hurtBoxGroup.bullseyeCount = 1;
         }
 
+        private static void CreateNewHurtboxes(GameObject prefab, GameObject model)
+        {
+            HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
+
+            HurtBox[] hurtBoxes = model.GetComponentsInChildren<HurtBox>();
+            HurtBox mainHurtbox = hurtBoxes[hurtBoxes.Length - 1];
+
+            Log.Warning("Found " + hurtBoxes.Length + " hurtboxes in model");
+            for(short i = 0; i < hurtBoxes.Length; i++)
+            {
+                Log.Warning("Creating hurtbox: " + hurtBoxes[i].name);
+                hurtBoxes[i].healthComponent = prefab.GetComponent<HealthComponent>();
+                hurtBoxes[i].gameObject.layer = LayerIndex.entityPrecise.intVal;
+                hurtBoxes[i].damageModifier = HurtBox.DamageModifier.Normal;
+                hurtBoxes[i].hurtBoxGroup = hurtBoxGroup;
+                hurtBoxes[i].indexInGroup = i;
+                Log.Warning(hurtBoxes[i].name + " is on layer: " + hurtBoxes[i].gameObject.layer);
+            }
+
+            hurtBoxGroup.mainHurtBox = mainHurtbox;
+            hurtBoxGroup.hurtBoxes = hurtBoxes;
+        }
+
         public static void SetupHurtBoxes(GameObject bodyPrefab) {
 
             HealthComponent healthComponent = bodyPrefab.GetComponent<HealthComponent>();
 
-            foreach (HurtBoxGroup hurtboxGroup in bodyPrefab.GetComponentsInChildren<HurtBoxGroup>()) {
+            foreach (HurtBoxGroup hurtboxGroup in bodyPrefab.GetComponentsInChildren<HurtBoxGroup>())
+            {
                 hurtboxGroup.mainHurtBox.healthComponent = healthComponent;
-                for (int i = 0; i < hurtboxGroup.hurtBoxes.Length; i++) {
+                for (int i = 0; i < hurtboxGroup.hurtBoxes.Length; i++)
+                {
+                    Log.Warning("Hurtbox '" + hurtboxGroup.hurtBoxes[i].name + "' for body " + bodyPrefab.name + " is on layer: " + hurtboxGroup.hurtBoxes[i].gameObject.layer);
                     hurtboxGroup.hurtBoxes[i].healthComponent = healthComponent;
                 }
             }

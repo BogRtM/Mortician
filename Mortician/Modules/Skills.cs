@@ -27,14 +27,32 @@ namespace Morris.Modules
             SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
 
             skillLocator.passiveSkill.enabled = true;
-            skillLocator.passiveSkill.skillNameToken = "BOG_Morris_BODY_PASSIVE_NAME";
-            skillLocator.passiveSkill.skillDescriptionToken = "BOG_Morris_BODY_PASSIVE_DESCRIPTION";
+            skillLocator.passiveSkill.skillNameToken = "BOG_MORRIS_BODY_PASSIVE_NAME";
+            skillLocator.passiveSkill.skillDescriptionToken = "BOG_MORRIS_BODY_PASSIVE_DESCRIPTION";
             skillLocator.passiveSkill.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("HotPursuitIcon");
 
             skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary");
             skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary");
             skillLocator.utility = CreateGenericSkillWithSkillFamily(targetPrefab, "Utility");
             skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special");
+        }
+
+        public static void CreateGhoulSkillFamilies(GameObject targetPrefab, bool destroyExisting = true)
+        {
+            if (destroyExisting)
+            {
+                foreach (GenericSkill obj in targetPrefab.GetComponentsInChildren<GenericSkill>())
+                {
+                    UnityEngine.Object.DestroyImmediate(obj);
+                }
+            }
+
+            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+
+            skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary");
+            skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary");
+            //skillLocator.utility = CreateGenericSkillWithSkillFamily(targetPrefab, "Utility");
+            //skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special");
         }
 
         public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, string familyName, bool hidden = false)

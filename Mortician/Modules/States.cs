@@ -1,6 +1,7 @@
 ﻿using Skillstates.Morris;
 using System.Collections.Generic;
 using System;
+using SkillStates.Morris;
 
 namespace Morris.Modules
 {
@@ -10,21 +11,8 @@ namespace Morris.Modules
         {
             #region Morris
             Modules.Content.AddEntityState(typeof(SkillTemplate));
-            /*
-            Modules.Content.AddEntityState(typeof(MorrisMainState));
-            Modules.Content.AddEntityState(typeof(TriggerTap));
-
-            Modules.Content.AddEntityState(typeof(GunSling));
-            
-            Modules.Content.AddEntityState(typeof(ShootingStar));
-
-            Modules.Content.AddEntityState(typeof(CometDash));
-            Modules.Content.AddEntityState(typeof(CometBounce));
-
-            Modules.Content.AddEntityState(typeof(BulletHeaven));
-            Modules.Content.AddEntityState(typeof(BulletHeavenExit));
-            Modules.Content.AddEntityState(typeof(BulletHeavenLoop));
-            */
+            Modules.Content.AddEntityState(typeof(SwingShovel));
+            Modules.Content.AddEntityState(typeof(SpawnGhoul));
             #endregion
         }
     }

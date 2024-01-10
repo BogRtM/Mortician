@@ -1,0 +1,144 @@
+﻿using UnityEngine;
+using RoR2;
+using R2API;
+using EntityStates;
+using RoR2.Skills;
+using Morris;
+using Morris.Modules;
+using System;
+namespace Skillstates.Morris
+{
+    internal class SwingShovel : BaseState, SteppedSkillDef.IStepSetter
+    {
+        public static float baseDuration = 1.833f;
+        public static float damageCoefficient = 8f;
+        public static float smallHopVelocity = 5.5f;
+
+        private Animator animator;
+
+        private float duration;
+        private float step;
+        private float fireTime;
+        private float earlyExitTime;
+
+        private bool hasFired;
+        private bool hasHopped;
+
+        private float hitPauseTimer;
+        private bool inHitPause;
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            animator = base.GetModelAnimator();
+
+            duration = baseDuration / base.attackSpeedStat;
+            fireTime = duration * 0.18f;
+            earlyExitTime = duration * 0.54f;
+
+            base.StartAimMode(2f, false);
+
+            string swingIndex = "Swing" + step;
+
+            if(!animator.GetBool("isMoving") && base.characterMotor.isGrounded)
+                base.PlayCrossfade("FullBody, Override", swingIndex, "Swing.playbackRate", duration, 0.1f);
+
+            base.PlayCrossfade("Gesture, Override", swingIndex, "Swing.playbackRate", duration, 0.1f);
+            
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if(base.fixedAge >= fireTime && !hasFired && base.isAuthority)
+            {
+                FireAttack();
+            }
+
+            if (base.fixedAge >= this.duration && hasFired && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+            }
+        }
+
+        public void FireAttack()
+        {
+            hasFired = true;
+
+            Transform modelTransform = base.GetModelTransform();
+            HitBoxGroup hitBoxGroup = null;
+
+            if (modelTransform)
+            {
+                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Swing");
+            }
+
+            OverlapAttack attack = new OverlapAttack();
+            attack.attacker = base.gameObject;
+            attack.inflictor = base.gameObject;
+            attack.damageType = DamageType.Generic;
+            attack.procCoefficient = 1f;
+            attack.teamIndex = base.GetTeam();
+            attack.isCrit = base.RollCrit();
+            attack.forceVector = Vector3.zero;
+            attack.pushAwayForce = 1f;
+            attack.damage = damageCoefficient * base.damageStat;
+            attack.hitBoxGroup = hitBoxGroup;
+            attack.hitEffectPrefab = null;
+
+            attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
+
+            if(attack.Fire())
+            {
+                if(!base.characterMotor.isGrounded && !hasHopped)
+                {
+                    hasHopped = true;
+                    base.SmallHop(base.characterMotor, smallHopVelocity);
+                }
+
+
+            }
+
+            HitGhoul(hitBoxGroup);
+        }
+
+        public void HitGhoul(HitBoxGroup hitBoxGroup)
+        {
+            HurtBox hurtBox;
+
+            foreach(HitBox hitBox in hitBoxGroup.hitBoxes)
+            {
+                Transform transform = hitBox.transform;
+                Vector3 position = transform.position;
+                Vector3 halfExtent = transform.lossyScale * 0.5f;
+                Quaternion rotation = transform.rotation;
+
+                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask);
+
+                Chat.AddMessage("You hit " + hitObjects.Length + " objects");
+
+                for (int i = 0; i < hitObjects.Length; i++)
+                {
+                    Chat.AddMessage(hitObjects[i].name);
+                }
+            }
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return (base.fixedAge >= earlyExitTime) ? InterruptPriority.Any : InterruptPriority.Skill;
+        }
+
+        public void SetStep(int i)
+        {
+            step = i;
+        }
+    }
+}

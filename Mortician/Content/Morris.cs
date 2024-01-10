@@ -12,6 +12,7 @@ using R2API;
 using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
+using SkillStates.Morris;
 
 namespace Morris.Modules.Survivors
 {
@@ -36,8 +37,8 @@ namespace Morris.Modules.Survivors
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
             podPrefab = null,
 
-            maxHealth = 210f,
-            healthGrowth = 70f,
+            maxHealth = 200f,
+            healthGrowth = 60f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             damage = 15f,
@@ -91,6 +92,10 @@ namespace Morris.Modules.Survivors
             rb.mass = 300f;
             CharacterMotor cm = bodyPrefab.GetComponent<CharacterMotor>();
             cm.mass = 300f;
+
+            CapsuleCollider capsule = bodyPrefab.GetComponent<CapsuleCollider>();
+            capsule.radius = 0.9f;
+            capsule.height = 3f;
         }
 
         private void SetCoreTransform()
@@ -155,9 +160,9 @@ namespace Morris.Modules.Survivors
             */
 
             SteppedSkillDef MorrisPrimarySkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
-            MorrisPrimarySkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_NAME";
-            MorrisPrimarySkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_NAME";
-            MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOOT_DESCRIPTION";
+            MorrisPrimarySkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
+            MorrisPrimarySkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
+            MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_DESCRIPTION";
             MorrisPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
             MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
             MorrisPrimarySkillDef.activationStateMachineName = "Weapon";
@@ -183,11 +188,11 @@ namespace Morris.Modules.Survivors
             #region Secondary
             SkillDef secondarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MORRIS_BODY_SECONDARY_SLING_NAME",
-                skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_SLING_NAME",
-                skillDescriptionToken = prefix + "_MORRIS_BODY_SECONDARY_SLING_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("GunSlingIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SpawnGhoul)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -210,9 +215,9 @@ namespace Morris.Modules.Survivors
             #region Utility
             SkillDef utilitySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_NAME",
-                skillNameToken = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_NAME",
-                skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_SHOOTINGSTAR_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ShootingStarIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
@@ -239,9 +244,9 @@ namespace Morris.Modules.Survivors
             #region Special
             SkillDef skullCrackerSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_NAME",
-                skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_NAME",
-                skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_SKULLBREAKER_DESCRIPTION",
+                skillName = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
+                skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
+                skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
                 activationStateMachineName = "Weapon",
