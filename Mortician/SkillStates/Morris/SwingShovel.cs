@@ -52,7 +52,7 @@ namespace Skillstates.Morris
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= fireTime && !hasFired && base.isAuthority)
+            if(base.fixedAge >= fireTime && !hasFired)
             {
                 FireAttack();
             }
@@ -90,18 +90,22 @@ namespace Skillstates.Morris
 
             attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
 
-            if(attack.Fire())
+            if (base.isAuthority)
             {
-                if(!base.characterMotor.isGrounded && !hasHopped)
+                if (attack.Fire())
                 {
-                    hasHopped = true;
-                    base.SmallHop(base.characterMotor, smallHopVelocity);
+                    if (!base.characterMotor.isGrounded && !hasHopped)
+                    {
+                        hasHopped = true;
+                        base.SmallHop(base.characterMotor, smallHopVelocity);
+                    }
                 }
 
-
+                HitGhoul(hitBoxGroup);
             }
+            
 
-            HitGhoul(hitBoxGroup);
+            
         }
 
         public void HitGhoul(HitBoxGroup hitBoxGroup)
@@ -117,11 +121,13 @@ namespace Skillstates.Morris
 
                 Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask);
 
-                Chat.AddMessage("You hit " + hitObjects.Length + " objects");
-
                 for (int i = 0; i < hitObjects.Length; i++)
                 {
-                    Chat.AddMessage(hitObjects[i].name);
+                    CharacterBody body = hitObjects[i].GetComponent<CharacterBody>();
+                    if (body && body.bodyIndex == MorrisPlugin.GhoulBodyIndex)
+                    {
+                        Chat.AddMessage("You hit a ghoul!");
+                    }
                 }
             }
         }

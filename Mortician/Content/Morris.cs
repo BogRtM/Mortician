@@ -37,14 +37,21 @@ namespace Morris.Modules.Survivors
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
             podPrefab = null,
 
+            
+            capsuleHeight = 3.2f,
+            capsuleRadius = 0.7f,
+            modelBasePosition = new Vector3(0f, -1.6f, 0f),
+
             maxHealth = 200f,
             healthGrowth = 60f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
-            damage = 15f,
-            damageGrowth = 3f,
+            damage = 14f,
+            damageGrowth = 2.8f,
             armor = 20f,
             sortPosition = 1f,
+
+            cameraPivotPosition = new Vector3(0f, 0.3f, 0f),
             cameraParamsDepth = -12f
         };
 
@@ -92,10 +99,6 @@ namespace Morris.Modules.Survivors
             rb.mass = 300f;
             CharacterMotor cm = bodyPrefab.GetComponent<CharacterMotor>();
             cm.mass = 300f;
-
-            CapsuleCollider capsule = bodyPrefab.GetComponent<CapsuleCollider>();
-            capsule.radius = 0.9f;
-            capsule.height = 3f;
         }
 
         private void SetCoreTransform()

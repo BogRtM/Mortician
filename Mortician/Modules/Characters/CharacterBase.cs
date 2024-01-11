@@ -135,6 +135,8 @@ namespace Morris.Modules.Characters
 
         #region Stats
         //main stats
+        public float capsuleHeight;
+        public float capsuleRadius;
         public float maxHealth = 100f;
         public float healthRegen = 1f;
         public float armor = 0f;

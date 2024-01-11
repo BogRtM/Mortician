@@ -38,15 +38,21 @@ namespace Morris.Modules.NPC
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
             podPrefab = null,
 
+            capsuleHeight = 2f,
+            capsuleRadius = 0.6f,
+            modelBasePosition = new Vector3(0f, -1f, 0f),
+
             maxHealth = 160f,
             healthGrowth = 48f,
-            healthRegen = 2.5f,
-            regenGrowth = 0.5f,
-            damage = 15f,
-            damageGrowth = 3f,
+            healthRegen = -6f,
+            regenGrowth = -1.2f,
+            damage = 14f,
+            damageGrowth = 2.8f,
             armor = 20f,
             sortPosition = 1f,
-            cameraParamsDepth = -10f
+
+            cameraPivotPosition = new Vector3(0f, 0f, 0f),
+            cameraParamsDepth = -8f
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
@@ -96,7 +102,7 @@ namespace Morris.Modules.NPC
             BaseAI ghoulAI = ghoulMasterPrefab.GetComponent<BaseAI>();
             ghoulAI.neverRetaliateFriendlies = true;
 
-            SpawnGhoul.GhoulMasterObject = ghoulMasterPrefab;
+            SpawnGhoul.GhoulMasterPrefab = ghoulMasterPrefab;
         }
 
         private void SetCoreTransform()
@@ -115,8 +121,8 @@ namespace Morris.Modules.NPC
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
             
-            //Transform swingHitbox = childLocator.FindChild("SwingHitbox");
-            //Modules.Prefabs.SetupHitbox(model, swingHitbox, "Swing");
+            Transform swingHitbox = childLocator.FindChild("MeleeHitbox");
+            Modules.Prefabs.SetupHitbox(model, swingHitbox, "Melee");
         }
 
         public override void InitializeSkills()

@@ -5,6 +5,8 @@ using UnityEngine;
 using Morris.Modules.Characters;
 using System;
 using Morris.EditorScripts;
+using KinematicCharacterController;
+using HG;
 
 namespace Morris.Modules {
     // module for creating body prefabs and whatnot
@@ -111,7 +113,15 @@ namespace Morris.Modules {
             SetupCameraTargetParams(newBodyPrefab, bodyInfo);
             SetupModelLocator(newBodyPrefab, modelBaseTransform, model.transform);
             //SetupRigidbody(newPrefab);
-            SetupCapsuleCollider(newBodyPrefab);
+            if(bodyInfo.capsuleHeight > 0 && bodyInfo.capsuleRadius >0)
+            {
+                SetupCapsuleCollider(newBodyPrefab, bodyInfo.capsuleHeight, bodyInfo.capsuleRadius);
+            }
+            else
+            {
+                SetupCapsuleCollider(newBodyPrefab);
+            }
+            
             SetupMainHurtbox(newBodyPrefab, model);
 
             SetupAimAnimator(newBodyPrefab, model);
@@ -273,10 +283,28 @@ namespace Morris.Modules {
         //}
 
         private static void SetupCapsuleCollider(GameObject prefab) {
+            var KCM = prefab.GetComponent<KinematicCharacterMotor>();
+            KCM.CapsuleHeight = 1.82f;
+            KCM.CapsuleRadius = 0.5f;
+            //KCM.CapsuleYOffset = KCM.CapsuleHeight * 0.5f;
+
             CapsuleCollider capsuleCollider = prefab.GetComponent<CapsuleCollider>();
             capsuleCollider.center = new Vector3(0f, 0f, 0f);
             capsuleCollider.radius = 0.5f;
             capsuleCollider.height = 1.82f;
+            capsuleCollider.direction = 1;
+        }
+        private static void SetupCapsuleCollider(GameObject prefab, float height, float radius)
+        {
+            var KCM = prefab.GetComponent<KinematicCharacterMotor>();
+            KCM.CapsuleHeight = height;
+            KCM.CapsuleRadius = radius;
+            //KCM.CapsuleYOffset = height * 0.5f;
+
+            CapsuleCollider capsuleCollider = prefab.GetComponent<CapsuleCollider>();
+            capsuleCollider.center = new Vector3(0f, 0f, 0f);
+            capsuleCollider.radius = radius;
+            capsuleCollider.height = height;
             capsuleCollider.direction = 1;
         }
 
@@ -316,16 +344,13 @@ namespace Morris.Modules {
             HurtBox[] hurtBoxes = model.GetComponentsInChildren<HurtBox>();
             HurtBox mainHurtbox = hurtBoxes[hurtBoxes.Length - 1];
 
-            Log.Warning("Found " + hurtBoxes.Length + " hurtboxes in model");
             for(short i = 0; i < hurtBoxes.Length; i++)
             {
-                Log.Warning("Creating hurtbox: " + hurtBoxes[i].name);
                 hurtBoxes[i].healthComponent = prefab.GetComponent<HealthComponent>();
                 hurtBoxes[i].gameObject.layer = LayerIndex.entityPrecise.intVal;
                 hurtBoxes[i].damageModifier = HurtBox.DamageModifier.Normal;
                 hurtBoxes[i].hurtBoxGroup = hurtBoxGroup;
                 hurtBoxes[i].indexInGroup = i;
-                Log.Warning(hurtBoxes[i].name + " is on layer: " + hurtBoxes[i].gameObject.layer);
             }
 
             hurtBoxGroup.mainHurtBox = mainHurtbox;
@@ -341,7 +366,6 @@ namespace Morris.Modules {
                 hurtboxGroup.mainHurtBox.healthComponent = healthComponent;
                 for (int i = 0; i < hurtboxGroup.hurtBoxes.Length; i++)
                 {
-                    Log.Warning("Hurtbox '" + hurtboxGroup.hurtBoxes[i].name + "' for body " + bodyPrefab.name + " is on layer: " + hurtboxGroup.hurtBoxes[i].gameObject.layer);
                     hurtboxGroup.hurtBoxes[i].healthComponent = healthComponent;
                 }
             }

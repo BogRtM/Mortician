@@ -72,6 +72,9 @@ namespace Morris
             new Modules.NPC.Ghoul().Initialize();
             Log.Warning("Ghoul created successfully");
 
+            Log.Warning("Morris capsule height is: " + MorrisBodyPrefab.GetComponent<CapsuleCollider>().height);
+            Log.Warning("Morris capsule radius is: " + MorrisBodyPrefab.GetComponent<CapsuleCollider>().radius);
+
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
 
@@ -96,18 +99,6 @@ namespace Morris
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 //On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
-            }
-
-            //On.RoR2.GlobalEventManager.OnHitAll += GlobalEventManager_OnHitAll;
-        }
-
-        private void GlobalEventManager_OnHitAll(On.RoR2.GlobalEventManager.orig_OnHitAll orig, GlobalEventManager self, DamageInfo damageInfo, GameObject hitObject)
-        {
-            orig(self, damageInfo, hitObject);
-
-            if(damageInfo.HasModdedDamageType(LaunchGhoul))
-            {
-                Chat.AddMessage("You hit: " + hitObject.name);
             }
         }
 
