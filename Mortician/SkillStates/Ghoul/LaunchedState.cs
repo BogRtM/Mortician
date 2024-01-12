@@ -4,6 +4,7 @@ using EntityStates;
 using EntityStates.Toolbot;
 using System;
 using System.Collections.Generic;
+using Morris;
 namespace Skillstates.Ghoul
 {
     internal class LaunchedState : BaseState
@@ -22,9 +23,12 @@ namespace Skillstates.Ghoul
 
         private float duration;
         private float cachedAirControl;
+        private bool selfIsGhoul;
         public override void OnEnter()
         {
             base.OnEnter();
+
+            selfIsGhoul = base.characterBody.bodyIndex == MorrisPlugin.GhoulBodyIndex;
 
             launchVector.y += yOffset;
 
@@ -91,7 +95,7 @@ namespace Skillstates.Ghoul
                         }
                     }
 
-                    if(victimMass >= ToolbotDash.massThresholdForKnockback)
+                    if(victimMass >= ToolbotDash.massThresholdForKnockback && selfIsGhoul)
                     {
                         this.outer.SetNextStateToMain();
                     }

@@ -67,8 +67,8 @@ namespace Morris.Modules
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_GHOUL_NAME", "Raise Dead");
             LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"Spawn a ghoul on the ground in front of you. Ghouls bite for " +
-                $"<style=cIsDamage>{GhoulMelee.damageCoefficient * 100f}% damage</style>, and " +
-                $"spit bile for <style=cIsDamage>{BileSpit.damageCoefficient * 100f}% damage</style>.");
+                $"<style=cIsDamage>{GhoulMelee.damageCoefficient * 100f}% damage</style>, " +
+                $"spit bile for <style=cIsDamage>{BileSpit.damageCoefficient * 100f}% damage</style>, and inflict <style=cIsDamage>Blight</style> with each attack.");
             #endregion
 
             #region Utility

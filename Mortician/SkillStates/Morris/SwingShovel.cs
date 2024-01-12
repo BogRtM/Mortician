@@ -13,7 +13,8 @@ namespace Skillstates.Morris
     {
         public static float baseDuration = 1.833f;
         public static float damageCoefficient = 6f;
-        public static float smallHopVelocity = 5.5f;
+        public static float smallHopVelocity = 6f;
+        public static float hitPauseDuration = 0.1f;
 
         private Animator animator;
 
@@ -28,6 +29,8 @@ namespace Skillstates.Morris
         private bool hasFired;
         private bool hasHopped;
 
+        private HitStopCachedState hitStopCachedState;
+        private float stopWatch;
         private float hitPauseTimer;
         private bool inHitPause;
 
@@ -76,14 +79,40 @@ namespace Skillstates.Morris
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= fireTime && !hasFired)
+            hitPauseTimer -= Time.fixedDeltaTime;
+
+            if(base.isAuthority)
+            {
+                AuthorityFixedUpdate();
+            }
+
+            if (!inHitPause)
+            {
+                stopWatch += Time.fixedDeltaTime;
+            }
+            else
+            {
+                base.characterMotor.velocity = Vector3.zero;
+                animator.SetFloat("Swing.playbackRate", 0f);
+            }
+
+            if (stopWatch >= this.duration && hasFired && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+            }
+        }
+
+        public void AuthorityFixedUpdate()
+        {
+            if (base.fixedAge >= fireTime && !hasFired)
             {
                 FireAttack();
             }
 
-            if (base.fixedAge >= this.duration && hasFired && base.isAuthority)
+            if (hitPauseTimer <= 0f && inHitPause)
             {
-                this.outer.SetNextStateToMain();
+                base.ConsumeHitStopCachedState(hitStopCachedState, base.characterMotor, animator);
+                inHitPause = false;
             }
         }
 
@@ -91,19 +120,23 @@ namespace Skillstates.Morris
         {
             hasFired = true;
 
-            if (base.isAuthority)
+            if (attack.Fire())
             {
-                if (attack.Fire())
+                if (!base.characterMotor.isGrounded && !hasHopped)
                 {
-                    if (!base.characterMotor.isGrounded && !hasHopped)
-                    {
-                        hasHopped = true;
-                        base.SmallHop(base.characterMotor, smallHopVelocity);
-                    }
+                    hasHopped = true;
+                    base.SmallHop(base.characterMotor, smallHopVelocity);
                 }
 
-                HitGhoul(this.hitBoxGroup);
+                if (!inHitPause)
+                {
+                    hitStopCachedState = base.CreateHitStopCachedState(base.characterMotor, animator, "Swing.playbackRate");
+                    hitPauseTimer = hitPauseDuration / attackSpeedStat;
+                    inHitPause = true;
+                }
             }
+
+            HitGhoul(this.hitBoxGroup);
         }
 
         public void HitGhoul(HitBoxGroup hitBoxGroup)

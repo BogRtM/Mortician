@@ -54,14 +54,18 @@ namespace Morris.Components
 
         public void OnDeathStart()
         {
-            if (characterBody.bodyIndex != MorrisPlugin.GhoulBodyIndex) return;
+            if (characterBody.bodyIndex != MorrisPlugin.GhoulBodyIndex || !owner) return;
 
             if (NetworkServer.active)
             {
                 DamageInfo damageInfo = new DamageInfo();
                 damageInfo.attacker = owner;
-                damageInfo.damage = 0;
+                damageInfo.crit = false;
+                damageInfo.damage = 0f;
                 damageInfo.position = base.transform.position;
+                damageInfo.procCoefficient = 1f;
+                damageInfo.damageType = DamageType.Generic;
+                damageInfo.damageColorIndex = DamageColorIndex.Default;
 
                 DamageReport damageReport = new DamageReport(damageInfo, healthComponent, damageInfo.damage, healthComponent.combinedHealth);
                 GlobalEventManager.instance.OnCharacterDeath(damageReport);

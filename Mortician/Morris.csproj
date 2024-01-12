@@ -53,9 +53,6 @@
     <Reference Include="R2API.Prefab">
       <HintPath>..\libs\RiskofThunder-R2API_Prefab\R2API.Prefab\R2API.Prefab.dll</HintPath>
     </Reference>
-    <Reference Include="R2API.Sound">
-      <HintPath>..\libs\RiskofThunder-R2API_Sound\R2API.Sound\R2API.Sound.dll</HintPath>
-    </Reference>
     <Reference Include="R2API.Unlockable">
       <HintPath>..\libs\RiskofThunder-R2API_Unlockable\R2API.Unlockable\R2API.Unlockable.dll</HintPath>
     </Reference>
