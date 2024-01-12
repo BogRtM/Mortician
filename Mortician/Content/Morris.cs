@@ -12,7 +12,7 @@ using R2API;
 using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
-using SkillStates.Morris;
+using Skillstates.Morris;
 
 namespace Morris.Modules.Survivors
 {
@@ -39,7 +39,7 @@ namespace Morris.Modules.Survivors
 
             
             capsuleHeight = 3.2f,
-            capsuleRadius = 0.7f,
+            capsuleRadius = 0.9f,
             modelBasePosition = new Vector3(0f, -1.6f, 0f),
 
             maxHealth = 200f,
@@ -99,6 +99,8 @@ namespace Morris.Modules.Survivors
             rb.mass = 300f;
             CharacterMotor cm = bodyPrefab.GetComponent<CharacterMotor>();
             cm.mass = 300f;
+
+            bodyPrefab.AddComponent<LanternTracker>();
         }
 
         private void SetCoreTransform()
@@ -216,32 +218,30 @@ namespace Morris.Modules.Survivors
             #endregion
 
             #region Utility
-            SkillDef utilitySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME",
-                skillNameToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME",
-                skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ShootingStarIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
-                activationStateMachineName = "Weapon",
-                baseMaxStock = 1,
-                baseRechargeInterval = 6f,
-                beginSkillCooldownOnSkillEnd = false,
-                canceledFromSprinting = false,
-                forceSprintDuringState = false,
-                fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
-                resetCooldownTimerOnUse = false,
-                isCombatSkill = true,
-                mustKeyPress = true,
-                cancelSprintingOnActivation = true,
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] {"KEYWORD_STUNNING"}
-            });
+            LanternSkillDef lanternSkillDef = ScriptableObject.CreateInstance<LanternSkillDef>();
+            lanternSkillDef.skillName = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
+            lanternSkillDef.skillNameToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
+            lanternSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_DESCRIPTION";
+            lanternSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
+            lanternSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(LanternSkillState));
+            lanternSkillDef.activationStateMachineName = "Weapon";
+            lanternSkillDef.baseMaxStock = 1;
+            lanternSkillDef.baseRechargeInterval = 4f;
+            lanternSkillDef.beginSkillCooldownOnSkillEnd = false;
+            lanternSkillDef.canceledFromSprinting = false;
+            lanternSkillDef.forceSprintDuringState = false;
+            lanternSkillDef.fullRestockOnAssign = true;
+            lanternSkillDef.interruptPriority = EntityStates.InterruptPriority.Skill;
+            lanternSkillDef.resetCooldownTimerOnUse = false;
+            lanternSkillDef.isCombatSkill = true;
+            lanternSkillDef.mustKeyPress = false;
+            lanternSkillDef.cancelSprintingOnActivation = true;
+            lanternSkillDef.rechargeStock = 1;
+            lanternSkillDef.requiredStock = 1;
+            lanternSkillDef.stockToConsume = 1;
+            lanternSkillDef.keywordTokens = new string[] { "KEYWORD_SOULDRAIN", "KEYWORD_SACRIFICE" };
 
-            Modules.Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef);
+            Modules.Skills.AddUtilitySkills(bodyPrefab, lanternSkillDef);
             #endregion
 
             #region Special
@@ -252,7 +252,7 @@ namespace Morris.Modules.Survivors
                 skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
-                activationStateMachineName = "Weapon",
+                activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = false,
@@ -267,7 +267,7 @@ namespace Morris.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_HEAVY" }
+                keywordTokens = new string[] {  }
             });
             Modules.Skills.AddSpecialSkills(bodyPrefab, skullCrackerSkillDef);
             #endregion

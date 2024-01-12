@@ -1,8 +1,8 @@
 ﻿using Skillstates.Morris;
 using System.Collections.Generic;
 using System;
-using SkillStates.Morris;
-using SkillStates.Ghoul;
+using Skillstates.Morris;
+using Skillstates.Ghoul;
 
 namespace Morris.Modules
 {

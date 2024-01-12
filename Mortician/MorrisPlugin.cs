@@ -15,6 +15,7 @@ using System;
 using EntityStates.Merc;
 using Morris.Modules;
 using EmotesAPI;
+using Morris.Components;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -72,9 +73,6 @@ namespace Morris
             new Modules.NPC.Ghoul().Initialize();
             Log.Warning("Ghoul created successfully");
 
-            Log.Warning("Morris capsule height is: " + MorrisBodyPrefab.GetComponent<CapsuleCollider>().height);
-            Log.Warning("Morris capsule radius is: " + MorrisBodyPrefab.GetComponent<CapsuleCollider>().radius);
-
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
 
@@ -89,6 +87,29 @@ namespace Morris
 
         private void Subscriptions()
         {
+            GlobalEventManager.onClientDamageNotified += ShowHealthBarToOwner;
+        }
+
+        private void ShowHealthBarToOwner(DamageDealtMessage obj)
+        {
+            if (!obj.attacker) return;
+            if (!obj.victim || obj.isSilent) return;
+
+            MorrisMinionController minionController = obj.attacker.GetComponent<MorrisMinionController>();
+            if(!minionController || !minionController.owner) return;
+
+            HealthComponent victimHealthComponent = obj.victim.GetComponent<HealthComponent>();
+            if (!victimHealthComponent || victimHealthComponent.dontShowHealthbar) return;
+
+            TeamIndex victimTeamIndex = victimHealthComponent.body.teamComponent.teamIndex;
+
+            foreach (CombatHealthBarViewer combatHealthBarViewer in CombatHealthBarViewer.instancesList)
+            {
+                if (minionController.owner == combatHealthBarViewer.viewerBodyObject && combatHealthBarViewer.viewerBodyObject)
+                {
+                    combatHealthBarViewer.HandleDamage(victimHealthComponent, victimTeamIndex);
+                }
+            }
         }
 
         private void Hook()

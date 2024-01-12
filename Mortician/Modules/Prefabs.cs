@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Morris.Modules.Characters;
 using System;
-using Morris.EditorScripts;
 using KinematicCharacterController;
 using HG;
 

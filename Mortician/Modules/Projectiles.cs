@@ -11,11 +11,20 @@ namespace Morris.Modules
 {
     internal static class Projectiles
     {
-        //internal static GameObject bombPrefab;
-        //internal static GameObject javelinPrefab;
+        internal static GameObject ghoulBilePrefab;
         internal static void RegisterProjectiles()
         {
+            CreateBileProjectile();
+            AddProjectile(ghoulBilePrefab);
+        }
 
+        private static void CreateBileProjectile()
+        {
+            GameObject baseProjectile = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/FlyingVermin/VerminSpitProjectile.prefab").WaitForCompletion();
+            ghoulBilePrefab = PrefabAPI.InstantiateClone(baseProjectile, "GhoulBilePrefab");
+
+            ProjectileDamage projectileDamage = ghoulBilePrefab.GetComponent<ProjectileDamage>();
+            projectileDamage.damageType = DamageType.BlightOnHit;
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)

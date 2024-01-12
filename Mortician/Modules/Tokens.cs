@@ -2,6 +2,7 @@
 using System;
 using Morris.Components;
 using Skillstates.Morris;
+using Skillstates.Ghoul;
 
 namespace Morris.Modules
 {
@@ -13,15 +14,13 @@ namespace Morris.Modules
             string devPrefix = MorrisPlugin.DEVELOPER_PREFIX;
             string prefix = devPrefix + "_MORRIS_BODY_";
 
-            string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting>Thank you for showing interest in <color=#e1c100>The Morris</color>! " +
-                "For feedback and bug reports, please contact <style=cIsUtility>Bog#4770</style> on Discord.</style>";
+            string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting></style>";
 
             string desc = "The Mortician is a lumbering melee tank who faces the horde with an army of undead and an array of ghastly powers.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > Trigger Tap has perfect accuracy and no damage falloff, but its maximum range is quite limited compared to most other gun-based attacks." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > The revolvers thrown out by Gun Sling will always prioritize the enemy closest to them." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > Shooting Star can be slightly angled upwards by looking up." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > Crashing Comet can deal devastating burst damage at high movement speed values. Use your guns to build up stacks of Hot Pursuit, " +
-                "then go in for the kill." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Ghouls launched by your shovel will latch onto larger enemies and bite them repeatedly." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Ghouls make no effort to follow you, and instead focus solely on their targets." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > " + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > " + Environment.NewLine + Environment.NewLine + Environment.NewLine;
 
             desc += modderNote;
 
@@ -45,11 +44,18 @@ namespace Morris.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Corpse Explosion");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls explode for <style=cIsDamage>{250f}% damage</style> and " +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls will explode for <style=cIsDamage>{250f}% damage</style> and " +
                 $"<style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
             #endregion
 
             #region Keywords
+            LanguageAPI.Add("KEYWORD_SACRIFICE", $"<style=cKeywordName>Sacrifice</style><style=cSub>" +
+                $"Kill the target ghoul to heal <style=cIsHealing>20%</style> of your maximum health. " +
+                $"This ghoul's <style=cIsDamage>Corpse Explosion</style> will be empowered to have a larger radius and " +
+                $"deal <style=cIsDamage>{800f}% damage</style></style>.");
+
+            LanguageAPI.Add("KEYWORD_SOULDRAIN", $"<style=cKeywordName>Soul Drain</style><style=cSub>Drain <style=cIsDamage>{1f}%</style> of the target's maximum health per second, " +
+                $"and heal <style=cIsHealing>{1f}%</style> of your maximum health per second.</style>");
             #endregion
 
             #region Primary
@@ -60,8 +66,9 @@ namespace Morris.Modules
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_GHOUL_NAME", "Raise Dead");
-            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"Spawn a ghoul on the ground in front of you. Ghouls bite for <style=cIsDamage>{200f}% damage</style>, " +
-                $"spit bile for <style=cIsDamage>{150f}% damage</style>, and inflict <style=cEvent>Rot</style> with every attack.");
+            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"Spawn a ghoul on the ground in front of you. Ghouls bite for " +
+                $"<style=cIsDamage>{GhoulMelee.damageCoefficient * 100f}% damage</style>, and " +
+                $"spit bile for <style=cIsDamage>{BileSpit.damageCoefficient * 100f}% damage</style>.");
             #endregion
 
             #region Utility

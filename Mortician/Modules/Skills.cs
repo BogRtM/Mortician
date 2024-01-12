@@ -240,4 +240,36 @@ namespace Morris.Modules
         }
         #endregion construction complete
     }
+
+    public class LanternSkillDef : SkillDef
+    {
+        public override SkillDef.BaseSkillInstanceData OnAssigned(GenericSkill skillSlot)
+        {
+            return new LanternSkillDef.InstanceData
+            {
+                lanternTracker = skillSlot.GetComponent<LanternTracker>()
+            };
+        }
+
+        private static bool HasTarget(GenericSkill skillSlot)
+        {
+            LanternTracker lanternTracker = ((LanternSkillDef.InstanceData)skillSlot.skillInstanceData).lanternTracker;
+            return lanternTracker ? lanternTracker.GetTrackingTarget() : null;
+        }
+
+        public override bool CanExecute([NotNull] GenericSkill skillSlot)
+        {
+            return HasTarget(skillSlot) && base.CanExecute(skillSlot);
+        }
+
+        public override bool IsReady([NotNull] GenericSkill skillSlot)
+        {
+            return base.IsReady(skillSlot) && HasTarget(skillSlot);
+        }
+
+        protected class InstanceData : SkillDef.BaseSkillInstanceData 
+        {
+            public LanternTracker lanternTracker;
+        }
+    }
 }

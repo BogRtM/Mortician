@@ -12,8 +12,8 @@ using R2API;
 using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
-using SkillStates.Morris;
-using SkillStates.Ghoul;
+using Skillstates.Morris;
+using Skillstates.Ghoul;
 using RoR2.CharacterAI;
 
 namespace Morris.Modules.NPC
@@ -44,8 +44,8 @@ namespace Morris.Modules.NPC
 
             maxHealth = 160f,
             healthGrowth = 48f,
-            healthRegen = -6f,
-            regenGrowth = -1.2f,
+            healthRegen = -10f,
+            regenGrowth = -2f,
             damage = 14f,
             damageGrowth = 2.8f,
             armor = 20f,
@@ -66,6 +66,7 @@ namespace Morris.Modules.NPC
         //public override UnlockableDef characterUnlockableDef => null;
 
         public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
+        public override Type characterSpawnState => typeof(GhoulSpawnState);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 
@@ -79,41 +80,17 @@ namespace Morris.Modules.NPC
             base.InitializeCharacter();
             MorrisPlugin.GhoulBodyPrefab = this.bodyPrefab;
 
-            CapsuleCollider capsule = bodyPrefab.GetComponent<CapsuleCollider>();
-            capsule.radius = 0.6f;
-            capsule.height = 2.35f;
+            EntityStateMachine ghoulBodyESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Body");
 
-            SpawnGhoul.placementCapsuleRadius = capsule.radius;
-            SpawnGhoul.placementCapsuleHeight = capsule.height;
-        }
+            MorrisMinionController launchComponent = bodyPrefab.AddComponent<MorrisMinionController>();
+            launchComponent.hitboxGroupName = "LaunchHitbox";
 
-        protected override void InitializeCharacterMaster()
-        {
-            GameObject ghoulMasterPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/LemurianMaster.prefab").WaitForCompletion(),
-                "GhoulMaster");
-            CharacterMaster characterMaster = ghoulMasterPrefab.GetComponent<CharacterMaster>();
-            characterMaster.bodyPrefab = this.bodyPrefab;
+            CharacterDeathBehavior CDB = bodyPrefab.GetComponent<CharacterDeathBehavior>();
+            CDB.deathStateMachine = ghoulBodyESM;
+            CDB.deathState = new SerializableEntityStateType(typeof(GhoulDeathState));
 
-            foreach (AISkillDriver i in ghoulMasterPrefab.GetComponentsInChildren<AISkillDriver>())
-            {
-                UnityEngine.Object.DestroyImmediate(i);
-            }
-
-            BaseAI ghoulAI = ghoulMasterPrefab.GetComponent<BaseAI>();
-            ghoulAI.neverRetaliateFriendlies = true;
-
-            SpawnGhoul.GhoulMasterPrefab = ghoulMasterPrefab;
-        }
-
-        private void SetCoreTransform()
-        {
-            ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
-            GameObject model = childLocator.gameObject;
-            CharacterBody characterBody = bodyPrefab.GetComponent<CharacterBody>();
-
-            Transform baseTransform = childLocator.FindChild("BaseBone");
-            model.GetComponent<CharacterModel>().coreTransform = baseTransform;
-            characterBody.coreTransform = baseTransform;
+            SfxLocator sfxLocator = bodyPrefab.GetComponent<SfxLocator>();
+            sfxLocator.deathSound = null;
         }
 
         public override void InitializeHitboxes()
@@ -121,8 +98,11 @@ namespace Morris.Modules.NPC
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
             
-            Transform swingHitbox = childLocator.FindChild("MeleeHitbox");
-            Modules.Prefabs.SetupHitbox(model, swingHitbox, "Melee");
+            Transform meleeHitbox = childLocator.FindChild("MeleeHitbox");
+            Modules.Prefabs.SetupHitbox(model, meleeHitbox, "GhoulMelee");
+
+            Transform bodyHitbox = childLocator.FindChild("LaunchHitbox");
+            Modules.Prefabs.SetupHitbox(model, bodyHitbox, "LaunchHitbox");
         }
 
         public override void InitializeSkills()
@@ -132,43 +112,16 @@ namespace Morris.Modules.NPC
 
             
             #region Primary
-            
-            /*
-            SkillDef primarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = prefix + "_Morris_BODY_PRIMARY_SHOOT_NAME",
-                skillNameToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_NAME",
-                skillDescriptionToken = prefix + "_Morris_BODY_PRIMARY_SHOOT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texThrustIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
-                activationStateMachineName = "Weapon",
-                baseMaxStock = 1,
-                baseRechargeInterval = 0f,
-                beginSkillCooldownOnSkillEnd = false,
-                canceledFromSprinting = false,
-                forceSprintDuringState = false,
-                fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
-                resetCooldownTimerOnUse = false,
-                isCombatSkill = true,
-                mustKeyPress = false,
-                cancelSprintingOnActivation = false,
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] {"KEYWORD_AGILE"}
-            });
-            */
 
             SkillDef ghoulPrimary = ScriptableObject.CreateInstance<SkillDef>();
-            ghoulPrimary.skillName = prefix + "_GHOUL_BODY_PRIMARY_SHOVEL_NAME";
-            ghoulPrimary.skillNameToken = prefix + "_GHOUL_BODY_PRIMARY_SHOVEL_NAME";
-            ghoulPrimary.skillDescriptionToken = prefix + "_GHOUL_BODY_PRIMARY_SHOVEL_DESCRIPTION";
+            ghoulPrimary.skillName = prefix + "_GHOUL_BODY_PRIMARY_MELEE_NAME";
+            ghoulPrimary.skillNameToken = prefix + "_GHOUL_BODY_PRIMARY_MELEE_NAME";
+            ghoulPrimary.skillDescriptionToken = prefix + "_GHOUL_BODY_PRIMARY_MELEE_DESCRIPTION";
             ghoulPrimary.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
             ghoulPrimary.activationState = new EntityStates.SerializableEntityStateType(typeof(GhoulMelee));
             ghoulPrimary.activationStateMachineName = "Body";
             ghoulPrimary.baseMaxStock = 1;
-            ghoulPrimary.baseRechargeInterval = 0f;
+            ghoulPrimary.baseRechargeInterval = 2f;
             ghoulPrimary.beginSkillCooldownOnSkillEnd = false;
             ghoulPrimary.canceledFromSprinting = false;
             ghoulPrimary.forceSprintDuringState = false;
@@ -189,14 +142,14 @@ namespace Morris.Modules.NPC
             #region Secondary
             SkillDef ghoulSecondary = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_GHOUL_BODY_SECONDARY_GHOUL_NAME",
-                skillNameToken = prefix + "_GHOUL_BODY_SECONDARY_GHOUL_NAME",
-                skillDescriptionToken = prefix + "_GHOUL_BODY_SECONDARY_GHOUL_DESCRIPTION",
+                skillName = prefix + "_GHOUL_BODY_SECONDARY_SPIT_NAME",
+                skillNameToken = prefix + "_GHOUL_BODY_SECONDARY_SPIT_NAME",
+                skillDescriptionToken = prefix + "_GHOUL_BODY_SECONDARY_SPIT_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("GunSlingIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillTemplate)),
-                activationStateMachineName = "Body",
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BileSpit)),
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 4f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -212,6 +165,134 @@ namespace Morris.Modules.NPC
         });
             Modules.Skills.AddSecondarySkills(bodyPrefab, ghoulSecondary);
             #endregion
+        }
+        protected override void InitializeCharacterMaster()
+        {
+            GameObject ghoulMasterPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/LemurianMaster.prefab").WaitForCompletion(),
+                "GhoulMaster");
+            CharacterMaster characterMaster = ghoulMasterPrefab.GetComponent<CharacterMaster>();
+            characterMaster.bodyPrefab = this.bodyPrefab;
+
+            BaseAI ghoulAI = ghoulMasterPrefab.GetComponent<BaseAI>();
+            ghoulAI.neverRetaliateFriendlies = true;
+            ghoulAI.aimVectorMaxSpeed *= 2f;
+
+            InitializeSkillDrivers(ghoulMasterPrefab);
+
+            SpawnGhoul.GhoulMasterPrefab = ghoulMasterPrefab;
+        }
+
+        protected virtual void InitializeSkillDrivers(GameObject masterPrefab)
+        {
+            foreach (AISkillDriver i in masterPrefab.GetComponentsInChildren<AISkillDriver>())
+            {
+                UnityEngine.Object.DestroyImmediate(i);
+            }
+
+            AISkillDriver biteDriver = masterPrefab.AddComponent<AISkillDriver>();
+            biteDriver.customName = "BiteOffNodeGraph";
+            biteDriver.skillSlot = SkillSlot.Primary;
+            biteDriver.requireSkillReady = true;
+            biteDriver.minUserHealthFraction = float.NegativeInfinity;
+            biteDriver.maxUserHealthFraction = float.PositiveInfinity;
+            biteDriver.minTargetHealthFraction = float.NegativeInfinity;
+            biteDriver.maxTargetHealthFraction = float.PositiveInfinity;
+            biteDriver.minDistance = 0f;
+            biteDriver.maxDistance = 5f;
+            biteDriver.activationRequiresAimConfirmation = false;
+            biteDriver.activationRequiresTargetLoS = false;
+            biteDriver.selectionRequiresTargetLoS = true;
+            biteDriver.maxTimesSelected = -1;
+            biteDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            biteDriver.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            biteDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            biteDriver.moveInputScale = 1f;
+            biteDriver.ignoreNodeGraph = true;
+            biteDriver.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver spitDriver = masterPrefab.AddComponent<AISkillDriver>();
+            spitDriver.customName = "SpitBile";
+            spitDriver.skillSlot = SkillSlot.Secondary;
+            spitDriver.requireSkillReady = true;
+            spitDriver.minUserHealthFraction = float.NegativeInfinity;
+            spitDriver.maxUserHealthFraction = float.PositiveInfinity;
+            spitDriver.minTargetHealthFraction = float.NegativeInfinity;
+            spitDriver.maxTargetHealthFraction = float.PositiveInfinity;
+            spitDriver.minDistance = 0f;
+            spitDriver.maxDistance = 40f;
+            spitDriver.activationRequiresAimConfirmation = true;
+            spitDriver.activationRequiresTargetLoS = true;
+            spitDriver.selectionRequiresTargetLoS = true;
+            spitDriver.maxTimesSelected = -1;
+            spitDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            spitDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            spitDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            spitDriver.moveInputScale = 1f;
+            spitDriver.ignoreNodeGraph = false;
+            spitDriver.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver strafeDriver = masterPrefab.AddComponent<AISkillDriver>();
+            strafeDriver.customName = "StrafeNearTarget";
+            strafeDriver.skillSlot = SkillSlot.None;
+            strafeDriver.requireSkillReady = true;
+            strafeDriver.minUserHealthFraction = float.NegativeInfinity;
+            strafeDriver.maxUserHealthFraction = float.PositiveInfinity;
+            strafeDriver.minTargetHealthFraction = float.NegativeInfinity;
+            strafeDriver.maxTargetHealthFraction = float.PositiveInfinity;
+            strafeDriver.minDistance = 0f;
+            strafeDriver.maxDistance = 4f;
+            strafeDriver.activationRequiresAimConfirmation = false;
+            strafeDriver.activationRequiresTargetLoS = false;
+            strafeDriver.selectionRequiresTargetLoS = true;
+            strafeDriver.maxTimesSelected = -1;
+            strafeDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            strafeDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            strafeDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            strafeDriver.moveInputScale = 1f;
+            strafeDriver.ignoreNodeGraph = true;
+            strafeDriver.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver chaseNearDriver = masterPrefab.AddComponent<AISkillDriver>();
+            chaseNearDriver.customName = "ChaseTargetClose";
+            chaseNearDriver.skillSlot = SkillSlot.None;
+            chaseNearDriver.requireSkillReady = true;
+            chaseNearDriver.minUserHealthFraction = float.NegativeInfinity;
+            chaseNearDriver.maxUserHealthFraction = float.PositiveInfinity;
+            chaseNearDriver.minTargetHealthFraction = float.NegativeInfinity;
+            chaseNearDriver.maxTargetHealthFraction = float.PositiveInfinity;
+            chaseNearDriver.minDistance = 0f;
+            chaseNearDriver.maxDistance = 10f;
+            chaseNearDriver.activationRequiresAimConfirmation = false;
+            chaseNearDriver.activationRequiresTargetLoS = false;
+            chaseNearDriver.selectionRequiresTargetLoS = true;
+            chaseNearDriver.maxTimesSelected = -1;
+            chaseNearDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            chaseNearDriver.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            chaseNearDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            chaseNearDriver.moveInputScale = 1f;
+            chaseNearDriver.ignoreNodeGraph = true;
+            chaseNearDriver.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver chaseFarDriver = masterPrefab.AddComponent<AISkillDriver>();
+            chaseFarDriver.customName = "PathFromAfar";
+            chaseFarDriver.skillSlot = SkillSlot.None;
+            chaseFarDriver.requireSkillReady = true;
+            chaseFarDriver.minUserHealthFraction = float.NegativeInfinity;
+            chaseFarDriver.maxUserHealthFraction = float.PositiveInfinity;
+            chaseFarDriver.minTargetHealthFraction = float.NegativeInfinity;
+            chaseFarDriver.maxTargetHealthFraction = float.PositiveInfinity;
+            chaseFarDriver.minDistance = 0f;
+            chaseFarDriver.maxDistance = float.PositiveInfinity;
+            chaseFarDriver.activationRequiresAimConfirmation = false;
+            chaseFarDriver.activationRequiresTargetLoS = false;
+            chaseFarDriver.selectionRequiresTargetLoS = false;
+            chaseFarDriver.maxTimesSelected = -1;
+            chaseFarDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            chaseFarDriver.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            chaseFarDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            chaseFarDriver.moveInputScale = 1f;
+            chaseFarDriver.ignoreNodeGraph = false;
+            chaseFarDriver.buttonPressType = AISkillDriver.ButtonPressType.Hold;
         }
 
         public override void InitializeSkins()

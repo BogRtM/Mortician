@@ -3,15 +3,15 @@ using RoR2;
 using EntityStates;
 using EntityStates.GolemMonster;
 using System;
-namespace SkillStates.Morris
+using Morris.Components;
+using UnityEngine.Networking;
+namespace Skillstates.Morris
 {
     internal class SpawnGhoul : BaseState
     {
         public static GameObject GhoulMasterPrefab;
 
         public static float baseDuration = 1f;
-        public static float placementCapsuleRadius;
-        public static float placementCapsuleHeight;
 
         private float duration;
         private float earlyExitTime;
@@ -20,13 +20,16 @@ namespace SkillStates.Morris
             base.OnEnter();
 
             duration = baseDuration / attackSpeedStat;
-            earlyExitTime = duration * 0.5f;
+            earlyExitTime = duration * 0.3f;
 
             PlayCrossfade("Gesture, Override", "LanternRaise", "Swing.playbackRate", duration, 0.05f);
 
             StartAimMode(2f, false);
 
-            AttemptSpawnGhoul();
+            if (NetworkServer.active)
+            {
+                AttemptSpawnGhoul();
+            }
         }
 
         private void AttemptSpawnGhoul()
@@ -39,7 +42,13 @@ namespace SkillStates.Morris
             masterSummon.inventoryToCopy = base.characterBody.inventory;
             masterSummon.position = GetBestSpawnPosition();
             masterSummon.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
-            masterSummon.Perform();
+            
+            CharacterMaster characterMaster = masterSummon.Perform();
+            if(characterMaster)
+            {
+                MorrisMinionController minionController = characterMaster.bodyInstanceObject.GetComponent<MorrisMinionController>();
+                minionController.owner = base.gameObject;
+            }
         }
 
         private Vector3 GetBestSpawnPosition()

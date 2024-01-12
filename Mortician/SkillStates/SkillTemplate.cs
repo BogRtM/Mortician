@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
-namespace SkillStates.Morris
+namespace Skillstates.Morris
 {
     internal class SkillTemplate : BaseState
     {

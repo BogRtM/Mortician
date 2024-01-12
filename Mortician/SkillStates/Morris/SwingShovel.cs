@@ -6,15 +6,19 @@ using RoR2.Skills;
 using Morris;
 using Morris.Modules;
 using System;
+using Morris.Components;
 namespace Skillstates.Morris
 {
     internal class SwingShovel : BaseState, SteppedSkillDef.IStepSetter
     {
         public static float baseDuration = 1.833f;
-        public static float damageCoefficient = 8f;
+        public static float damageCoefficient = 6f;
         public static float smallHopVelocity = 5.5f;
 
         private Animator animator;
+
+        private OverlapAttack attack;
+        private HitBoxGroup hitBoxGroup;
 
         private float duration;
         private float step;
@@ -45,7 +49,27 @@ namespace Skillstates.Morris
                 base.PlayCrossfade("FullBody, Override", swingIndex, "Swing.playbackRate", duration, 0.1f);
 
             base.PlayCrossfade("Gesture, Override", swingIndex, "Swing.playbackRate", duration, 0.1f);
-            
+
+            Transform modelTransform = base.GetModelTransform();
+
+            if (modelTransform)
+            {
+                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Swing");
+            }
+
+            attack = new OverlapAttack();
+            attack.attacker = base.gameObject;
+            attack.inflictor = base.gameObject;
+            attack.damageType = DamageType.Generic;
+            attack.procCoefficient = 1f;
+            attack.teamIndex = base.GetTeam();
+            attack.isCrit = base.RollCrit();
+            attack.forceVector = Vector3.zero;
+            attack.pushAwayForce = 1f;
+            attack.damage = damageCoefficient * base.damageStat;
+            attack.hitBoxGroup = hitBoxGroup;
+            attack.hitEffectPrefab = null;
+            attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
         }
 
         public override void FixedUpdate()
@@ -67,29 +91,6 @@ namespace Skillstates.Morris
         {
             hasFired = true;
 
-            Transform modelTransform = base.GetModelTransform();
-            HitBoxGroup hitBoxGroup = null;
-
-            if (modelTransform)
-            {
-                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Swing");
-            }
-
-            OverlapAttack attack = new OverlapAttack();
-            attack.attacker = base.gameObject;
-            attack.inflictor = base.gameObject;
-            attack.damageType = DamageType.Generic;
-            attack.procCoefficient = 1f;
-            attack.teamIndex = base.GetTeam();
-            attack.isCrit = base.RollCrit();
-            attack.forceVector = Vector3.zero;
-            attack.pushAwayForce = 1f;
-            attack.damage = damageCoefficient * base.damageStat;
-            attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = null;
-
-            attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
-
             if (base.isAuthority)
             {
                 if (attack.Fire())
@@ -101,16 +102,16 @@ namespace Skillstates.Morris
                     }
                 }
 
-                HitGhoul(hitBoxGroup);
+                HitGhoul(this.hitBoxGroup);
             }
-            
-
-            
         }
 
         public void HitGhoul(HitBoxGroup hitBoxGroup)
         {
             HurtBox hurtBox;
+
+            Ray aimRay = base.GetAimRay();
+            Vector3 launchVector = aimRay.direction;
 
             foreach(HitBox hitBox in hitBoxGroup.hitBoxes)
             {
@@ -123,10 +124,10 @@ namespace Skillstates.Morris
 
                 for (int i = 0; i < hitObjects.Length; i++)
                 {
-                    CharacterBody body = hitObjects[i].GetComponent<CharacterBody>();
-                    if (body && body.bodyIndex == MorrisPlugin.GhoulBodyIndex)
+                    MorrisMinionController launchComponent = hitObjects[i].GetComponent<MorrisMinionController>();
+                    if (launchComponent && launchComponent.teamIndex == base.teamComponent.teamIndex)
                     {
-                        Chat.AddMessage("You hit a ghoul!");
+                        launchComponent.Launch(launchVector);
                     }
                 }
             }
