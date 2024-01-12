@@ -19,7 +19,7 @@ namespace Morris.Modules
             string desc = "The Mortician is a lumbering melee tank who faces the horde with an army of undead and an array of ghastly powers.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls launched by your shovel will latch onto larger enemies and bite them repeatedly." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls make no effort to follow you, and instead focus solely on their targets." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > " + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Use Soul Drain for dealing with large enemies, and Sacrifice for clearing large crowds." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > " + Environment.NewLine + Environment.NewLine + Environment.NewLine;
 
             desc += modderNote;
@@ -44,15 +44,15 @@ namespace Morris.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Corpse Explosion");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls will explode for <style=cIsDamage>{250f}% damage</style> and " +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls will explode for <style=cIsDamage>{GhoulDeathState.baseDamageCoefficient * 100f}% damage</style> and " +
                 $"<style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
             #endregion
 
             #region Keywords
             LanguageAPI.Add("KEYWORD_SACRIFICE", $"<style=cKeywordName>Sacrifice</style><style=cSub>" +
-                $"Kill the target ghoul to heal <style=cIsHealing>20%</style> of your maximum health. " +
+                $"Kill the target ghoul to heal <style=cIsHealing>{LanternSkillState.sacrificePercentHealAmount * 100f}%</style> of your maximum health. " +
                 $"This ghoul's <style=cIsDamage>Corpse Explosion</style> will be empowered to have a larger radius and " +
-                $"deal <style=cIsDamage>{800f}% damage</style></style>.");
+                $"deal <style=cIsDamage>{GhoulDeathState.sacrificedDamageCoefficient * 100f}% damage</style></style>.");
 
             LanguageAPI.Add("KEYWORD_SOULDRAIN", $"<style=cKeywordName>Soul Drain</style><style=cSub>Drain <style=cIsDamage>{1f}%</style> of the target's maximum health per second, " +
                 $"and heal <style=cIsHealing>{1f}%</style> of your maximum health per second.</style>");

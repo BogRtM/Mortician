@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using RoR2;
+using RoR2.Orbs;
 using EntityStates;
 using Morris.Components;
 using Morris;
@@ -8,6 +9,7 @@ namespace Skillstates.Morris
     internal class LanternSkillState : BaseState
     {
         public static float baseDuration = 0.7f;
+        public static float sacrificePercentHealAmount = 0.2f;
 
         private LanternTracker lanternTracker;
 
@@ -48,6 +50,13 @@ namespace Skillstates.Morris
 
         public void SacrificeGhoul(MorrisMinionController minionController)
         {
+            HealOrb healOrb = new HealOrb();
+            healOrb.origin = minionController.transform.position;
+            healOrb.target = base.characterBody.mainHurtBox;
+            healOrb.healValue = base.characterBody.maxHealth * sacrificePercentHealAmount;
+            healOrb.overrideDuration = 0.5f;
+            OrbManager.instance.AddOrb(healOrb);
+
             minionController.Sacrifice();
         }
 

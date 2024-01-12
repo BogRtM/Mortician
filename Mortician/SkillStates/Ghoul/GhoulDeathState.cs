@@ -27,6 +27,7 @@ namespace Skillstates.Ghoul
         private float damage;
         private float radius;
         private GameObject blastEffect;
+        private bool hasExploded;
 
         public override void OnEnter()
         {
@@ -65,8 +66,9 @@ namespace Skillstates.Ghoul
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= duration)
+            if(base.fixedAge >= duration && !hasExploded)
             {
+                hasExploded = true;
                 base.DestroyModel();
                 this.Explode();
                 if(NetworkServer.active)
@@ -81,11 +83,11 @@ namespace Skillstates.Ghoul
             EffectData effectData = new EffectData()
             {
                 origin = base.characterBody.footPosition,
-                scale = baseRadius
+                scale = radius
             };
             EffectManager.SpawnEffect(blastEffect, effectData, true);
 
-            if (NetworkServer.active)
+            if (base.isAuthority)
             {
                 attack.Fire();
             }

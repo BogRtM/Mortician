@@ -7,7 +7,7 @@ namespace Morris.Components
 {
     public class LanternTracker : MonoBehaviour
     {
-        public float maxTrackingDistance = 30f;
+        public float maxTrackingDistance = 60f;
 
         public float maxTrackingAngle = 20f;
 
@@ -74,10 +74,13 @@ namespace Morris.Components
                 trackingTarget = null;
                 return;
             }
+            //If target is enemy
             else if(target.teamIndex != teamComponent.teamIndex)
             {
                 trackingTarget = target;
             }
+
+            //If target is ally, check for ghoul
             else
             {
                 if (target.healthComponent.body.bodyIndex == MorrisPlugin.GhoulBodyIndex)
