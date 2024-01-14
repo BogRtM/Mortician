@@ -13,7 +13,7 @@ namespace Skillstates.Ghoul
         public static float baseDamageCoefficient = 2.5f;
         public static float sacrificedDamageCoefficient = 8f;
         public static float baseRadius = 8f;
-        public static float sacrificedRadius = 16f;
+        public static float sacrificedRadius = 20f;
         public static float smallHopVelocity = 5.5f;
 
         public static GameObject blastEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Croco/CrocoLeapExplosion.prefab").WaitForCompletion();
@@ -47,7 +47,7 @@ namespace Skillstates.Ghoul
             }
 
             attack = new BlastAttack();
-            attack.attacker = base.gameObject;
+            attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
             attack.inflictor = base.gameObject;
             attack.teamIndex = base.GetTeam();
             attack.baseDamage = damage * base.damageStat;

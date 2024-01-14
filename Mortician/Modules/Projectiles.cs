@@ -25,6 +25,9 @@ namespace Morris.Modules
 
             ProjectileDamage projectileDamage = ghoulBilePrefab.GetComponent<ProjectileDamage>();
             projectileDamage.damageType = DamageType.BlightOnHit;
+
+            ProjectileSimple projectileSimple = ghoulBilePrefab.GetComponent<ProjectileSimple>();
+            projectileSimple.desiredForwardSpeed = 200f;
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)

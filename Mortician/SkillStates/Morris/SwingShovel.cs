@@ -12,7 +12,7 @@ namespace Skillstates.Morris
     internal class SwingShovel : BaseState, SteppedSkillDef.IStepSetter
     {
         public static float baseDuration = 1.833f;
-        public static float damageCoefficient = 6f;
+        public static float damageCoefficient = 8f;
         public static float smallHopVelocity = 6f;
         public static float hitPauseDuration = 0.1f;
 

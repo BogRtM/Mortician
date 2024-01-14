@@ -42,8 +42,8 @@ namespace Morris.Modules.Survivors
             capsuleRadius = 0.9f,
             modelBasePosition = new Vector3(0f, -1.6f, 0f),
 
-            maxHealth = 160f,
-            healthGrowth = 48f,
+            maxHealth = 200f,
+            healthGrowth = 66f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             damage = 14f,
@@ -101,6 +101,10 @@ namespace Morris.Modules.Survivors
             cm.mass = 300f;
 
             bodyPrefab.AddComponent<LanternTracker>();
+
+            EntityStateMachine lanternESM = Array.Find(bodyPrefab.GetComponents<EntityStateMachine>(), (EntityStateMachine ESM) => ESM.customName == "Slide");
+            lanternESM.customName = "Lantern";
+            Log.Warning(lanternESM.customName);
         }
 
         private void SetCoreTransform()
@@ -164,34 +168,34 @@ namespace Morris.Modules.Survivors
             });
             */
 
-            SteppedSkillDef MorrisPrimarySkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
-            MorrisPrimarySkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
-            MorrisPrimarySkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
-            MorrisPrimarySkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_DESCRIPTION";
-            MorrisPrimarySkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
-            MorrisPrimarySkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
-            MorrisPrimarySkillDef.activationStateMachineName = "Weapon";
-            MorrisPrimarySkillDef.baseMaxStock = 1;
-            MorrisPrimarySkillDef.baseRechargeInterval = 0f;
-            MorrisPrimarySkillDef.beginSkillCooldownOnSkillEnd = false;
-            MorrisPrimarySkillDef.canceledFromSprinting = false;
-            MorrisPrimarySkillDef.forceSprintDuringState = false;
-            MorrisPrimarySkillDef.fullRestockOnAssign = true;
-            MorrisPrimarySkillDef.interruptPriority = EntityStates.InterruptPriority.Any;
-            MorrisPrimarySkillDef.resetCooldownTimerOnUse = false;
-            MorrisPrimarySkillDef.isCombatSkill = true;
-            MorrisPrimarySkillDef.mustKeyPress = false;
-            MorrisPrimarySkillDef.cancelSprintingOnActivation = true;
-            MorrisPrimarySkillDef.rechargeStock = 1;
-            MorrisPrimarySkillDef.requiredStock = 1;
-            MorrisPrimarySkillDef.stockToConsume = 1;
+            SteppedSkillDef shovelSkillDef = ScriptableObject.CreateInstance<SteppedSkillDef>();
+            shovelSkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
+            shovelSkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
+            shovelSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_DESCRIPTION";
+            shovelSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
+            shovelSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
+            shovelSkillDef.activationStateMachineName = "Weapon";
+            shovelSkillDef.baseMaxStock = 1;
+            shovelSkillDef.baseRechargeInterval = 0f;
+            shovelSkillDef.beginSkillCooldownOnSkillEnd = false;
+            shovelSkillDef.canceledFromSprinting = false;
+            shovelSkillDef.forceSprintDuringState = false;
+            shovelSkillDef.fullRestockOnAssign = true;
+            shovelSkillDef.interruptPriority = EntityStates.InterruptPriority.Any;
+            shovelSkillDef.resetCooldownTimerOnUse = false;
+            shovelSkillDef.isCombatSkill = true;
+            shovelSkillDef.mustKeyPress = false;
+            shovelSkillDef.cancelSprintingOnActivation = true;
+            shovelSkillDef.rechargeStock = 1;
+            shovelSkillDef.requiredStock = 1;
+            shovelSkillDef.stockToConsume = 1;
 
 
-            Modules.Skills.AddPrimarySkills(bodyPrefab, MorrisPrimarySkillDef);
+            Modules.Skills.AddPrimarySkills(bodyPrefab, shovelSkillDef);
             #endregion
 
             #region Secondary
-            SkillDef secondarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef ghoulSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
@@ -212,9 +216,10 @@ namespace Morris.Modules.Survivors
                 cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1
+                stockToConsume = 1,
+                keywordTokens = new string[] {"KEYWORD_LINKED"}
         });
-            Modules.Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef);
+            Modules.Skills.AddSecondarySkills(bodyPrefab, ghoulSkillDef);
             #endregion
 
             #region Utility
@@ -226,7 +231,7 @@ namespace Morris.Modules.Survivors
             lanternSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(LanternSkillState));
             lanternSkillDef.activationStateMachineName = "Weapon";
             lanternSkillDef.baseMaxStock = 1;
-            lanternSkillDef.baseRechargeInterval = 4f;
+            lanternSkillDef.baseRechargeInterval = 1f;
             lanternSkillDef.beginSkillCooldownOnSkillEnd = false;
             lanternSkillDef.canceledFromSprinting = false;
             lanternSkillDef.forceSprintDuringState = false;
@@ -245,7 +250,7 @@ namespace Morris.Modules.Survivors
             #endregion
 
             #region Special
-            SkillDef skullCrackerSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef tombstoneSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
@@ -269,7 +274,7 @@ namespace Morris.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] {  }
             });
-            Modules.Skills.AddSpecialSkills(bodyPrefab, skullCrackerSkillDef);
+            Modules.Skills.AddSpecialSkills(bodyPrefab, tombstoneSkillDef);
             #endregion
         }
 

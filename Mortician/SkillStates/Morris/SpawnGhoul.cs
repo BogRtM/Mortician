@@ -39,8 +39,8 @@ namespace Skillstates.Morris
             masterSummon.ignoreTeamMemberLimit = true;
             masterSummon.teamIndexOverride = TeamIndex.Player;
             masterSummon.summonerBodyObject = base.gameObject;
-            masterSummon.inventoryToCopy = base.characterBody.inventory;
-            masterSummon.position = GetBestSpawnPosition();
+            //masterSummon.inventoryToCopy = base.characterBody.inventory;
+            masterSummon.position = GetBestSpawnPosition(base.GetAimRay());
             masterSummon.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
             
             CharacterMaster characterMaster = masterSummon.Perform();
@@ -51,9 +51,8 @@ namespace Skillstates.Morris
             }
         }
 
-        private Vector3 GetBestSpawnPosition()
+        private Vector3 GetBestSpawnPosition(Ray aimRay)
         {
-            Ray aimRay = base.GetAimRay();
             Vector3 direction = aimRay.direction;
             direction.y = 0f;
             direction.Normalize();

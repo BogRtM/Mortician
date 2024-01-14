@@ -32,7 +32,13 @@ namespace Skillstates.Morris
             }
             else
             {
-                Chat.AddMessage("That's not a ghoul");
+                EntityStateMachine lanternMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Lantern");
+                SoulDrain nextState = new SoulDrain()
+                {
+                    drainTarget = target,
+                };
+
+                lanternMachine.SetInterruptState(nextState, InterruptPriority.Skill);
             }
 
             StartAimMode(2f, false);

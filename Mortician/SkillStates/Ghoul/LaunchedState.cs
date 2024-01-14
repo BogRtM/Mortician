@@ -5,14 +5,18 @@ using EntityStates.Toolbot;
 using System;
 using System.Collections.Generic;
 using Morris;
+using Morris.Components;
 namespace Skillstates.Ghoul
 {
     internal class LaunchedState : BaseState
     {
         public static float minDuration = 0.3f;
-        public static float damageCoefficient = 4f;
-        public static float launchPower = 80f;
+        public static float damageCoefficient = 3.5f;
+        public static float launchPower = 70f;
         public static float yOffset = 0.1f;
+        public static float minMassToCling = 200f;
+
+        private MorrisMinionController minionController;
 
         private OverlapAttack attack;
 
@@ -28,6 +32,8 @@ namespace Skillstates.Ghoul
         {
             base.OnEnter();
 
+            minionController = base.GetComponent<MorrisMinionController>();
+
             selfIsGhoul = base.characterBody.bodyIndex == MorrisPlugin.GhoulBodyIndex;
 
             launchVector.y += yOffset;
@@ -36,7 +42,7 @@ namespace Skillstates.Ghoul
             base.characterMotor.Motor.RebuildCollidableLayers();
 
             cachedAirControl = base.characterMotor.airControl;
-            base.characterMotor.airControl = 0.1f;
+            base.characterMotor.airControl = 0.15f;
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
 
@@ -58,7 +64,7 @@ namespace Skillstates.Ghoul
             }
 
             attack = new OverlapAttack();
-            attack.attacker = base.gameObject;
+            attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
             attack.inflictor = base.gameObject;
             attack.damageType = DamageType.BlightOnHit;
             attack.procCoefficient = 1f;
@@ -77,27 +83,29 @@ namespace Skillstates.Ghoul
 
             if(base.isAuthority)
             {
-                attack.Fire(victims);
-
-                foreach(HurtBox victim in victims)
+                if(attack.Fire(victims))
                 {
-                    float victimMass = 0f;
-                    if(victim.healthComponent)
+                    foreach (HurtBox victim in victims)
                     {
-                        CharacterMotor victimMotor = victim.healthComponent.GetComponent<CharacterMotor>();
-                        if(victimMotor)
+                        float victimMass = 0f;
+                        if (victim.healthComponent && victim.healthComponent.alive)
                         {
-                            victimMass = victimMotor.mass;
-                        }else
-                        {
-                            Rigidbody rigidBody = victim.healthComponent.GetComponent<Rigidbody>();
-                            victimMass = rigidBody.mass;
+                            CharacterMotor victimMotor = victim.healthComponent.GetComponent<CharacterMotor>();
+                            if (victimMotor)
+                            {
+                                victimMass = victimMotor.mass;
+                            }
+                            else
+                            {
+                                Rigidbody rigidBody = victim.healthComponent.GetComponent<Rigidbody>();
+                                victimMass = rigidBody.mass;
+                            }
                         }
-                    }
 
-                    if(victimMass >= ToolbotDash.massThresholdForKnockback && selfIsGhoul)
-                    {
-                        this.outer.SetNextStateToMain();
+                        if (victimMass >= minMassToCling && selfIsGhoul)
+                        {
+                            this.outer.SetNextStateToMain();
+                        }
                     }
                 }
             }

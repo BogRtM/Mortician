@@ -54,19 +54,24 @@ namespace Morris.Modules
                 $"This ghoul's <style=cIsDamage>Corpse Explosion</style> will be empowered to have a larger radius and " +
                 $"deal <style=cIsDamage>{GhoulDeathState.sacrificedDamageCoefficient * 100f}% damage</style></style>.");
 
-            LanguageAPI.Add("KEYWORD_SOULDRAIN", $"<style=cKeywordName>Soul Drain</style><style=cSub>Drain <style=cIsDamage>{1f}%</style> of the target's maximum health per second, " +
+            LanguageAPI.Add("KEYWORD_SOULDRAIN", $"<style=cKeywordName>Soul Drain</style><style=cSub>Deal the greater of <style=cIsDamage>{150}% damage</style> or " +
+                $"<style=cIsDamage>{1f}%</style> of the target's maximum health per second, " +
                 $"and heal <style=cIsHealing>{1f}%</style> of your maximum health per second.</style>");
+
+            LanguageAPI.Add("KEYWORD_LINKED", $"<style=cKeywordName>Linked</style><style=cSub>Ghouls do not inherit your items, but all damage they deal " +
+                $"is treated as your own.</style>");
+            //Additionally, ghouls inherit your <style=cIsDamage>damage</style> and <style=cIsDamage>attack speed</style> stats.
             #endregion
 
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SHOVEL_NAME", "Shovel Strike");
-            LanguageAPI.Add(prefix + "PRIMARY_SHOVEL_DESCRIPTION", $"Swing your shovel for <style=cIsDamage>{SwingShovel.damageCoefficient * 100f} damage</style>. " +
-                $"Hit ghouls and tombstones to <style=cIsUtility>launch</style> them for <style=cIsDamage>{400f}% damage</style>.");
+            LanguageAPI.Add(prefix + "PRIMARY_SHOVEL_DESCRIPTION", $"Swing your shovel for <style=cIsDamage>{SwingShovel.damageCoefficient * 100f}% damage</style>. " +
+                $"Hit ghouls and tombstones to <style=cIsUtility>launch</style> them for <style=cIsDamage>{LaunchedState.damageCoefficient * 100f}% damage</style>.");
             #endregion
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_GHOUL_NAME", "Raise Dead");
-            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"Spawn a ghoul on the ground in front of you. Ghouls bite for " +
+            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"<style=cIsUtility>Linked</style>. Spawn a ghoul on the ground in front of you. Ghouls bite for " +
                 $"<style=cIsDamage>{GhoulMelee.damageCoefficient * 100f}% damage</style>, " +
                 $"spit bile for <style=cIsDamage>{BileSpit.damageCoefficient * 100f}% damage</style>, and inflict <style=cIsDamage>Blight</style> with each attack.");
             #endregion

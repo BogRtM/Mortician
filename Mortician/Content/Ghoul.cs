@@ -46,6 +46,7 @@ namespace Morris.Modules.NPC
             healthGrowth = 48f,
             healthRegen = -10f,
             regenGrowth = -2f,
+            moveSpeed = 10f,
             damage = 14f,
             damageGrowth = 2.8f,
             armor = 20f,
@@ -176,6 +177,7 @@ namespace Morris.Modules.NPC
             BaseAI ghoulAI = ghoulMasterPrefab.GetComponent<BaseAI>();
             ghoulAI.neverRetaliateFriendlies = true;
             ghoulAI.aimVectorMaxSpeed *= 2f;
+            ghoulAI.fullVision = true;
 
             InitializeSkillDrivers(ghoulMasterPrefab);
 

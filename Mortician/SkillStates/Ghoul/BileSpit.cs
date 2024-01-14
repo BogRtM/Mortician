@@ -3,6 +3,7 @@ using RoR2;
 using RoR2.Projectile;
 using EntityStates;
 using Morris.Modules;
+using Morris.Components;
 namespace Skillstates.Ghoul
 {
     internal class BileSpit : BaseState
@@ -12,12 +13,16 @@ namespace Skillstates.Ghoul
         public static float baseDuration = 1f;
         public static float damageCoefficient = 1.5f;
 
+        private MorrisMinionController minionController;
+
         private float duration;
         private float fireTime;
         private bool hasFired;
         public override void OnEnter()
         {
             base.OnEnter();
+
+            minionController = base.GetComponent<MorrisMinionController>();
 
             duration = baseDuration / this.attackSpeedStat;
             fireTime = duration * 0.3f;
@@ -36,8 +41,8 @@ namespace Skillstates.Ghoul
                 FireProjectileInfo FPI = new FireProjectileInfo();
                 FPI.crit = base.RollCrit();
                 FPI.damage = damageCoefficient * base.damageStat;
-                FPI.force = 1000f;
-                FPI.owner = base.gameObject;
+                FPI.force = 100f;
+                FPI.owner = minionController.owner ? minionController.owner : base.gameObject; ;
                 FPI.position = aimRay.origin;
                 FPI.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                 FPI.projectilePrefab = projectilePrefab;

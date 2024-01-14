@@ -4,6 +4,7 @@ using EntityStates;
 using UnityEngine.AddressableAssets;
 using Morris;
 using System;
+using Morris.Components;
 namespace Skillstates.Ghoul
 {
     internal class GhoulMelee : BaseState
@@ -12,6 +13,8 @@ namespace Skillstates.Ghoul
         public static float damageCoefficient = 2f;
 
         public static GameObject hitPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/OmniImpactVFXSlashSyringe.prefab").WaitForCompletion();
+
+        private MorrisMinionController minionController;
 
         private OverlapAttack attack;
 
@@ -28,6 +31,8 @@ namespace Skillstates.Ghoul
 
             StartAimMode(2f, false);
 
+            minionController = base.GetComponent<MorrisMinionController>();
+
             Transform modelTransform = base.GetModelTransform();
             HitBoxGroup hitBoxGroup = new HitBoxGroup();
 
@@ -37,7 +42,7 @@ namespace Skillstates.Ghoul
             }
 
             attack = new OverlapAttack();
-            attack.attacker = base.gameObject;
+            attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
             attack.inflictor = base.gameObject;
             attack.damageType = DamageType.BlightOnHit;
             attack.procCoefficient = 1f;
