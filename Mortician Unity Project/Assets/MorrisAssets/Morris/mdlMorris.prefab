@@ -4137,6 +4137,8 @@ MonoBehaviour:
     transform: {fileID: 7339484948872545670}
   - name: FootR
     transform: {fileID: 342508994816611563}
+  - name: LanternLight
+    transform: {fileID: 1141994435}
 --- !u!1 &7506017799464855750
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,9 +7,9 @@ namespace Morris.Components
 {
     public class LanternTracker : MonoBehaviour
     {
-        public float maxTrackingDistance = 60f;
+        public float maxTrackingDistance = 80f;
 
-        public float maxTrackingAngle = 20f;
+        public float maxTrackingAngle = 40f;
 
         public float trackerUpdateFrequency = 10f;
 
@@ -67,36 +67,10 @@ namespace Morris.Components
             }
         }
 
-        private void ValidateTarget(HurtBox target)
-        {
-            if (!target)
-            {
-                trackingTarget = null;
-                return;
-            }
-            //If target is enemy
-            else if(target.teamIndex != teamComponent.teamIndex)
-            {
-                trackingTarget = target;
-            }
-
-            //If target is ally, check for ghoul
-            else
-            {
-                if (target.healthComponent.body.bodyIndex == MorrisPlugin.GhoulBodyIndex)
-                {
-                    this.trackingTarget = target;
-                }   
-                else
-                {
-                    this.trackingTarget = null;
-                }
-            }
-        }
-
         private void SearchForTarget(Ray aimRay)
         {
-            this.search.teamMaskFilter = TeamMask.all;
+            this.search.teamMaskFilter = TeamMask.none;
+            this.search.teamMaskFilter.AddTeam(teamComponent.teamIndex);
             this.search.filterByLoS = true;
             this.search.searchOrigin = aimRay.origin;
             this.search.searchDirection = aimRay.direction;
@@ -108,6 +82,20 @@ namespace Morris.Components
 
             HurtBox searchResult = this.search.GetResults().FirstOrDefault<HurtBox>();
             ValidateTarget(searchResult);
+        }
+
+        //Make sure target is a ghoul
+        private void ValidateTarget(HurtBox target)
+        {
+            if (!target || target.healthComponent.body.bodyIndex != MorrisPlugin.GhoulBodyIndex)
+            {
+                this.trackingTarget = null;
+                return;
+            }
+            else
+            {
+                trackingTarget = target;
+            }
         }
     }
 }

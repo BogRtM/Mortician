@@ -4,7 +4,8 @@ using System.Text;
 using RoR2;
 using EntityStates;
 using UnityEngine;
-using Skillstates.Ghoul;
+using SkillStates.Ghoul;
+using SkillStates.Tombstone;
 using RoR2.UI;
 using UnityEngine.Networking;
 
@@ -13,18 +14,25 @@ namespace Morris.Components
     internal class MorrisMinionController : MonoBehaviour, ILifeBehavior
     {
         public GameObject owner { get; set; }
+        public GameObject sacrificeOwner { get; private set; }
 
         private EntityStateMachine bodyESM;
 
-        public TeamIndex teamIndex;
-
-        public string hitboxGroupName;
+        public TeamIndex teamIndex { get; private set; }
         public string soundString;
 
         public bool sacrificed { get; private set; }
 
         private CharacterBody characterBody;
         private HealthComponent healthComponent;
+
+        public enum MorrisMinionType
+        {
+            Ghoul,
+            Tombstone
+        }
+
+        public MorrisMinionType minionType;
 
         private void Start()
         {
@@ -36,18 +44,35 @@ namespace Morris.Components
 
         public void Launch(Vector3 direction)
         {
-            var nextState = new LaunchedState()
+            switch (minionType)
             {
-                launchVector = direction.normalized,
-                hitboxGroupName = this.hitboxGroupName
-            };
+                case MorrisMinionType.Ghoul:
+                    var ghoulState = new GhoulLaunchedState()
+                    {
+                        launchVector = direction.normalized
+                    };
 
-            bodyESM.SetInterruptState(nextState, InterruptPriority.Pain);
+                    bodyESM.SetInterruptState(ghoulState, InterruptPriority.Pain);
+                    break;
+
+                case MorrisMinionType.Tombstone:
+                    var tombstoneState = new TombstoneLaunchedState()
+                    {
+                        launchVector = direction.normalized
+                    };
+
+                    bodyESM.SetInterruptState(tombstoneState, InterruptPriority.Pain);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
-        public void Sacrifice()
+        public void Sacrifice(GameObject sacrificer)
         {
             sacrificed = true;
+            sacrificeOwner = sacrificer;
 
             this.healthComponent.Suicide();
         }

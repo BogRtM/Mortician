@@ -7,7 +7,7 @@ using Morris;
 using Morris.Modules;
 using System;
 using Morris.Components;
-namespace Skillstates.Morris
+namespace SkillStates.Morris
 {
     internal class SwingShovel : BaseState, SteppedSkillDef.IStepSetter
     {
@@ -81,9 +81,16 @@ namespace Skillstates.Morris
 
             hitPauseTimer -= Time.fixedDeltaTime;
 
-            if(base.isAuthority)
+            if (base.fixedAge >= fireTime && !hasFired)
             {
-                AuthorityFixedUpdate();
+                FireAttack();
+                HitGhoul(this.hitBoxGroup);
+            }
+
+            if (hitPauseTimer <= 0f && inHitPause)
+            {
+                base.ConsumeHitStopCachedState(hitStopCachedState, base.characterMotor, animator);
+                inHitPause = false;
             }
 
             if (!inHitPause)
@@ -102,41 +109,27 @@ namespace Skillstates.Morris
             }
         }
 
-        public void AuthorityFixedUpdate()
-        {
-            if (base.fixedAge >= fireTime && !hasFired)
-            {
-                FireAttack();
-            }
-
-            if (hitPauseTimer <= 0f && inHitPause)
-            {
-                base.ConsumeHitStopCachedState(hitStopCachedState, base.characterMotor, animator);
-                inHitPause = false;
-            }
-        }
-
         public void FireAttack()
         {
             hasFired = true;
-
-            if (attack.Fire())
+            if (base.isAuthority)
             {
-                if (!base.characterMotor.isGrounded && !hasHopped)
+                if (attack.Fire())
                 {
-                    hasHopped = true;
-                    base.SmallHop(base.characterMotor, smallHopVelocity);
-                }
+                    if (!base.characterMotor.isGrounded && !hasHopped)
+                    {
+                        hasHopped = true;
+                        base.SmallHop(base.characterMotor, smallHopVelocity);
+                    }
 
-                if (!inHitPause)
-                {
-                    hitStopCachedState = base.CreateHitStopCachedState(base.characterMotor, animator, "Swing.playbackRate");
-                    hitPauseTimer = hitPauseDuration / attackSpeedStat;
-                    inHitPause = true;
+                    if (!inHitPause)
+                    {
+                        hitStopCachedState = base.CreateHitStopCachedState(base.characterMotor, animator, "Swing.playbackRate");
+                        hitPauseTimer = hitPauseDuration / attackSpeedStat;
+                        inHitPause = true;
+                    }
                 }
             }
-
-            HitGhoul(this.hitBoxGroup);
         }
 
         public void HitGhoul(HitBoxGroup hitBoxGroup)

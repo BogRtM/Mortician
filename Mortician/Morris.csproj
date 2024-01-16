@@ -47,6 +47,9 @@
     <Reference Include="R2API.DamageType">
       <HintPath>..\libs\RiskofThunder-R2API_DamageType\R2API.DamageType\R2API.DamageType.dll</HintPath>
     </Reference>
+    <Reference Include="R2API.Deployable">
+      <HintPath>..\libs\RiskofThunder-R2API_Deployable\R2API.Deployable\R2API.Deployable.dll</HintPath>
+    </Reference>
     <Reference Include="R2API.Language">
       <HintPath>..\libs\RiskofThunder-R2API_Language\R2API.Language\R2API.Language.dll</HintPath>
     </Reference>

@@ -55,6 +55,14 @@ namespace Morris.Modules
             //skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special");
         }
 
+        internal static void CreateTombstoneSkillFamilies(GameObject targetPrefab)
+        {
+            foreach (GenericSkill obj in targetPrefab.GetComponentsInChildren<GenericSkill>())
+            {
+                UnityEngine.Object.DestroyImmediate(obj);
+            }
+        }
+
         public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, string familyName, bool hidden = false)
         {
             GenericSkill skill = targetPrefab.AddComponent<GenericSkill>();
@@ -169,6 +177,8 @@ namespace Morris.Modules
 
             return skillDef;
         }
+
+        
         #endregion skilldefs
     }
 

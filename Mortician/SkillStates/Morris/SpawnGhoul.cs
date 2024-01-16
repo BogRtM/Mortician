@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
-using EntityStates.GolemMonster;
-using System;
 using Morris.Components;
+using Morris.Modules.NPC;
 using UnityEngine.Networking;
-namespace Skillstates.Morris
+
+namespace SkillStates.Morris
 {
     internal class SpawnGhoul : BaseState
     {
-        public static GameObject GhoulMasterPrefab;
-
         public static float baseDuration = 1f;
 
         private float duration;
@@ -26,28 +24,33 @@ namespace Skillstates.Morris
 
             StartAimMode(2f, false);
 
-            if (NetworkServer.active)
-            {
-                AttemptSpawnGhoul();
-            }
+            AttemptSpawnGhoul();
         }
 
         private void AttemptSpawnGhoul()
         {
             MasterSummon masterSummon = new MasterSummon();
-            masterSummon.masterPrefab = GhoulMasterPrefab;
+            masterSummon.masterPrefab = LesserGhoul.ghoulMasterPrefab;
             masterSummon.ignoreTeamMemberLimit = true;
             masterSummon.teamIndexOverride = TeamIndex.Player;
             masterSummon.summonerBodyObject = base.gameObject;
             //masterSummon.inventoryToCopy = base.characterBody.inventory;
             masterSummon.position = GetBestSpawnPosition(base.GetAimRay());
             masterSummon.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
-            
-            CharacterMaster characterMaster = masterSummon.Perform();
+
+            CharacterMaster characterMaster = new CharacterMaster();
+            if (NetworkServer.active)
+            {
+                characterMaster = masterSummon.Perform();
+            }
+
             if(characterMaster)
             {
-                MorrisMinionController minionController = characterMaster.bodyInstanceObject.GetComponent<MorrisMinionController>();
+                MorrisMinionController minionController = characterMaster.GetBodyObject().GetComponent<MorrisMinionController>();
                 minionController.owner = base.gameObject;
+                //Chat.AddMessage(minionController.owner.name);
+
+                characterMaster.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
             }
         }
 
@@ -75,18 +78,6 @@ namespace Skillstates.Morris
             Physics.Raycast(spawnRay, out raycastHit, LayerIndex.world.mask);
 
             return raycastHit.point;
-            /*
-            bool placementOK = ValidateRaycastHit(ray, raycastHit);
-
-            if(placementOK)
-            {
-                return raycastHit.point;
-            }
-            else
-            {
-                return base.characterBody.footPosition;
-            }
-            */
         }
 
         private bool ValidateRaycastHit(Ray ray, RaycastHit hit)

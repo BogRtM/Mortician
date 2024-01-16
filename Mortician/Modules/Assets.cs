@@ -10,6 +10,7 @@ using RoR2.UI;
 using System;
 using TMPro;
 using Path = System.IO.Path;
+using SkillStates.Morris;
 
 namespace Morris.Modules
 {
@@ -33,6 +34,8 @@ namespace Morris.Modules
         private const string soundbankName = "MorrisBank.bnk";
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "Morris";
+
+        public static GameObject tombstoneBlueprintsPrefab;
 
         public static string AssetBundlePath
         {
@@ -128,6 +131,11 @@ namespace Morris.Modules
                 Log.Error("There is no AssetBundle to load assets from.");
                 return;
             }
+
+            tombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
+            BlueprintController blueprintController = tombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
+            blueprintController.okMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsOk.mat").WaitForCompletion();
+            blueprintController.invalidMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsInvalid.mat").WaitForCompletion();
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

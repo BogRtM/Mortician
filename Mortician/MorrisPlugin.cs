@@ -16,6 +16,7 @@ using EntityStates.Merc;
 using Morris.Modules;
 using EmotesAPI;
 using Morris.Components;
+using SkillStates.Morris;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -49,7 +50,11 @@ namespace Morris
         public static GameObject GhoulBodyPrefab;
         public static BodyIndex GhoulBodyIndex;
 
+        internal static GameObject TombstoneBodyPrefab;
+        internal static BodyIndex TombstoneBodyIndex;
+
         public static DamageAPI.ModdedDamageType LaunchGhoul;
+        
 
         private void Awake()
         {
@@ -70,8 +75,10 @@ namespace Morris
             // survivor initialization
             new Modules.Survivors.Morris().Initialize();
             Log.Warning("Mortician created successfully");
-            new Modules.NPC.Ghoul().Initialize();
+            new Modules.NPC.LesserGhoul().Initialize();
             Log.Warning("Ghoul created successfully");
+            new Modules.NPC.TombstoneDeployable().Initialize();
+            Log.Warning("Tombstone created successfully");
 
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
@@ -87,7 +94,7 @@ namespace Morris
 
         private void Subscriptions()
         {
-            GlobalEventManager.onClientDamageNotified += ShowHealthBarToOwner;
+            //GlobalEventManager.onClientDamageNotified += ShowHealthBarToOwner;
         }
 
         private void ShowHealthBarToOwner(DamageDealtMessage obj)
@@ -115,13 +122,14 @@ namespace Morris
         private void Hook()
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
-            
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 //On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
         }
+
+        
 
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
         {
@@ -141,10 +149,15 @@ namespace Morris
         private void BodyCatalog_SetBodyPrefabs(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)
         {
             orig(newBodyPrefabs);
+
             MorrisBodyIndex = BodyCatalog.FindBodyIndex(MorrisBodyPrefab);
             Log.Warning("Mortician's body index is: " + MorrisBodyIndex);
+
             GhoulBodyIndex = BodyCatalog.FindBodyIndex(GhoulBodyPrefab);
             Log.Warning("Mortician's ghoul body index is: " + GhoulBodyIndex);
+
+            TombstoneBodyIndex = BodyCatalog.FindBodyIndex(TombstoneBodyPrefab);
+            Log.Warning("Mortician's tombstone body index is: " + TombstoneBodyIndex);
         }
 
     }

@@ -5,13 +5,13 @@ using EntityStates;
 using EntityStates.Croco;
 using UnityEngine.Networking;
 using Morris.Components;
-namespace Skillstates.Ghoul
+namespace SkillStates.Ghoul
 {
     internal class GhoulDeathState : GenericCharacterDeath
     {
         public static float duration = 0.3f;
         public static float baseDamageCoefficient = 2.5f;
-        public static float sacrificedDamageCoefficient = 8f;
+        public static float sacrificedDamageCoefficient = 6f;
         public static float baseRadius = 8f;
         public static float sacrificedRadius = 20f;
         public static float smallHopVelocity = 5.5f;
@@ -24,6 +24,7 @@ namespace Skillstates.Ghoul
 
         private BlastAttack attack;
 
+        private GameObject damageOwner;
         private float damage;
         private float radius;
         private GameObject blastEffect;
@@ -47,7 +48,7 @@ namespace Skillstates.Ghoul
             }
 
             attack = new BlastAttack();
-            attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
+            attack.attacker = minionController.sacrificeOwner ? minionController.sacrificeOwner : minionController.owner;
             attack.inflictor = base.gameObject;
             attack.teamIndex = base.GetTeam();
             attack.baseDamage = damage * base.damageStat;

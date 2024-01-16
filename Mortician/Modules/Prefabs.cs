@@ -283,9 +283,11 @@ namespace Morris.Modules {
 
         private static void SetupCapsuleCollider(GameObject prefab) {
             var KCM = prefab.GetComponent<KinematicCharacterMotor>();
-            KCM.CapsuleHeight = 1.82f;
-            KCM.CapsuleRadius = 0.5f;
-            //KCM.CapsuleYOffset = KCM.CapsuleHeight * 0.5f;
+            if(KCM)
+            {
+                KCM.CapsuleHeight = 1.82f;
+                KCM.CapsuleRadius = 0.5f;
+            }
 
             CapsuleCollider capsuleCollider = prefab.GetComponent<CapsuleCollider>();
             capsuleCollider.center = new Vector3(0f, 0f, 0f);
@@ -296,9 +298,11 @@ namespace Morris.Modules {
         private static void SetupCapsuleCollider(GameObject prefab, float height, float radius)
         {
             var KCM = prefab.GetComponent<KinematicCharacterMotor>();
-            KCM.CapsuleHeight = height;
-            KCM.CapsuleRadius = radius;
-            //KCM.CapsuleYOffset = height * 0.5f;
+            if(KCM)
+            {
+                KCM.CapsuleHeight = height;
+                KCM.CapsuleRadius = radius;
+            }
 
             CapsuleCollider capsuleCollider = prefab.GetComponent<CapsuleCollider>();
             capsuleCollider.center = new Vector3(0f, 0f, 0f);

@@ -4,7 +4,7 @@ using RoR2.Projectile;
 using EntityStates;
 using Morris.Modules;
 using Morris.Components;
-namespace Skillstates.Ghoul
+namespace SkillStates.Ghoul
 {
     internal class BileSpit : BaseState
     {

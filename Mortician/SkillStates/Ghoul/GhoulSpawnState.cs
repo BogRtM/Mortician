@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
-namespace Skillstates.Ghoul
+namespace SkillStates.Ghoul
 {
     internal class GhoulSpawnState : BaseState
     {
