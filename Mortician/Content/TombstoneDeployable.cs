@@ -44,8 +44,8 @@ namespace Morris.Modules.NPC
             capsuleRadius = 1f,
             modelBasePosition = new Vector3(0f, -2.5f, 0f),
 
-            maxHealth = 300f,
-            healthGrowth = 90f,
+            maxHealth = 250f,
+            healthGrowth = 75f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             moveSpeed = 10f,
@@ -63,14 +63,15 @@ namespace Morris.Modules.NPC
         {
                 new CustomRendererInfo
                 {
-                    childName = "TombstoneMesh"
+                    childName = "TombstoneMesh",
+                    dontHotpoo = true,
                 }
         };
 
         //public override UnlockableDef characterUnlockableDef => null;
 
-        public override Type characterMainState => typeof(TombstoneMainState);
-        public override Type characterSpawnState => typeof(TombstoneMainState);
+        public override Type characterMainState => typeof(TombstoneMain);
+        public override Type characterSpawnState => typeof(TombstoneMain);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 
@@ -125,12 +126,21 @@ namespace Morris.Modules.NPC
             CharacterMaster characterMaster = tombstoneMasterPrefab.GetComponent<CharacterMaster>();
             characterMaster.bodyPrefab = this.bodyPrefab;
 
+            UnityEngine.Object.DestroyImmediate(tombstoneMasterPrefab.GetComponent<BaseAI>());
+
+            foreach (AISkillDriver i in tombstoneMasterPrefab.GetComponentsInChildren<AISkillDriver>())
+            {
+                UnityEngine.Object.DestroyImmediate(i);
+            }
+
+            /*
             BaseAI tombstoneAI = tombstoneMasterPrefab.GetComponent<BaseAI>();
             tombstoneAI.neverRetaliateFriendlies = true;
             tombstoneAI.aimVectorMaxSpeed *= 2f;
             tombstoneAI.fullVision = true;
+            */
 
-            InitializeSkillDrivers(tombstoneMasterPrefab);
+            //InitializeSkillDrivers(tombstoneMasterPrefab);
 
             PlaceTombstone.tombstoneMasterPrefab = tombstoneMasterPrefab;
             Modules.Content.AddMasterPrefab(tombstoneMasterPrefab);

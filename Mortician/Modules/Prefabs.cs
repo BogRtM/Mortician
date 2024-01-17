@@ -27,7 +27,7 @@ namespace Morris.Modules {
             }
             characterModel.baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
-            Modules.Assets.ConvertAllRenderersToHopooShader(model);
+            //Modules.Assets.ConvertAllRenderersToHopooShader(model);
 
             return model.gameObject;
         }
@@ -225,9 +225,9 @@ namespace Morris.Modules {
 
                         if (mat == null) {
                             if (customInfos[i].dontHotpoo) {
-                                mat = rend.material;
+                                mat = rend.sharedMaterial;
                             } else {
-                                mat = rend.material.SetHopooMaterial();
+                                mat = rend.sharedMaterial.SetHopooMaterial();
                             }
                         }
 

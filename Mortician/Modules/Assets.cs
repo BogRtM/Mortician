@@ -4,13 +4,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
 using RoR2;
-using System.IO;
-using System.Collections.Generic;
-using RoR2.UI;
 using System;
-using TMPro;
 using Path = System.IO.Path;
-using SkillStates.Morris;
+using ShaderSwapper;
+using System.Runtime.CompilerServices;
 
 namespace Morris.Modules
 {
@@ -85,7 +82,7 @@ namespace Morris.Modules
 
                 if (mainAssetBundle)
                 {
-                    Log.Warning("Morris asset bundle loaded succesfully");
+                    Log.Warning("Morris asset bundle loaded successfully");
                 }
             }
             catch (Exception e)
@@ -95,6 +92,18 @@ namespace Morris.Modules
             }
 
             assetNames = mainAssetBundle.GetAllAssetNames();
+        }
+
+        internal static void LogMaterialProperties()
+        {
+            Material[] materials = mainAssetBundle.LoadAllAssets<Material>();
+
+            foreach(Material material in materials)
+            {
+                Log.Warning("Found material : '" + material.name + "' in mainAssetBundle with shader: '" + material.shader.name);
+            }
+
+            Log.Warning("");
         }
 
         internal static void LoadSoundbank()
@@ -201,7 +210,7 @@ namespace Morris.Modules
 
             foreach (Renderer i in objectToConvert.GetComponentsInChildren<Renderer>())
             {
-                i?.material?.SetHopooMaterial();
+                i?.sharedMaterial?.SetHopooMaterial();
             }
         }
 
@@ -214,7 +223,7 @@ namespace Morris.Modules
             {
                 rendererInfos[i] = new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = meshes[i].material,
+                    defaultMaterial = meshes[i].sharedMaterial,
                     renderer = meshes[i],
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false

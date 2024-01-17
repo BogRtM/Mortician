@@ -17,6 +17,7 @@ using Morris.Modules;
 using EmotesAPI;
 using Morris.Components;
 using SkillStates.Morris;
+using ShaderSwapper;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -24,7 +25,7 @@ using SkillStates.Morris;
 namespace Morris
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("MetrosexualFruitcake-CustomEmotesAPI-2.2.5", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
 
@@ -63,7 +64,11 @@ namespace Morris
             PInfo = Info;
             
             Modules.Config.ReadConfig(this);
+
             Modules.Assets.Initialize(); // load assets and read config
+
+            base.StartCoroutine(Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync());
+
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
             Modules.Projectiles.RegisterProjectiles(); // add and register custom projectiles

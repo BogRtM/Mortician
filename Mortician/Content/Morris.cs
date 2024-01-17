@@ -59,23 +59,28 @@ namespace Morris.Modules.Survivors
         {
                 new CustomRendererInfo
                 {
-                    childName = "MorrisMesh"
+                    childName = "MorrisMesh",
+                    dontHotpoo = true,
                 },
                 new CustomRendererInfo
                 {
-                    childName = "NecklaceMesh"
+                    childName = "NecklaceMesh",
+                    dontHotpoo = true,
                 },
                 new CustomRendererInfo
                 {
-                    childName = "ShawlMesh"
+                    childName = "ShawlMesh",
+                    dontHotpoo = true,
                 },
                 new CustomRendererInfo
                 {
-                    childName = "ShovelMesh"
+                    childName = "ShovelMesh",
+                    dontHotpoo = true,
                 },
                 new CustomRendererInfo
                 {
-                    childName = "LanternMesh"
+                    childName = "LanternMesh",
+                    dontHotpoo = true,
                 }
         };
 
@@ -230,7 +235,7 @@ namespace Morris.Modules.Survivors
             lanternSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(Sacrifice));
             lanternSkillDef.activationStateMachineName = "Weapon";
             lanternSkillDef.baseMaxStock = 1;
-            lanternSkillDef.baseRechargeInterval = 4f;
+            lanternSkillDef.baseRechargeInterval = 6f;
             lanternSkillDef.beginSkillCooldownOnSkillEnd = false;
             lanternSkillDef.canceledFromSprinting = false;
             lanternSkillDef.forceSprintDuringState = false;

@@ -11,7 +11,7 @@ namespace SkillStates.Morris
     internal class Sacrifice : BaseState
     {
         public static float baseDuration = 0.7f;
-        public static float sacrificePercentHealAmount = 0.2f;
+        public static float sacrificePercentHealAmount = 0.15f;
 
         private LanternTracker lanternTracker;
 

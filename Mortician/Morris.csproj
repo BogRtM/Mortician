@@ -59,6 +59,9 @@
     <Reference Include="R2API.Unlockable">
       <HintPath>..\libs\RiskofThunder-R2API_Unlockable\R2API.Unlockable\R2API.Unlockable.dll</HintPath>
     </Reference>
+    <Reference Include="ShaderSwapper">
+      <HintPath>..\libs\ShaderSwapper.dll</HintPath>
+    </Reference>
     <Reference Include="UNetWeaverPatcher">
       <HintPath>..\..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Modding\BepInEx\patchers\UNetWeaver\UNetWeaverPatcher.dll</HintPath>
     </Reference>

@@ -27,16 +27,12 @@ namespace SkillStates.SharedStates
 
         private List<HurtBox> victims = new List<HurtBox>();
 
-        private float duration;
         private float cachedAirControl;
-        private bool selfIsGhoul;
         public override void OnEnter()
         {
             base.OnEnter();
 
             minionController = GetComponent<MorrisMinionController>();
-
-            selfIsGhoul = characterBody.bodyIndex == MorrisPlugin.GhoulBodyIndex;
 
             launchVector.y += yOffset;
 
@@ -86,37 +82,40 @@ namespace SkillStates.SharedStates
         {
             base.FixedUpdate();
 
-            if (isAuthority)
+            if (base.isAuthority)
             {
                 if (attack.Fire(victims))
                 {
                     foreach (HurtBox victim in victims)
                     {
-                        if (!victim || !victim.healthComponent || !victim.healthComponent.alive) continue;
-
-                        float victimMass = 0f;
-                        CharacterMotor victimMotor = victim.healthComponent.GetComponent<CharacterMotor>();
-                        if (victimMotor)
-                        {
-                            victimMass = victimMotor.mass;
-                        }
-                        else
+                        if (victim.healthComponent && victim.healthComponent.alive)
                         {
                             Rigidbody rigidBody = victim.healthComponent.GetComponent<Rigidbody>();
-                            victimMass = rigidBody.mass;
-                        }
+                            if (rigidBody)
+                            {
+                                float victimMass = rigidBody.mass;
 
-                        if (victimMass >= minMassToExitState)
-                        {
-                            OnHitLargeEnemy(victim);
+                                if (victimMass >= minMassToExitState)
+                                {
+                                    OnHitLargeEnemy(victim);
+                                }
+                            }
+                            else
+                            {
+                                CharacterBody victimBody = victim.healthComponent.body;
+                                if(victimBody.hullClassification == HullClassification.Golem || victimBody.hullClassification == HullClassification.BeetleQueen)
+                                {
+                                    OnHitLargeEnemy(victim);
+                                }
+                            }
                         }
                     }
                 }
-            }
 
-            if (fixedAge >= minDuration && isAuthority && characterMotor.Motor.GroundingStatus.IsStableOnGround)
-            {
-                outer.SetNextStateToMain();
+                if (base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround)
+                {
+                    outer.SetNextStateToMain();
+                }
             }
         }
 

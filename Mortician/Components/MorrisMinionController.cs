@@ -13,15 +13,15 @@ namespace Morris.Components
 {
     internal class MorrisMinionController : MonoBehaviour, ILifeBehavior
     {
-        public GameObject owner { get; set; }
+        public GameObject owner { get; private set; }
         public GameObject sacrificeOwner { get; private set; }
-
-        private EntityStateMachine bodyESM;
 
         public TeamIndex teamIndex { get; private set; }
         public string soundString;
 
         public bool sacrificed { get; private set; }
+
+        private EntityStateMachine bodyESM;
 
         private CharacterBody characterBody;
         private HealthComponent healthComponent;
@@ -40,6 +40,11 @@ namespace Morris.Components
             teamIndex = base.GetComponent<TeamComponent>().teamIndex;
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = base.GetComponent<HealthComponent>();
+
+            MinionOwnership minionOwnership = characterBody.master.GetComponent<MinionOwnership>();
+            
+            if(minionOwnership)
+                this.owner = minionOwnership.ownerMaster.GetBodyObject();
         }
 
         public void Launch(Vector3 direction)
@@ -47,7 +52,7 @@ namespace Morris.Components
             switch (minionType)
             {
                 case MorrisMinionType.Ghoul:
-                    var ghoulState = new GhoulLaunchedState()
+                    var ghoulState = new SkillStates.Ghoul.LaunchedState()
                     {
                         launchVector = direction.normalized
                     };
@@ -56,7 +61,7 @@ namespace Morris.Components
                     break;
 
                 case MorrisMinionType.Tombstone:
-                    var tombstoneState = new TombstoneLaunchedState()
+                    var tombstoneState = new SkillStates.Tombstone.LaunchedState()
                     {
                         launchVector = direction.normalized
                     };
@@ -79,7 +84,7 @@ namespace Morris.Components
 
         public void OnDeathStart()
         {
-            if (characterBody.bodyIndex != MorrisPlugin.GhoulBodyIndex || !owner) return;
+            if (minionType != MorrisMinionType.Ghoul) return;
 
             if (NetworkServer.active)
             {

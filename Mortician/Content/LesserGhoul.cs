@@ -59,14 +59,15 @@ namespace Morris.Modules.NPC
         {
                 new CustomRendererInfo
                 {
-                    childName = "GhoulMesh"
+                    childName = "GhoulMesh",
+                    dontHotpoo = true
                 }
         };
 
         //public override UnlockableDef characterUnlockableDef => null;
 
         public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
-        public override Type characterSpawnState => typeof(GhoulSpawnState);
+        public override Type characterSpawnState => typeof(SpawnState);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 
@@ -93,7 +94,7 @@ namespace Morris.Modules.NPC
 
             CharacterDeathBehavior CDB = bodyPrefab.GetComponent<CharacterDeathBehavior>();
             CDB.deathStateMachine = ghoulBodyESM;
-            CDB.deathState = new SerializableEntityStateType(typeof(GhoulDeathState));
+            CDB.deathState = new SerializableEntityStateType(typeof(DeathExplosion));
 
             SfxLocator sfxLocator = bodyPrefab.GetComponent<SfxLocator>();
             sfxLocator.deathSound = null;

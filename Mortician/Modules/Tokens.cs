@@ -45,8 +45,9 @@ namespace Morris.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "Corpse Explosion");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls explode for <style=cIsDamage>{GhoulDeathState.baseDamageCoefficient * 100f}% damage</style> and " +
-                $"<style=cIsUtility>trigger your On-Kill effects</style> when they are slain.");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls cause a <style=cIsDamage>Blighted</style> explosion for " +
+                $"<style=cIsDamage>{DeathExplosion.baseDamageCoefficient * 100f}% damage</style> and " +
+                $"<style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
             #endregion
 
             #region Keywords
@@ -87,7 +88,7 @@ namespace Morris.Modules
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", 
                 $"<style=cIsHealth>Kill</style> the target ghoul to <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% " +
                 $"of your maximum health</style>. This ghoul's <style=cIsDamage>Corpse Explosion</style> will have a larger radius and " +
-                $"deal <style=cIsDamage>{GhoulDeathState.sacrificedDamageCoefficient * 100f}% damage</style>.");
+                $"deal <style=cIsDamage>{DeathExplosion.sacrificedDamageCoefficient * 100f}% damage</style>.");
             #endregion
 
             #region Special

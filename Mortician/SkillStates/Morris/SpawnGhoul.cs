@@ -46,10 +46,6 @@ namespace SkillStates.Morris
 
             if(characterMaster)
             {
-                MorrisMinionController minionController = characterMaster.GetBodyObject().GetComponent<MorrisMinionController>();
-                minionController.owner = base.gameObject;
-                //Chat.AddMessage(minionController.owner.name);
-
                 characterMaster.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
             }
         }

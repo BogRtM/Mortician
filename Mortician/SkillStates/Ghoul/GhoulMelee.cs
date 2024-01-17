@@ -11,7 +11,7 @@ namespace SkillStates.Ghoul
     internal class GhoulMelee : BaseState
     {
         public static float baseDuration = 1f;
-        public static float damageCoefficient = 1.75f;
+        public static float damageCoefficient = 1.5f;
 
         public static GameObject hitPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/OmniImpactVFXSlashSyringe.prefab").WaitForCompletion();
 
