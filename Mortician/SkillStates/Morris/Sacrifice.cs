@@ -10,7 +10,7 @@ namespace SkillStates.Morris
 {
     internal class Sacrifice : BaseState
     {
-        public static float baseDuration = 0.7f;
+        public static float baseDuration = 1.333f;
         public static float sacrificePercentHealAmount = 0.15f;
 
         private LanternTracker lanternTracker;
@@ -27,7 +27,7 @@ namespace SkillStates.Morris
             lanternTracker = base.GetComponent<LanternTracker>();
             target = lanternTracker.GetTrackingTarget();
 
-            PlayCrossfade("Gesture, Override", "LanternRaise", "Swing.playbackRate", duration, 0.05f);
+            PlayCrossfade("Right Arm, Override", "FingerSnap", "Swing.playbackRate", duration, 0.05f);
 
             SacrificeGhoul(target);
 

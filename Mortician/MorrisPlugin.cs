@@ -80,7 +80,7 @@ namespace Morris
             // survivor initialization
             new Modules.Survivors.Morris().Initialize();
             Log.Warning("Mortician created successfully");
-            new Modules.NPC.LesserGhoul().Initialize();
+            new Modules.NPC.GhoulMinion().Initialize();
             Log.Warning("Ghoul created successfully");
             new Modules.NPC.TombstoneDeployable().Initialize();
             Log.Warning("Tombstone created successfully");

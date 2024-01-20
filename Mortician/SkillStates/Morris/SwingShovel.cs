@@ -134,8 +134,6 @@ namespace SkillStates.Morris
 
         public void HitGhoul(HitBoxGroup hitBoxGroup)
         {
-            HurtBox hurtBox;
-
             Ray aimRay = base.GetAimRay();
             Vector3 launchVector = aimRay.direction;
 
@@ -146,14 +144,14 @@ namespace SkillStates.Morris
                 Vector3 halfExtent = transform.lossyScale * 0.5f;
                 Quaternion rotation = transform.rotation;
 
-                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask);
+                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.debris.mask | LayerIndex.defaultLayer.mask);
 
-                for (int i = 0; i < hitObjects.Length; i++)
+                foreach(Collider collider in hitObjects)
                 {
-                    MorrisMinionController launchComponent = hitObjects[i].GetComponent<MorrisMinionController>();
-                    if (launchComponent && launchComponent.teamIndex == base.teamComponent.teamIndex)
+                    MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
+                    if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
                     {
-                        launchComponent.Launch(launchVector);
+                        minionController.Launch(launchVector);
                     }
                 }
             }

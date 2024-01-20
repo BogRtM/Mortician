@@ -42,10 +42,14 @@ namespace SkillStates.Morris
                 {
                     if((base.inputBank.skill1.down || base.inputBank.skill4.justPressed) && currentPlacementInfo.ok)
                     {
+                        PlayCrossfade("Gesture, Override", "LanternRaise", 0.05f);
+
                         base.characterBody.SendConstructTurret(base.characterBody,
                         currentPlacementInfo.position,
                         currentPlacementInfo.rotation,
                         MasterCatalog.FindMasterIndex(tombstoneMasterPrefab));
+
+                        base.StartAimMode(2f, false);
 
                         base.skillLocator.special.DeductStock(1);
 

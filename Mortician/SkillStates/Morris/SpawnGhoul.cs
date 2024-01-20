@@ -30,7 +30,7 @@ namespace SkillStates.Morris
         private void AttemptSpawnGhoul()
         {
             MasterSummon masterSummon = new MasterSummon();
-            masterSummon.masterPrefab = LesserGhoul.ghoulMasterPrefab;
+            masterSummon.masterPrefab = GhoulMinion.ghoulMasterPrefab;
             masterSummon.ignoreTeamMemberLimit = true;
             masterSummon.teamIndexOverride = TeamIndex.Player;
             masterSummon.summonerBodyObject = base.gameObject;
@@ -42,11 +42,6 @@ namespace SkillStates.Morris
             if (NetworkServer.active)
             {
                 characterMaster = masterSummon.Perform();
-            }
-
-            if(characterMaster)
-            {
-                characterMaster.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
             }
         }
 

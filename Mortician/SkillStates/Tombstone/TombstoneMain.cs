@@ -10,7 +10,7 @@ namespace SkillStates.Tombstone
 {
     internal class TombstoneMain : GenericCharacterMain
     {
-        public static float spawnTime = 6f;
+        public static float spawnTime = 8f;
 
         private MorrisMinionController minionController;
 
@@ -31,7 +31,7 @@ namespace SkillStates.Tombstone
             {
                 summonTimer = 0;
 
-                SpawnGhoul();
+                //SpawnGhoul();
             }
         }
 
@@ -47,16 +47,12 @@ namespace SkillStates.Tombstone
                     spawnOnTarget = base.transform
                 };
 
-                DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(LesserGhoul.ghoulSpawnCard, directorPlacementRule, RoR2Application.rng);
+                DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(GhoulMinion.ghoulSpawnCard, directorPlacementRule, RoR2Application.rng);
                 directorSpawnRequest.summonerBodyObject = minionController.owner;
                 directorSpawnRequest.ignoreTeamMemberLimit = true;
                 directorSpawnRequest.teamIndexOverride = base.teamComponent.teamIndex;
                 //directorSpawnRequest.onSpawnedServer += ValidateSpawnCard;
                 GameObject ghoul = DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-                if (ghoul)
-                {
-                    ghoul.GetComponent<CharacterMaster>().inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
-                }
             }
         }
 

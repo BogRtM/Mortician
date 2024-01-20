@@ -9,16 +9,28 @@ namespace SkillStates.Tombstone
     {
         public override void OnEnter()
         {
-            base.characterMotor.muteWalkMotion = false;
-
             base.OnEnter();
+            gameObject.layer = LayerIndex.fakeActor.intVal;
+            characterMotor.Motor.RebuildCollidableLayers();
+            base.characterMotor.muteWalkMotion = false;
+        }
+
+        public override void PlayLaunchEntry()
+        {
             base.PlayAnimation("FullBody, Override", "ForwardSpin");
+        }
+
+        public override void PlayLaunchExit()
+        {
+            base.PlayAnimation("FullBody, Override", "BufferEmpty");
         }
 
         public override void OnExit()
         {
+            gameObject.layer = LayerIndex.defaultLayer.intVal;
+            characterMotor.Motor.RebuildCollidableLayers();
+
             base.characterMotor.muteWalkMotion = true;
-            base.PlayAnimation("FullBody, Override", "BufferEmpty");
             base.OnExit();
         }
     }

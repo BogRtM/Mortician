@@ -3,11 +3,13 @@ using RoR2;
 using EntityStates;
 using SkillStates.SharedStates;
 using RoR2.CharacterAI;
+using EntityStates.ParentEgg;
 
 namespace SkillStates.Ghoul
 {
     internal class LaunchedState : BaseLaunchedState
     {
+
         public override void OnHitLargeEnemy(HurtBox target)
         {
             ClingState nextState = new ClingState()
@@ -17,6 +19,16 @@ namespace SkillStates.Ghoul
             };
             
             this.outer.SetNextState(nextState);
+        }
+
+        public override void PlayLaunchEntry()
+        {
+            base.PlayAnimation("FullBody, Override", "LaunchedLoop");
+        }
+
+        public override void PlayLaunchExit()
+        {
+            base.PlayAnimation("FullBody, Override", "BufferEmpty");
         }
 
         public override void OnExit()

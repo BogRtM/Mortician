@@ -10,6 +10,8 @@ namespace SkillStates.Ghoul
         public override void OnEnter()
         {
             base.OnEnter();
+
+            base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
         }
 
         public override void FixedUpdate()
@@ -24,6 +26,8 @@ namespace SkillStates.Ghoul
 
         public override void OnExit()
         {
+            base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+
             base.OnExit();
         }
 

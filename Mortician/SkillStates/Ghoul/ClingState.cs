@@ -18,7 +18,7 @@ namespace SkillStates.Ghoul
     {
         public static float damageCoefficient = GhoulMelee.damageCoefficient;
         public static float biteInterval = 0.7f;
-        public static Vector3 downwardForce = Vector3.down * 10f;
+        public static Vector3 downwardForce = Vector3.down * 500f;
         
         public HurtBox initialTarget;
         public HealthComponent targetHealthComponent;
@@ -27,7 +27,6 @@ namespace SkillStates.Ghoul
         private Transform modelTransform;
         private HurtBox clingHurtbox;
         private Collider targetCollider;
-        private float zPosOffset;
         private bool negativeOffset;
 
         private MorrisMinionController minionController;
@@ -36,6 +35,9 @@ namespace SkillStates.Ghoul
         public override void OnEnter()
         {
             base.OnEnter();
+
+            base.PlayAnimation("FullBody, Override", "ClingLoop");
+            base.PlayCrossfade("FullBody, Additive", "ClingBite", "Attack.playbackRate", biteInterval, 0.1f);
 
             //Set up values to cling model
             base.modelLocator.enabled = false;
@@ -49,8 +51,8 @@ namespace SkillStates.Ghoul
             clingHurtbox = targetGroup.hurtBoxes[randomIndex];
             targetCollider = clingHurtbox.GetComponent<Collider>();
 
-            base.gameObject.layer = LayerIndex.entityPrecise.intVal;
-            base.characterMotor.Motor.RebuildCollidableLayers();
+            //base.gameObject.layer = LayerIndex.entityPrecise.intVal;
+            //base.characterMotor.Motor.RebuildCollidableLayers();
 
             base.characterMotor.velocity = Vector3.zero;
 
@@ -115,6 +117,8 @@ namespace SkillStates.Ghoul
 
         public void Bite()
         {
+            base.PlayCrossfade("FullBody, Additive", "ClingBite", "Attack.playbackRate", biteInterval, 0.1f);
+
             try
             {
                 DamageInfo damageInfo = new DamageInfo
@@ -149,8 +153,8 @@ namespace SkillStates.Ghoul
             base.modelLocator.enabled = true;
             base.characterDirection.enabled = true;
 
-            base.gameObject.layer = LayerIndex.defaultLayer.intVal;
-            base.characterMotor.Motor.RebuildCollidableLayers();
+            //base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            //base.characterMotor.Motor.RebuildCollidableLayers();
 
             base.OnExit();
         }

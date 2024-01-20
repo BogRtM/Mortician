@@ -4,6 +4,7 @@ using Morris.Components;
 using SkillStates.Morris;
 using SkillStates.Ghoul;
 using SkillStates.SharedStates;
+using SkillStates.Tombstone;
 
 namespace Morris.Modules
 {
@@ -44,10 +45,8 @@ namespace Morris.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Corpse Explosion");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls cause a <style=cIsDamage>Blighted</style> explosion for " +
-                $"<style=cIsDamage>{DeathExplosion.baseDamageCoefficient * 100f}% damage</style> and " +
-                $"<style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Soul Offering");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Ghouls <style=cIsUtility>activate your On-Kill effects</style> when they are slain.");
             #endregion
 
             #region Keywords
@@ -55,19 +54,6 @@ namespace Morris.Modules
                 $"is treated as your own.</style>");
 
             //Additionally, ghouls inherit your <style=cIsDamage>damage</style> and <style=cIsDamage>attack speed</style> stats.
-            /*
-            LanguageAPI.Add("KEYWORD_SACRIFICE", $"<style=cKeywordName>Sacrifice</style><style=cSub>" +
-                $"Kill the target ghoul to heal <style=cIsHealing>{LanternSkillState.sacrificePercentHealAmount * 100f}%</style> of your maximum health. " +
-                $"This ghoul's <style=cIsDamage>Corpse Explosion</style> will be empowered to have a larger radius and " +
-                $"deal <style=cIsDamage>{GhoulDeathState.sacrificedDamageCoefficient * 100f}% damage</style></style>.");
-
-            LanguageAPI.Add("KEYWORD_SOULDRAIN", $"<style=cKeywordName>Soul Drain</style><style=cSub>Deal the greater of " +
-                $"<style=cIsDamage>{SoulDrain.minDamageCoefficient * 100f}% damage</style> or " +
-                $"<style=cIsDamage>{SoulDrain.damagePercent * 100f}%</style> of the target's maximum health per second, " +
-                $"and heal <style=cIsHealing>{SoulDrain.healPercent * 100f}%</style> of your maximum health per second.</style>");
-            */
-
-
             #endregion
 
             #region Primary
@@ -87,13 +73,14 @@ namespace Morris.Modules
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_NAME", "Sacrifice");
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", 
                 $"<style=cIsHealth>Kill</style> the target ghoul to <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% " +
-                $"of your maximum health</style>. This ghoul's <style=cIsDamage>Corpse Explosion</style> will have a larger radius and " +
-                $"deal <style=cIsDamage>{DeathExplosion.sacrificedDamageCoefficient * 100f}% damage</style>.");
+                $"of your maximum health</style>. This ghoul will <style=cIsDamage>explode</style> " +
+                $"for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>.");
             #endregion
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_NAME", "Tombstone");
-            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a Tombstone.");
+            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a Tombstone that spawns a ghoul every " +
+                $"<style=cIsUtility>{TombstoneMain.spawnTime} seconds</style>.");
             #endregion
 
             #region Achievements

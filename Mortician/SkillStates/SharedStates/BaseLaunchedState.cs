@@ -32,12 +32,11 @@ namespace SkillStates.SharedStates
         {
             base.OnEnter();
 
+            PlayLaunchEntry();
+
             minionController = GetComponent<MorrisMinionController>();
 
             launchVector.y += yOffset;
-
-            gameObject.layer = LayerIndex.fakeActor.intVal;
-            characterMotor.Motor.RebuildCollidableLayers();
 
             cachedAirControl = characterMotor.airControl;
             characterMotor.airControl = 0.15f;
@@ -84,6 +83,8 @@ namespace SkillStates.SharedStates
 
             if (base.isAuthority)
             {
+                characterDirection.forward = characterMotor.velocity.normalized;
+
                 if (attack.Fire(victims))
                 {
                     foreach (HurtBox victim in victims)
@@ -114,9 +115,20 @@ namespace SkillStates.SharedStates
 
                 if (base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround)
                 {
+                    PlayLaunchExit();
                     outer.SetNextStateToMain();
                 }
             }
+        }
+
+        public virtual void PlayLaunchEntry()
+        {
+
+        }
+
+        public virtual void PlayLaunchExit()
+        {
+            
         }
 
         public virtual void OnHitLargeEnemy(HurtBox target)
@@ -132,8 +144,6 @@ namespace SkillStates.SharedStates
             }
 
             characterMotor.velocity *= 0.05f;
-            gameObject.layer = LayerIndex.defaultLayer.intVal;
-            characterMotor.Motor.RebuildCollidableLayers();
 
             characterMotor.airControl = cachedAirControl;
 

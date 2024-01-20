@@ -42,6 +42,8 @@ namespace SkillStates.Ghoul
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "GhoulMelee");
             }
 
+            base.PlayCrossfade("FullBody, Override", "Melee1", "Attack.playbackRate", duration, 0.1f);
+
             attack = new OverlapAttack();
             attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
             attack.inflictor = base.gameObject;

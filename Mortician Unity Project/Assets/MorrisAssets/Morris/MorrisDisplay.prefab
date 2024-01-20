@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &272732429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272732430}
+  m_Layer: 0
+  m_Name: SwingHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &272732430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272732429}
+  m_LocalRotation: {x: -0, y: 5.903705e-13, z: -7.007825e-13, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7600007, z: 3.700002}
+  m_LocalScale: {x: 14.259727, y: 6.086752, z: 9.896778}
+  m_Children: []
+  m_Father: {fileID: 7904683637074269035}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1141994434
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +73,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.25490198, g: 1, b: 0.909804, a: 1}
-  m_Intensity: 5
+  m_Intensity: 10
   m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -618,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1226041991096976373}
   m_Layer: 0
-  m_Name: Armature
+  m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1708,7 +1738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2513009968630030760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.693505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7904683637074269035}
@@ -1724,10 +1754,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.70424163
-  m_Height: 3.8641143
+  m_Radius: 0.7
+  m_Height: 3.8371594
   m_Direction: 1
-  m_Center: {x: 0, y: 1.7470114, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2803956652901812449
 GameObject:
   m_ObjectHideFlags: 0
@@ -4053,6 +4083,7 @@ Transform:
   - {fileID: 7306230012345127404}
   - {fileID: 1269446162395215847}
   - {fileID: 2513009968630030763}
+  - {fileID: 272732430}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4065,8 +4096,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7419895132362099153}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8ecc461165944924f9ad3cc39292a3dc, type: 2}
-  m_Controller: {fileID: 9100000, guid: 25fd4d8476baca346920c0f86a87a65b, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 8967d19a5774d0b43973c2b65801a62b, type: 3}
+  m_Controller: {fileID: 9100000, guid: 1618b57aeafdcf441a14517f37106ce9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4100,6 +4131,14 @@ MonoBehaviour:
     transform: {fileID: 1269446162395215847}
   - name: LanternMesh
     transform: {fileID: 3157280727617054236}
+  - name: SwingHitbox
+    transform: {fileID: 272732430}
+  - name: FootL
+    transform: {fileID: 7339484948872545670}
+  - name: FootR
+    transform: {fileID: 342508994816611563}
+  - name: LanternLight
+    transform: {fileID: 1141994435}
 --- !u!1 &7506017799464855750
 GameObject:
   m_ObjectHideFlags: 0

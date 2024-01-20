@@ -28,7 +28,7 @@ namespace Morris.Modules
             Modules.Content.AddEntityState(typeof(BileSpit));
             Modules.Content.AddEntityState(typeof(SkillStates.Ghoul.LaunchedState));
             Modules.Content.AddEntityState(typeof(ClingState));
-            Modules.Content.AddEntityState(typeof(DeathExplosion));
+            Modules.Content.AddEntityState(typeof(DeathState));
             #endregion
 
             #region Tombstone

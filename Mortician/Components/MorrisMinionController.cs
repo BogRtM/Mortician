@@ -41,16 +41,24 @@ namespace Morris.Components
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = base.GetComponent<HealthComponent>();
 
-            MinionOwnership minionOwnership = characterBody.master.GetComponent<MinionOwnership>();
-            
-            if(minionOwnership)
-                this.owner = minionOwnership.ownerMaster.GetBodyObject();
+            if(characterBody.inventory)
+                characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
+
+            if(characterBody.master)
+            {
+                MinionOwnership minionOwnership = characterBody.master.GetComponent<MinionOwnership>();
+
+                if (minionOwnership)
+                    this.owner = minionOwnership.ownerMaster.GetBodyObject();
+            }
         }
 
+        //Launch minion in target direction
         public void Launch(Vector3 direction)
         {
             switch (minionType)
             {
+                //Launch Ghoul
                 case MorrisMinionType.Ghoul:
                     var ghoulState = new SkillStates.Ghoul.LaunchedState()
                     {
@@ -59,7 +67,8 @@ namespace Morris.Components
 
                     bodyESM.SetInterruptState(ghoulState, InterruptPriority.Pain);
                     break;
-
+                
+                //Launch Tombstone
                 case MorrisMinionType.Tombstone:
                     var tombstoneState = new SkillStates.Tombstone.LaunchedState()
                     {

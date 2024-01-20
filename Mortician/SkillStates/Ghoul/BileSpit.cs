@@ -25,7 +25,9 @@ namespace SkillStates.Ghoul
             minionController = base.GetComponent<MorrisMinionController>();
 
             duration = baseDuration / this.attackSpeedStat;
-            fireTime = duration * 0.3f;
+            fireTime = duration * 0.2f;
+
+            base.PlayCrossfade("Gesture, Override", "BileSpit", "Attack.playbackRate", duration, 0.1f);
 
             StartAimMode(duration, false);
         }

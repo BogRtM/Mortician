@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1226041991096976373}
   m_Layer: 0
-  m_Name: Armature
+  m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4096,7 +4096,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7419895132362099153}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8ecc461165944924f9ad3cc39292a3dc, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 8967d19a5774d0b43973c2b65801a62b, type: 3}
   m_Controller: {fileID: 9100000, guid: 25fd4d8476baca346920c0f86a87a65b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
