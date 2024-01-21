@@ -3,11 +3,7 @@ using RoR2;
 using EntityStates;
 using RoR2.Skills;
 using Morris.Modules;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine.Networking;
-using RoR2.Orbs;
-using SkillStates.Ghoul;
 using Morris.Components;
 using System;
 using Morris;
@@ -119,6 +115,13 @@ namespace SkillStates.Ghoul
         {
             base.PlayCrossfade("FullBody, Additive", "ClingBite", "Attack.playbackRate", biteInterval, 0.1f);
 
+            EffectData effectData = new EffectData()
+            {
+                origin = clingHurtbox.transform.position,
+                scale = 1.5f
+            };
+            EffectManager.SpawnEffect(Assets.OmniImpactVFXMorris, effectData, true);
+
             try
             {
                 DamageInfo damageInfo = new DamageInfo
@@ -152,6 +155,8 @@ namespace SkillStates.Ghoul
         {
             base.modelLocator.enabled = true;
             base.characterDirection.enabled = true;
+
+            base.PlayAnimation("FullBody, Override", "BufferEmpty");
 
             //base.gameObject.layer = LayerIndex.defaultLayer.intVal;
             //base.characterMotor.Motor.RebuildCollidableLayers();

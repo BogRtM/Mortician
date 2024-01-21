@@ -4,6 +4,7 @@ using RoR2;
 using EntityStates;
 using UnityEngine.Networking;
 using Morris.Components;
+using Morris.Modules;
 namespace SkillStates.Ghoul
 {
     internal class DeathState : GenericCharacterDeath
@@ -38,7 +39,7 @@ namespace SkillStates.Ghoul
                 RagdollController ragdollController = base.cachedModelTransform.GetComponent<RagdollController>();
                 if (ragdollController)
                 {
-                    Vector3 vector = base.characterMotor.velocity + Vector3.up * 5f;
+                    Vector3 vector = base.characterMotor.velocity + Vector3.up * 3f;
                     ragdollController.BeginRagdoll(vector);
                 }
             }
@@ -95,7 +96,7 @@ namespace SkillStates.Ghoul
                 attack.radius = sacrificedRadius;
                 attack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                 attack.falloffModel = BlastAttack.FalloffModel.None;
-                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(GhoulMelee.hitPrefab);
+                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(Assets.OmniImpactVFXMorris);
 
                 attack.Fire();
             }

@@ -9,6 +9,15 @@ namespace SkillStates.Ghoul
 {
     internal class LaunchedState : BaseLaunchedState
     {
+        private Transform launchTrail;
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            launchTrail = base.FindModelChild("LaunchTrail");
+            launchTrail.gameObject.SetActive(true);
+        }
 
         public override void OnHitLargeEnemy(HurtBox target)
         {
@@ -33,6 +42,8 @@ namespace SkillStates.Ghoul
 
         public override void OnExit()
         {
+            launchTrail.gameObject.SetActive(false);
+
             if (base.healthComponent.alive)
             {
                 GameObject masterObject = base.characterBody.masterObject;

@@ -2,7 +2,7 @@
 using RoR2;
 using EntityStates;
 using UnityEngine.AddressableAssets;
-using Morris;
+using Morris.Modules;
 using System;
 using Morris.Components;
 
@@ -12,8 +12,6 @@ namespace SkillStates.Ghoul
     {
         public static float baseDuration = 1f;
         public static float damageCoefficient = 1.5f;
-
-        public static GameObject hitPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/OmniImpactVFXSlashSyringe.prefab").WaitForCompletion();
 
         private MorrisMinionController minionController;
 
@@ -55,7 +53,7 @@ namespace SkillStates.Ghoul
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = hitPrefab;
+            attack.hitEffectPrefab = Assets.OmniImpactVFXMorris;
         }
 
         public override void FixedUpdate()

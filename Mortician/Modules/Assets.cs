@@ -33,6 +33,8 @@ namespace Morris.Modules
         private const string csProjName = "Morris";
 
         public static GameObject tombstoneBlueprintsPrefab;
+        public static GameObject shovelSwingVFX;
+        public static GameObject OmniImpactVFXMorris;
 
         public static string AssetBundlePath
         {
@@ -49,15 +51,6 @@ namespace Morris.Modules
                 return Path.Combine(Path.GetDirectoryName(MorrisPlugin.PInfo.Location), soundbankFolder);
             }
         }
-
-        internal static GameObject landImpactEffect;
-
-        internal static GameObject MorrisTracerEffect;
-        internal static GameObject shootingStarEffect;
-
-        internal static GameObject MorrisBulletImpact;
-
-        internal static GameObject skullCrackerImpact;
 
         internal static void Initialize()
         {
@@ -92,18 +85,6 @@ namespace Morris.Modules
             }
 
             assetNames = mainAssetBundle.GetAllAssetNames();
-        }
-
-        internal static void LogMaterialProperties()
-        {
-            Material[] materials = mainAssetBundle.LoadAllAssets<Material>();
-
-            foreach(Material material in materials)
-            {
-                Log.Warning("Found material : '" + material.name + "' in mainAssetBundle with shader: '" + material.shader.name);
-            }
-
-            Log.Warning("");
         }
 
         internal static void LoadSoundbank()
@@ -146,6 +127,9 @@ namespace Morris.Modules
             blueprintController.okMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsOk.mat").WaitForCompletion();
             blueprintController.invalidMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsInvalid.mat").WaitForCompletion();
 
+            shovelSwingVFX = LoadEffect("MorrisSwing", true);
+
+            OmniImpactVFXMorris = LoadEffect("OmniImpactVFXMorris");
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*
@@ -290,7 +274,7 @@ namespace Morris.Modules
 
             GameObject newEffect = mainAssetBundle.LoadAsset<GameObject>(resourceName);
 
-            newEffect.AddComponent<DestroyOnTimer>().duration = 12;
+            newEffect.AddComponent<DestroyOnTimer>().duration = 1;
             newEffect.AddComponent<NetworkIdentity>();
             newEffect.AddComponent<VFXAttributes>().vfxPriority = VFXAttributes.VFXPriority.Always;
             var effect = newEffect.AddComponent<EffectComponent>();

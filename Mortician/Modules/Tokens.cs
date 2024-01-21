@@ -72,15 +72,14 @@ namespace Morris.Modules
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_NAME", "Sacrifice");
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", 
-                $"<style=cIsHealth>Kill</style> the target ghoul to <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% " +
-                $"of your maximum health</style>. This ghoul will <style=cIsDamage>explode</style> " +
-                $"for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>.");
+                $"<stlye=cIsHealth>Detonate</style> the target ghoul for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>, " +
+                $"and <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% of your maximum health</style>.");
             #endregion
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_NAME", "Tombstone");
             LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a Tombstone that spawns a ghoul every " +
-                $"<style=cIsUtility>{TombstoneMain.spawnTime} seconds</style>.");
+                $"<style=cIsUtility>{SpawnGhoulOnTimer.spawnTime} seconds</style>.");
             #endregion
 
             #region Achievements

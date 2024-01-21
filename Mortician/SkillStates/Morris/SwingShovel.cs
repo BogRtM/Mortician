@@ -14,7 +14,7 @@ namespace SkillStates.Morris
         public static float baseDuration = 1.833f;
         public static float damageCoefficient = 8f;
         public static float smallHopVelocity = 6f;
-        public static float hitPauseDuration = 0.1f;
+        public static float hitPauseDuration = 0.15f;
 
         private Animator animator;
 
@@ -71,7 +71,7 @@ namespace SkillStates.Morris
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = null;
+            attack.hitEffectPrefab = Assets.OmniImpactVFXMorris;
             attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
         }
 
@@ -112,6 +112,9 @@ namespace SkillStates.Morris
         public void FireAttack()
         {
             hasFired = true;
+
+            PlaySwingEffect();
+
             if (base.isAuthority)
             {
                 if (attack.Fire())
@@ -155,6 +158,13 @@ namespace SkillStates.Morris
                     }
                 }
             }
+        }
+
+        public void PlaySwingEffect()
+        {
+            string muzzleName = step == 0 ? "SwingLeft" : "SwingRight";
+
+            EffectManager.SimpleMuzzleFlash(Assets.shovelSwingVFX, base.gameObject, muzzleName, true);
         }
 
         public override void OnExit()

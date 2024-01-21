@@ -94,6 +94,8 @@ namespace Morris.Modules.NPC
             var minionController = bodyPrefab.AddComponent<MorrisMinionController>();
             minionController.minionType = MorrisMinionController.MorrisMinionType.Tombstone;
 
+            bodyPrefab.AddComponent<SpawnGhoulOnTimer>();
+
             Rigidbody rigidBody = bodyPrefab.GetComponent<Rigidbody>();
             rigidBody.mass = 300f;
             CharacterMotor characterMotor = bodyPrefab.GetComponent<CharacterMotor>();
