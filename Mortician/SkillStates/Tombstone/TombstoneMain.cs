@@ -27,11 +27,7 @@ namespace SkillStates.Tombstone
 
         public override void Update()
         {
-            if (base.characterMotor.isGrounded)
-            {
-                base.characterMotor.velocity = Vector3.zero;
-                base.characterMotor.rootMotion = Vector3.zero;
-            }
+            base.Update();
         }
 
         public override void OnExit()

@@ -10,7 +10,7 @@ namespace Morris.Components
 {
     internal class SpawnGhoulOnTimer : MonoBehaviour
     {
-        public static float spawnTime = 10f;
+        public static float spawnTime = 8f;
 
         private MorrisMinionController minionController;
         private TeamComponent teamComponent;

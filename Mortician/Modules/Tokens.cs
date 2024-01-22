@@ -52,6 +52,9 @@ namespace Morris.Modules
             #region Keywords
             LanguageAPI.Add("KEYWORD_LINKED", $"<style=cKeywordName>Linked</style><style=cSub>Ghouls do not inherit your items, but all damage they deal " +
                 $"is treated as your own.</style>");
+            LanguageAPI.Add("KEYWORD_EXHAUST", $"<style=cKeywordName>Exhaustion</style><style=cSub>Reduces movement speed and damage by " +
+                $"<style=cIsUtility>{(1 - Buffs.exhaustStatReduction) * 100f}%</style>. Increases cooldowns by " +
+                $"<style=cIsUtility>{(Buffs.exhaustCooldownScale - 1) * 100f}%</style>.</style>");
 
             //Additionally, ghouls inherit your <style=cIsDamage>damage</style> and <style=cIsDamage>attack speed</style> stats.
             #endregion
@@ -72,7 +75,7 @@ namespace Morris.Modules
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_NAME", "Sacrifice");
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", 
-                $"<stlye=cIsHealth>Detonate</style> the target ghoul for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>, " +
+                $"<style=cIsHealth>Detonate</style> the target ghoul for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>, " +
                 $"and <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% of your maximum health</style>.");
             #endregion
 

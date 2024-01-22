@@ -9,11 +9,21 @@ namespace Morris.Modules
 {
     public static class Buffs
     {
-        //internal static BuffDef MorrisBuff;
+        internal static BuffDef exhaustionDebuff;
+        public static float exhaustStatReduction = 0.7f;
+        public static float exhaustCooldownScale = 1.2f;
 
         internal static void RegisterBuffs()
         {
-            
+            var weakBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdWeak.asset").WaitForCompletion();
+
+            exhaustionDebuff = AddNewBuff(
+                "Exhaustion",
+                weakBuff.iconSprite,
+                new Color(79, 255, 244),
+                false,
+                true
+                );
         }
 
         // simple helper method

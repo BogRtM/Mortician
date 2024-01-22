@@ -128,13 +128,39 @@ namespace Morris
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
 
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 //On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
         }
 
-        
+        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+
+            if (self.HasBuff(Buffs.exhaustionDebuff))
+            {
+                self.moveSpeed *= Buffs.exhaustStatReduction;
+                self.damage *= Buffs.exhaustStatReduction;
+
+                if (self.skillLocator)
+                {
+                    if (self.skillLocator.primary)
+                        self.skillLocator.primary.cooldownScale *= Buffs.exhaustCooldownScale;
+
+                    if (self.skillLocator.secondary)
+                        self.skillLocator.secondary.cooldownScale *= Buffs.exhaustCooldownScale;
+
+                    if (self.skillLocator.utility)
+                        self.skillLocator.utility.cooldownScale *= Buffs.exhaustCooldownScale;
+
+                    if (self.skillLocator.special)
+                        self.skillLocator.special.cooldownScale *= Buffs.exhaustCooldownScale;
+                }
+            }
+        }
 
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
         {

@@ -274,8 +274,7 @@ namespace Morris.Modules.Survivors
                 cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 0,
-                keywordTokens = new string[] {  }
+                stockToConsume = 0
             });
             Modules.Skills.AddSpecialSkills(bodyPrefab, tombstoneSkillDef);
             #endregion

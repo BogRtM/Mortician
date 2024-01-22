@@ -14,7 +14,7 @@ namespace SkillStates.Morris
         public static float baseDuration = 1.833f;
         public static float damageCoefficient = 8f;
         public static float smallHopVelocity = 6f;
-        public static float hitPauseDuration = 0.15f;
+        public static float hitPauseDuration = 0.1f;
 
         private Animator animator;
 

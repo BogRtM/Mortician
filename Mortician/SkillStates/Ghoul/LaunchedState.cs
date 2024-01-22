@@ -49,8 +49,11 @@ namespace SkillStates.Ghoul
                 GameObject masterObject = base.characterBody.masterObject;
                 BaseAI baseAI = masterObject.GetComponent<BaseAI>();
 
-                baseAI.currentEnemy.Reset();
-                baseAI.ForceAcquireNearestEnemyIfNoCurrentEnemy();
+                if (baseAI)
+                {
+                    baseAI.currentEnemy.Reset();
+                    baseAI.ForceAcquireNearestEnemyIfNoCurrentEnemy();
+                }
             }
 
             base.OnExit();

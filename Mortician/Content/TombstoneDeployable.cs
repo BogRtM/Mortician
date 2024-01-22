@@ -95,6 +95,18 @@ namespace Morris.Modules.NPC
             minionController.minionType = MorrisMinionController.MorrisMinionType.Tombstone;
 
             bodyPrefab.AddComponent<SpawnGhoulOnTimer>();
+            //bodyPrefab.AddComponent<TeamFilter>();
+
+            /*
+            BuffWard buffWard = bodyPrefab.AddComponent<BuffWard>();
+            buffWard.shape = BuffWard.BuffWardShape.Sphere;
+            buffWard.radius = 30f;
+            buffWard.interval = 0.5f;
+            buffWard.buffDuration = 1f;
+            buffWard.rangeIndicator = bodyPrefab.GetComponentInChildren<ChildLocator>().FindChild("SphereIndicator");
+            buffWard.buffDef = Buffs.exhaustionDebuff;
+            buffWard.invertTeamFilter = true;
+            */
 
             Rigidbody rigidBody = bodyPrefab.GetComponent<Rigidbody>();
             rigidBody.mass = 300f;
