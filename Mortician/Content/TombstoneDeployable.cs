@@ -44,8 +44,8 @@ namespace Morris.Modules.NPC
             capsuleRadius = 1f,
             modelBasePosition = new Vector3(0f, -2.5f, 0f),
 
-            maxHealth = 250f,
-            healthGrowth = 75f,
+            maxHealth = 200f,
+            healthGrowth = 66f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             moveSpeed = 10f,

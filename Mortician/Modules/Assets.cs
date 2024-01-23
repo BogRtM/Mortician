@@ -25,8 +25,8 @@ namespace Morris.Modules
         private static string[] assetNames = new string[0];
 
         // CHANGE THIS
-        private const string assetFolder = "MorticianAssets";
-        private const string assetbundleName = "morrisassets";
+        private const string assetFolder = "MorrisAssets";
+        private const string assetbundleName = "morrisassetbundle";
         private const string soundbankFolder = "MorrisSoundbanks";
         private const string soundbankName = "MorrisBank.bnk";
         //change this to your project's name if/when you've renamed it
@@ -34,7 +34,13 @@ namespace Morris.Modules
 
         public static GameObject tombstoneBlueprintsPrefab;
         public static GameObject shovelSwingVFX;
-        public static GameObject OmniImpactVFXMorris;
+        public static GameObject MorrisShovelHitGhoul;
+        public static GameObject MorrisShovelHit;
+        public static GameObject MorrisFingerSnap;
+
+        public static Material ghoulSacrificedMat;
+        public static GameObject GhoulSacrificeExplosion;
+        public static GameObject OmniImpactVFXGhoul;
 
         public static string AssetBundlePath
         {
@@ -89,6 +95,8 @@ namespace Morris.Modules
 
         internal static void LoadSoundbank()
         {
+            Log.Info("Loading Morris soundbank now");
+
             var akResult = AkSoundEngine.AddBasePath(SoundBankPath);
             if (akResult == AKRESULT.AK_Success)
             {
@@ -129,7 +137,17 @@ namespace Morris.Modules
 
             shovelSwingVFX = LoadEffect("MorrisSwing", true);
 
-            OmniImpactVFXMorris = LoadEffect("OmniImpactVFXMorris");
+            MorrisShovelHit = LoadEffect("OmniImpactVFXMorris", "ShovelImpact");
+
+            MorrisFingerSnap = LoadEffect("HitsparkMorrisFinger", "FingerSnap", true);
+
+            //MorrisShovelHitGhoul = LoadEffect("OmniImpactVFXMorris", "HitGhoulWithShovel");
+
+            GhoulSacrificeExplosion = LoadEffect("GhoulSacrificeExplosion", "Play_bleedOnCritAndExplode_explode");
+
+            ghoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
+
+            OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul");
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*

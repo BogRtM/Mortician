@@ -5,6 +5,7 @@ using EntityStates;
 using Morris.Components;
 using Morris;
 using UnityEngine.Networking;
+using Morris.Modules;
 
 namespace SkillStates.Morris
 {
@@ -16,6 +17,8 @@ namespace SkillStates.Morris
         private LanternTracker lanternTracker;
 
         private float duration;
+        private float effectTime;
+        private bool hasSnapped;
 
         private HurtBox target;
         public override void OnEnter()
@@ -23,6 +26,7 @@ namespace SkillStates.Morris
             base.OnEnter();
 
             duration = baseDuration / base.attackSpeedStat;
+            effectTime = duration * 0.35f;
 
             lanternTracker = base.GetComponent<LanternTracker>();
             target = lanternTracker.GetTrackingTarget();
@@ -37,6 +41,12 @@ namespace SkillStates.Morris
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if(base.fixedAge >= effectTime && !hasSnapped)
+            {
+                hasSnapped = true;
+                EffectManager.SimpleMuzzleFlash(Assets.MorrisFingerSnap, base.gameObject, "IndexFingerR", false);
+            }
 
             if(base.fixedAge >= duration && base.isAuthority)
             {

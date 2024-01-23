@@ -53,7 +53,7 @@ namespace SkillStates.Ghoul
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = Assets.OmniImpactVFXMorris;
+            attack.hitEffectPrefab = Assets.OmniImpactVFXGhoul;
         }
 
         public override void FixedUpdate()

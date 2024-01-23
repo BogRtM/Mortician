@@ -71,7 +71,7 @@ namespace SkillStates.Morris
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = Assets.OmniImpactVFXMorris;
+            attack.hitEffectPrefab = Assets.MorrisShovelHit;
             attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
         }
 
@@ -154,6 +154,12 @@ namespace SkillStates.Morris
                     MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
                     if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
                     {
+                        EffectData effectData = new EffectData()
+                        {
+                            origin = minionController.transform.position
+                        };
+                        //EffectManager.SpawnEffect(Assets.MorrisShovelHitGhoul, effectData, false);
+
                         minionController.Launch(launchVector);
                     }
                 }

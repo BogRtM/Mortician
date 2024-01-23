@@ -42,8 +42,8 @@ namespace Morris.Modules.Survivors
             capsuleRadius = 0.9f,
             modelBasePosition = new Vector3(0f, -1.6f, 0f),
 
-            maxHealth = 200f,
-            healthGrowth = 66f,
+            maxHealth = 160f,
+            healthGrowth = 48f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             damage = 14f,

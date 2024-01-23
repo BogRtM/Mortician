@@ -120,7 +120,9 @@ namespace SkillStates.Ghoul
                 origin = clingHurtbox.transform.position,
                 scale = 1.5f
             };
-            EffectManager.SpawnEffect(Assets.OmniImpactVFXMorris, effectData, true);
+            EffectManager.SpawnEffect(Assets.OmniImpactVFXGhoul, effectData, true);
+
+            Util.PlaySound("Play_acrid_m2_bite_hit", base.gameObject, "Volume_SFX", 0.2f);
 
             try
             {

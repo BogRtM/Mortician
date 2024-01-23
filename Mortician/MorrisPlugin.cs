@@ -94,7 +94,7 @@ namespace Morris
 
         private void Start()
         {
-            //Modules.Assets.LoadSoundbank();
+            Modules.Assets.LoadSoundbank();
         }
 
         private void Subscriptions()

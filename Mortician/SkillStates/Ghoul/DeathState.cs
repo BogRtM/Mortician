@@ -14,7 +14,7 @@ namespace SkillStates.Ghoul
         public static float sacrificedRadius = 16f;
         public static float smallHopVelocity = 7f;
 
-        public static GameObject sacrificedEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/BleedOnHitAndExplode/BleedOnHitAndExplode_Explosion.prefab").WaitForCompletion();
+        //public static GameObject sacrificedEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/BleedOnHitAndExplode/BleedOnHitAndExplode_Explosion.prefab").WaitForCompletion();
 
         private MorrisMinionController minionController;
         private bool sacrificed;
@@ -33,6 +33,16 @@ namespace SkillStates.Ghoul
             if (sacrificed)
             {
                 base.PlayCrossfade("FullBody, Override", "Sacrificed", 0.1f);
+
+                Transform modelTransform = base.GetModelTransform();
+                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = duration;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = Assets.ghoulSacrificedMat;
+                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
+
             }
             else
             {
@@ -79,7 +89,7 @@ namespace SkillStates.Ghoul
                 origin = base.characterBody.footPosition,
                 scale = radius
             };
-            EffectManager.SpawnEffect(sacrificedEffectPrefab, effectData, true);
+            EffectManager.SpawnEffect(Assets.GhoulSacrificeExplosion, effectData, true);
 
             if (base.isAuthority)
             {
@@ -96,7 +106,7 @@ namespace SkillStates.Ghoul
                 attack.radius = sacrificedRadius;
                 attack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                 attack.falloffModel = BlastAttack.FalloffModel.None;
-                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(Assets.OmniImpactVFXMorris);
+                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(Assets.OmniImpactVFXGhoul);
 
                 attack.Fire();
             }

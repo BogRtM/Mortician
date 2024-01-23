@@ -17,6 +17,8 @@ namespace SkillStates.Ghoul
 
             launchTrail = base.FindModelChild("LaunchTrail");
             launchTrail.gameObject.SetActive(true);
+
+            Util.PlaySound("Play_acid_larva_attack1_loop", base.gameObject);
         }
 
         public override void OnHitLargeEnemy(HurtBox target)
@@ -43,6 +45,7 @@ namespace SkillStates.Ghoul
         public override void OnExit()
         {
             launchTrail.gameObject.SetActive(false);
+            Util.PlaySound("Stop_acid_larva_attack1_loop", base.gameObject);
 
             if (base.healthComponent.alive)
             {

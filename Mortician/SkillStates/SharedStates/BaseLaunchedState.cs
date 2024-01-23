@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Morris;
 using Morris.Components;
 using UnityEngine.Networking;
+using Morris.Modules;
 
 namespace SkillStates.SharedStates
 {
@@ -74,7 +75,7 @@ namespace SkillStates.SharedStates
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = null;
+            attack.hitEffectPrefab = Assets.OmniImpactVFXGhoul;
         }
 
         public override void FixedUpdate()
