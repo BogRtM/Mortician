@@ -14,7 +14,7 @@ namespace SkillStates.Ghoul
     {
         public static float damageCoefficient = GhoulMelee.damageCoefficient;
         public static float biteInterval = 0.7f;
-        public static Vector3 downwardForce = Vector3.down * 500f;
+        public static Vector3 downwardForce = Vector3.down * 800f;
         
         public HurtBox initialTarget;
         public HealthComponent targetHealthComponent;

@@ -159,6 +159,7 @@ namespace SkillStates.Morris
                             origin = minionController.transform.position
                         };
                         //EffectManager.SpawnEffect(Assets.MorrisShovelHitGhoul, effectData, false);
+                        //Util.PlaySound("HitGhoulWithShovel", minionController.gameObject);
 
                         minionController.Launch(launchVector);
                     }
@@ -170,7 +171,7 @@ namespace SkillStates.Morris
         {
             string muzzleName = step == 0 ? "SwingLeft" : "SwingRight";
 
-            EffectManager.SimpleMuzzleFlash(Assets.shovelSwingVFX, base.gameObject, muzzleName, true);
+            EffectManager.SimpleMuzzleFlash(Assets.ShovelSwingVFX, base.gameObject, muzzleName, true);
         }
 
         public override void OnExit()

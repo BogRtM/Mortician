@@ -11,7 +11,7 @@ namespace SkillStates.Ghoul
         public static GameObject projectilePrefab = Projectiles.ghoulBilePrefab;
 
         public static float baseDuration = 1f;
-        public static float damageCoefficient = 0.75f;
+        public static float damageCoefficient = 1f;
 
         private MorrisMinionController minionController;
 

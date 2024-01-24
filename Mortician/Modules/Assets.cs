@@ -32,15 +32,17 @@ namespace Morris.Modules
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "Morris";
 
-        public static GameObject tombstoneBlueprintsPrefab;
-        public static GameObject shovelSwingVFX;
+        public static GameObject LanternIndicator;
+        public static GameObject ShovelSwingVFX;
         public static GameObject MorrisShovelHitGhoul;
         public static GameObject MorrisShovelHit;
         public static GameObject MorrisFingerSnap;
 
-        public static Material ghoulSacrificedMat;
+        public static Material GhoulSacrificedMat;
         public static GameObject GhoulSacrificeExplosion;
         public static GameObject OmniImpactVFXGhoul;
+
+        public static GameObject TombstoneBlueprintsPrefab;
 
         public static string AssetBundlePath
         {
@@ -130,22 +132,27 @@ namespace Morris.Modules
                 return;
             }
 
-            tombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
-            BlueprintController blueprintController = tombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
+            TombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
+            BlueprintController blueprintController = TombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
             blueprintController.okMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsOk.mat").WaitForCompletion();
             blueprintController.invalidMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsInvalid.mat").WaitForCompletion();
 
-            shovelSwingVFX = LoadEffect("MorrisSwing", true);
+            LanternIndicator = mainAssetBundle.LoadAsset<GameObject>("LanternTrackingIndicator");
+
+            ShovelSwingVFX = LoadEffect("MorrisSwing", true);
 
             MorrisShovelHit = LoadEffect("OmniImpactVFXMorris", "ShovelImpact");
 
             MorrisFingerSnap = LoadEffect("HitsparkMorrisFinger", "FingerSnap", true);
 
             //MorrisShovelHitGhoul = LoadEffect("OmniImpactVFXMorris", "HitGhoulWithShovel");
+            Material ghoulSphereMat = mainAssetBundle.LoadAsset<Material>("matGhoulExplosion");
+            var newRampTex = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/ColorRamps/texRampTritone.png").WaitForCompletion();
+            ghoulSphereMat.SetTexture("_RemapTex", newRampTex);
 
             GhoulSacrificeExplosion = LoadEffect("GhoulSacrificeExplosion", "Play_bleedOnCritAndExplode_explode");
 
-            ghoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
+            GhoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
 
             OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul");
             // feel free to delete everything in here and load in your own assets instead

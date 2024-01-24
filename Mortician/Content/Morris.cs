@@ -12,7 +12,6 @@ using R2API;
 using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
-using SkillStates.Morris;
 
 namespace Morris.Modules.Survivors
 {
@@ -36,14 +35,13 @@ namespace Morris.Modules.Survivors
 
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
             podPrefab = null,
-
             
             capsuleHeight = 3.2f,
             capsuleRadius = 0.9f,
             modelBasePosition = new Vector3(0f, -1.6f, 0f),
 
-            maxHealth = 160f,
-            healthGrowth = 48f,
+            maxHealth = 200f,
+            healthGrowth = 66f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
             damage = 14f,
@@ -295,7 +293,7 @@ namespace Morris.Modules.Survivors
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
-            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_Morris_BODY_DEFAULT_SKIN_NAME",
+            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_DEFAULT_SKIN_NAME",
                 Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
                 defaultRenderers,
                 mainRenderer,

@@ -33,7 +33,7 @@ namespace Morris.Modules.NPC
 
             bodyNameToClone = "EngiWalkerTurret",
 
-            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texMorrisIcon"),
+            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texTombstoneIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
             bodyColor = new Color32(33, 255, 189, 255),
 
@@ -93,6 +93,8 @@ namespace Morris.Modules.NPC
 
             var minionController = bodyPrefab.AddComponent<MorrisMinionController>();
             minionController.minionType = MorrisMinionController.MorrisMinionType.Tombstone;
+
+            UnityEngine.Object.DestroyImmediate(bodyPrefab.GetComponent<AkEvent>());
 
             bodyPrefab.AddComponent<SpawnGhoulOnTimer>();
             //bodyPrefab.AddComponent<TeamFilter>();

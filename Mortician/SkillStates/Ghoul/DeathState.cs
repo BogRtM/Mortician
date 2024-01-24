@@ -14,8 +14,6 @@ namespace SkillStates.Ghoul
         public static float sacrificedRadius = 16f;
         public static float smallHopVelocity = 7f;
 
-        //public static GameObject sacrificedEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/BleedOnHitAndExplode/BleedOnHitAndExplode_Explosion.prefab").WaitForCompletion();
-
         private MorrisMinionController minionController;
         private bool sacrificed;
 
@@ -40,9 +38,8 @@ namespace SkillStates.Ghoul
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
                 temporaryOverlay.destroyComponentOnEnd = true;
-                temporaryOverlay.originalMaterial = Assets.ghoulSacrificedMat;
+                temporaryOverlay.originalMaterial = Assets.GhoulSacrificedMat;
                 temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
-
             }
             else
             {

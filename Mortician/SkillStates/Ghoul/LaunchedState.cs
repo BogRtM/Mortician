@@ -10,6 +10,7 @@ namespace SkillStates.Ghoul
     internal class LaunchedState : BaseLaunchedState
     {
         private Transform launchTrail;
+        private Transform launchRings;
 
         public override void OnEnter()
         {
@@ -18,7 +19,8 @@ namespace SkillStates.Ghoul
             launchTrail = base.FindModelChild("LaunchTrail");
             launchTrail.gameObject.SetActive(true);
 
-            Util.PlaySound("Play_acid_larva_attack1_loop", base.gameObject);
+            launchRings = base.FindModelChild("LaunchRings");
+            launchRings.gameObject.SetActive(true);
         }
 
         public override void OnHitLargeEnemy(HurtBox target)
@@ -45,7 +47,7 @@ namespace SkillStates.Ghoul
         public override void OnExit()
         {
             launchTrail.gameObject.SetActive(false);
-            Util.PlaySound("Stop_acid_larva_attack1_loop", base.gameObject);
+            launchRings.gameObject.SetActive(false);
 
             if (base.healthComponent.alive)
             {

@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MorrisAssetBundle\testCurve.cs" />
      <Compile Include="Assets\Scripts\BlueprintController.cs" />
      <Compile Include="Assets\Scripts\CharacterSelectSurvivorPreviewDisplayController.cs" />
      <Compile Include="Assets\Scripts\ChildLocator.cs" />

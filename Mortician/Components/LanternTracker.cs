@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using Morris.Modules;
 
 namespace Morris.Components
 {
@@ -29,7 +30,7 @@ namespace Morris.Components
 
         private void Awake()
         {
-            this.indicator = new Indicator(base.gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
+            this.indicator = new Indicator(base.gameObject, Assets.LanternIndicator);
         }
 
         private void Start()

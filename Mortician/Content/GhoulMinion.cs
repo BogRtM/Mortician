@@ -27,7 +27,7 @@ namespace Morris.Modules.NPC
             bodyName = "GhoulBody",
             bodyNameToken = MorrisPlugin.DEVELOPER_PREFIX + "_GHOUL_BODY_NAME",
 
-            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texMorrisIcon"),
+            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texGhoulIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
             bodyColor = new Color32(33, 255, 189, 255),
 

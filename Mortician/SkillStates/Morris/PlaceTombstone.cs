@@ -25,7 +25,7 @@ namespace SkillStates.Morris
             if(base.isAuthority)
             {
                 currentPlacementInfo = GetPlacementInfo();
-                blueprintController = UnityEngine.Object.Instantiate<GameObject>(Assets.tombstoneBlueprintsPrefab, currentPlacementInfo.position,
+                blueprintController = UnityEngine.Object.Instantiate<GameObject>(Assets.TombstoneBlueprintsPrefab, currentPlacementInfo.position,
                     currentPlacementInfo.rotation).GetComponent<BlueprintController>();
             }
         }
