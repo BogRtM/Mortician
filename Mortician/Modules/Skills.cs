@@ -29,7 +29,7 @@ namespace Morris.Modules
             skillLocator.passiveSkill.enabled = true;
             skillLocator.passiveSkill.skillNameToken = "BOG_MORRIS_BODY_PASSIVE_NAME";
             skillLocator.passiveSkill.skillDescriptionToken = "BOG_MORRIS_BODY_PASSIVE_DESCRIPTION";
-            skillLocator.passiveSkill.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("HotPursuitIcon");
+            skillLocator.passiveSkill.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisPassiveIcon");
 
             skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary");
             skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary");

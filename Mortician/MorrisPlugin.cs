@@ -117,9 +117,9 @@ namespace Morris
                 {
                     BoneMapper ownerMapper = minionController.owner.GetComponent<ModelLocator>().modelTransform.GetComponentInChildren<BoneMapper>();
 
-                    if (ownerMapper)
+                    if (ownerMapper && ownerMapper.currentClipName != "none")
                     {
-                        CustomEmotesAPI.PlayAnimation(ownerMapper.currentClip.clip[0].name, mapper);
+                        CustomEmotesAPI.PlayAnimation(ownerMapper.currentClipName, mapper);
                     }
                 }
             }

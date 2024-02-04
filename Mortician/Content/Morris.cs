@@ -175,7 +175,7 @@ namespace Morris.Modules.Survivors
             shovelSkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
             shovelSkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
             shovelSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_DESCRIPTION";
-            shovelSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
+            shovelSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisPrimaryIcon");
             shovelSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
             shovelSkillDef.activationStateMachineName = "Weapon";
             shovelSkillDef.baseMaxStock = 1;
