@@ -10,8 +10,8 @@ namespace SkillStates.Ghoul
     internal class DeathState : GenericCharacterDeath
     {
         public static float duration = 0.375f;
-        public static float sacrificedDamageCoefficient = 6f;
-        public static float sacrificedRadius = 16f;
+        public static float sacrificedDamageCoefficient = 7f;
+        public static float sacrificedRadius = 18f;
         public static float smallHopVelocity = 7f;
 
         private MorrisMinionController minionController;

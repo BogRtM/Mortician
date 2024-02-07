@@ -43,8 +43,8 @@ namespace Morris.Modules.NPC
             healthRegen = -10f,
             regenGrowth = -3f,
             moveSpeed = 10f,
-            damage = 14f,
-            damageGrowth = 2.8f,
+            damage = StaticValues.morrisBaseDamage,
+            damageGrowth = StaticValues.morrisDamageGrowth,
             armor = 20f,
 
             cameraPivotPosition = new Vector3(0f, 0f, 0f),

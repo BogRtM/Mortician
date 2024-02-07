@@ -51,8 +51,8 @@ namespace Morris.Modules.NPC
             moveSpeed = 10f,
             jumpCount = 0,
             jumpPower = 0,
-            damage = 14f,
-            damageGrowth = 2.8f,
+            damage = StaticValues.morrisBaseDamage,
+            damageGrowth = StaticValues.morrisDamageGrowth,
             armor = 20f,
 
             cameraPivotPosition = new Vector3(0f, 0.5f, 0f),

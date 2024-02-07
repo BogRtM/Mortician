@@ -44,8 +44,8 @@ namespace Morris.Modules.Survivors
             healthGrowth = 66f,
             healthRegen = 2.5f,
             regenGrowth = 0.5f,
-            damage = 14f,
-            damageGrowth = 2.8f,
+            damage = StaticValues.morrisBaseDamage,
+            damageGrowth = StaticValues.morrisDamageGrowth,
             armor = 20f,
             sortPosition = 1f,
 
@@ -202,7 +202,7 @@ namespace Morris.Modules.Survivors
                 skillName = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
                 skillDescriptionToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("GunSlingIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSecondaryIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SpawnGhoul)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
@@ -229,7 +229,7 @@ namespace Morris.Modules.Survivors
             lanternSkillDef.skillName = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
             lanternSkillDef.skillNameToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
             lanternSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_DESCRIPTION";
-            lanternSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("QuickTriggerIcon");
+            lanternSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSacrificeIcon");
             lanternSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(Sacrifice));
             lanternSkillDef.activationStateMachineName = "Weapon";
             lanternSkillDef.baseMaxStock = 1;
@@ -256,7 +256,7 @@ namespace Morris.Modules.Survivors
                 skillName = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
                 skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("SkullBreakerIcon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisTombstoneIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(PlaceTombstone)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
