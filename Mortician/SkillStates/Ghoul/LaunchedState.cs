@@ -14,6 +14,8 @@ namespace SkillStates.Ghoul
 
         public override void OnEnter()
         {
+            launchPower = 85f;
+
             base.OnEnter();
 
             launchTrail = base.FindModelChild("LaunchTrail");

@@ -170,6 +170,9 @@ namespace SkillStates.Morris
         public void PlaySwingEffect()
         {
             string muzzleName = step == 0 ? "SwingLeft" : "SwingRight";
+            string soundString = step == 0 ? "SwingShovel1" : "SwingShovel2";
+
+            Util.PlaySound(soundString, base.gameObject);
 
             EffectManager.SimpleMuzzleFlash(Assets.ShovelSwingVFX, base.gameObject, muzzleName, true);
         }

@@ -38,10 +38,14 @@ namespace SkillStates.Morris
             masterSummon.position = GetBestSpawnPosition(base.GetAimRay());
             masterSummon.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
 
-            CharacterMaster characterMaster = new CharacterMaster();
+            CharacterMaster ghoulMaster;
             if (NetworkServer.active)
             {
-                characterMaster = masterSummon.Perform();
+                ghoulMaster = masterSummon.Perform();
+                if (ghoulMaster)
+                {
+                    ghoulMaster.inventory.CopyEquipmentFrom(base.characterBody.inventory);
+                }
             }
         }
 

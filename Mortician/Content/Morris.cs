@@ -107,6 +107,7 @@ namespace Morris.Modules.Survivors
             cm.mass = 300f;
 
             bodyPrefab.AddComponent<LanternTracker>();
+            bodyPrefab.AddComponent<TombstoneLocator>();
 
             EntityStateMachine lanternESM = Array.Find(bodyPrefab.GetComponents<EntityStateMachine>(), (EntityStateMachine ESM) => ESM.customName == "Slide");
             lanternESM.customName = "Lantern";

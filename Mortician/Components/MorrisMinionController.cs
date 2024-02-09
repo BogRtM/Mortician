@@ -28,6 +28,7 @@ namespace Morris.Components
 
         public enum MorrisMinionType
         {
+            None,
             Ghoul,
             Tombstone
         }
@@ -41,7 +42,7 @@ namespace Morris.Components
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = base.GetComponent<HealthComponent>();
 
-            if(characterBody.inventory)
+            if (characterBody.inventory)
                 characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
 
             if(characterBody.master)
@@ -58,7 +59,6 @@ namespace Morris.Components
         {
             switch (minionType)
             {
-                //Launch Ghoul
                 case MorrisMinionType.Ghoul:
                     var ghoulState = new SkillStates.Ghoul.LaunchedState()
                     {
@@ -68,7 +68,6 @@ namespace Morris.Components
                     bodyESM.SetInterruptState(ghoulState, InterruptPriority.Pain);
                     break;
                 
-                //Launch Tombstone
                 case MorrisMinionType.Tombstone:
                     var tombstoneState = new SkillStates.Tombstone.LaunchedState()
                     {
@@ -108,6 +107,15 @@ namespace Morris.Components
 
                 DamageReport damageReport = new DamageReport(damageInfo, healthComponent, damageInfo.damage, healthComponent.combinedHealth);
                 GlobalEventManager.instance.OnCharacterDeath(damageReport);
+
+                if (owner)
+                {
+                    TombstoneLocator ownerLocator;
+                    if (ownerLocator = owner.GetComponent<TombstoneLocator>())
+                    {
+                        ownerLocator.activeTombstone.AddSoulStock();
+                    }
+                }
             }
         }
     }

@@ -81,8 +81,9 @@ namespace Morris.Modules
 
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_NAME", "Tombstone");
-            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a Tombstone that spawns a ghoul every " +
-                $"<style=cIsUtility>{SpawnGhoulOnTimer.spawnTime} seconds</style>.");
+            LanguageAPI.Add(prefix + "SPECIAL_TOMBSTONE_DESCRIPTION", $"Erect a tombstone that spawns a ghoul every <style=cIsUtility>{TombstoneController.spawnTime} seconds</style>. " +
+                $"Whenever a ghoul is slain, the tombstone generates a <style=cIsUtility>vengeful soul</style> which it will fire at a nearby enemy for " +
+                $"<style=cIsDamage>{400}% damage</style>.");
             #endregion
 
             #region Achievements

@@ -9,6 +9,8 @@ namespace SkillStates.Tombstone
     {
         public override void OnEnter()
         {
+            launchPower = 70f;
+
             base.OnEnter();
             gameObject.layer = LayerIndex.fakeActor.intVal;
             characterMotor.Motor.RebuildCollidableLayers();

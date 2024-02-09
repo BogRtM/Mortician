@@ -15,10 +15,10 @@ namespace SkillStates.SharedStates
     {
         public static float minDuration = 0.3f;
         public static float damageCoefficient = 3.5f;
-        public static float launchPower = 70f;
         public static float yOffset = 0.1f;
         public static float minMassToExitState = 200f;
-        public static Vector3 downwardForce = Vector3.down * 10f;
+        public static Vector3 downwardForce = Vector3.down * 800f;
+        public float launchPower;
 
         private MorrisMinionController minionController;
 

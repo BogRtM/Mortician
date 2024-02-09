@@ -96,10 +96,11 @@ namespace Morris.Modules.NPC
 
             UnityEngine.Object.DestroyImmediate(bodyPrefab.GetComponent<AkEvent>());
 
-            bodyPrefab.AddComponent<SpawnGhoulOnTimer>();
-            //bodyPrefab.AddComponent<TeamFilter>();
+            bodyPrefab.AddComponent<TombstoneController>();
 
             /*
+            bodyPrefab.AddComponent<TeamFilter>();
+            
             BuffWard buffWard = bodyPrefab.AddComponent<BuffWard>();
             buffWard.shape = BuffWard.BuffWardShape.Sphere;
             buffWard.radius = 30f;
