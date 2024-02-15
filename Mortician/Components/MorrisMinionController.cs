@@ -113,7 +113,10 @@ namespace Morris.Components
                     TombstoneLocator ownerLocator;
                     if (ownerLocator = owner.GetComponent<TombstoneLocator>())
                     {
-                        ownerLocator.activeTombstone.AddSoulStock();
+                        if (ownerLocator.activeTombstone)
+                        {
+                            ownerLocator.activeTombstone.AddSoulStock();
+                        }
                     }
                 }
             }

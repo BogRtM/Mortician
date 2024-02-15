@@ -14,16 +14,16 @@ namespace Morris.Components
     internal class TombstoneController : MonoBehaviour
     {
         public static float spawnTime = 10f;
-        public static float soulOrbDamage = 4f;
+        public static float soulOrbDamage = 3.5f;
 
         private MorrisMinionController minionController;
         private TombstoneLocator ownerLocator;
+        private ChildLocator childLocator;
+        private SoulOrbLocator soulOrbLocator;
         private TeamComponent teamComponent;
         private CharacterBody characterBody;
 
         private readonly SphereSearch search = new SphereSearch();
-
-        private Transform orbMuzzle;
 
         private float fireTime = 1f;
         private float spawnStopwatch = spawnTime;
@@ -37,8 +37,8 @@ namespace Morris.Components
             characterBody = base.GetComponent<CharacterBody>();
 
             ModelLocator modelLocator = base.GetComponent<ModelLocator>();
-            ChildLocator childLocator = modelLocator.modelTransform.GetComponent<ChildLocator>();
-            orbMuzzle = childLocator.FindChild("TombstoneLight");
+            childLocator = modelLocator.modelTransform.GetComponent<ChildLocator>();
+            soulOrbLocator = modelLocator.modelTransform.GetComponent<SoulOrbLocator>();
 
             ownerLocator = minionController.owner.GetComponent<TombstoneLocator>();
             ownerLocator.SetActiveTombstone(this);
@@ -76,15 +76,18 @@ namespace Morris.Components
 
         public void FireSoulOrb(HurtBox target)
         {
+            Vector3 orbMuzzle = soulOrbLocator.GetPosition(soulStock - 1);
+            soulOrbLocator.DeactivateOrb(soulStock - 1);
             soulStock--;
 
             if (NetworkServer.active)
             {
                 TombstoneSoulOrb soulOrb = new TombstoneSoulOrb();
                 soulOrb.attacker = base.gameObject;
-                soulOrb.origin = orbMuzzle.position;
+                soulOrb.origin = orbMuzzle;
                 soulOrb.target = target;
                 soulOrb.damageValue = characterBody.damage * soulOrbDamage;
+                soulOrb.damageType = DamageType.Generic;
                 soulOrb.damageColorIndex = DamageColorIndex.Default;
                 soulOrb.isCrit = Util.CheckRoll(characterBody.crit, characterBody.master);
                 soulOrb.teamIndex = teamComponent.teamIndex;
@@ -94,12 +97,9 @@ namespace Morris.Components
 
         public void AddSoulStock()
         {
-            soulStock++;
-        }
+            soulStock = Mathf.Clamp(soulStock + 1, 0, 10);
 
-        public void AddSoulStock(int amount)
-        {
-            soulStock += amount;
+            soulOrbLocator.ActivateOrb(soulStock - 1);
         }
 
         public HurtBox FindOrbTarget()

@@ -17,6 +17,10 @@ namespace SkillStates.Ghoul
 
         private OverlapAttack attack;
 
+        private string animString = "Melee";
+        private string muzzleName = "MuzzleMelee";
+
+        private int meleeIndex;
         private float duration;
         private float fireTime;
         private bool hasFired;
@@ -32,6 +36,11 @@ namespace SkillStates.Ghoul
 
             minionController = base.GetComponent<MorrisMinionController>();
 
+            meleeIndex = UnityEngine.Random.RandomRangeInt(1, 5);
+            animString += meleeIndex;
+            muzzleName += meleeIndex;
+            base.PlayCrossfade("Gesture, Override", animString, "Attack.playbackRate", duration, 0.1f);
+
             Transform modelTransform = base.GetModelTransform();
             HitBoxGroup hitBoxGroup = new HitBoxGroup();
 
@@ -39,8 +48,6 @@ namespace SkillStates.Ghoul
             {
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "GhoulMelee");
             }
-
-            base.PlayCrossfade("FullBody, Override", "Melee1", "Attack.playbackRate", duration, 0.1f);
 
             attack = new OverlapAttack();
             attack.attacker = minionController.owner ? minionController.owner : base.gameObject;
@@ -60,10 +67,14 @@ namespace SkillStates.Ghoul
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= fireTime && !hasFired && base.isAuthority)
+            if(base.fixedAge >= fireTime && !hasFired)
             {
                 hasFired = true;
-                attack.Fire();
+
+                EffectManager.SimpleMuzzleFlash(Assets.GhoulMeleeEffects[meleeIndex], base.gameObject, muzzleName, true);
+
+                if(base.isAuthority)
+                    attack.Fire();
             }
 
             if(base.fixedAge >= duration && base.isAuthority)

@@ -19,6 +19,7 @@ using Morris.Components;
 using SkillStates.Morris;
 using ShaderSwapper;
 using System.Linq;
+using System.Collections;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -56,7 +57,8 @@ namespace Morris
         internal static BodyIndex TombstoneBodyIndex;
 
         public static DamageAPI.ModdedDamageType LaunchGhoul;
-        
+
+        public static bool containsCustomEmoteAPI;
 
         private void Awake()
         {
@@ -66,9 +68,12 @@ namespace Morris
             
             Modules.Config.ReadConfig(this);
 
+            containsCustomEmoteAPI = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI");
+            //Log.Warning("Contains custom emote API: " + containsCustomEmoteAPI);
+
             Modules.Assets.Initialize(); // load assets and read config
 
-            base.StartCoroutine(Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync());
+            StartCoroutine(CoroutineMaterialStuff());
 
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
@@ -80,17 +85,31 @@ namespace Morris
 
             // survivor initialization
             new Modules.Survivors.Morris().Initialize();
-            Log.Warning("Mortician created successfully");
+            //Log.Warning("Mortician created successfully");
             new Modules.NPC.GhoulMinion().Initialize();
-            Log.Warning("Ghoul created successfully");
+            //Log.Warning("Ghoul created successfully");
             new Modules.NPC.TombstoneDeployable().Initialize();
-            Log.Warning("Tombstone created successfully");
+            //Log.Warning("Tombstone created successfully");
 
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
 
             Subscriptions();
             Hook();
+
+            if (containsCustomEmoteAPI)
+            {
+                CustomEmoteAPICompat();
+            }
+        }
+
+        public IEnumerator CoroutineMaterialStuff()
+        {
+            //Log.Warning("Converting stubbed shaders");
+            yield return Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync();
+            //Log.Warning("Shader conversion finished; now fixing render queues");
+            yield return Materials.FixRenderQueues();
+            //Log.Warning("Render queues have been fixed");
         }
 
         private void Start()
@@ -100,50 +119,7 @@ namespace Morris
 
         private void Subscriptions()
         {
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
-            {
-                CustomEmotesAPI.boneMapperCreated += CustomEmotesAPI_boneMapperCreated;
-                CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged;
-            }
-        }
-
-        private void CustomEmotesAPI_boneMapperCreated(BoneMapper mapper)
-        {
-            if(mapper.mapperBody.bodyIndex == GhoulBodyIndex)
-            {
-                MorrisMinionController minionController = mapper.mapperBody.GetComponent<MorrisMinionController>();
-
-                if (minionController.owner)
-                {
-                    BoneMapper ownerMapper = minionController.owner.GetComponent<ModelLocator>().modelTransform.GetComponentInChildren<BoneMapper>();
-
-                    if (ownerMapper && ownerMapper.currentClipName != "none")
-                    {
-                        CustomEmotesAPI.PlayAnimation(ownerMapper.currentClipName, mapper);
-                    }
-                }
-            }
-        }
-
-        private void CustomEmotesAPI_animChanged(string newAnimation, BoneMapper mapper)
-        {
-            if(mapper.mapperBody.bodyIndex == MorrisBodyIndex)
-            {
-                var minions = CharacterMaster.readOnlyInstancesList.Where(el => el.minionOwnership.ownerMaster == mapper.mapperBody.master);
-
-                foreach(var minion in minions)
-                {
-                    if(minion.GetBody().bodyIndex == GhoulBodyIndex && minion.GetBody().healthComponent.alive)
-                    {
-                        ModelLocator modelLocator = minion.GetBodyObject().GetComponent<ModelLocator>();
-                        if(modelLocator)
-                        {
-                            BoneMapper ghoulMapper = modelLocator.modelTransform.GetComponentInChildren<BoneMapper>();
-                            CustomEmotesAPI.PlayAnimation(newAnimation, ghoulMapper);
-                        }
-                    }
-                }
-            }
+            
         }
 
         private void ShowHealthBarToOwner(DamageDealtMessage obj)
@@ -171,8 +147,6 @@ namespace Morris
         private void Hook()
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
-
-            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -201,23 +175,6 @@ namespace Morris
             }
         }
 
-        private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
-        {
-            orig();
-
-            Log.Warning("Creating Morris Skeleton");
-
-            foreach (var survivor in SurvivorCatalog.survivorDefs)
-            {
-                if(survivor.bodyPrefab.name == "MorrisBody")
-                {
-                    GameObject skeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("MorrisHumanoidSkeleton");
-                    CustomEmotesAPI.ImportArmature(survivor.bodyPrefab, skeleton);
-                    skeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
-                }
-            }
-        }
-
         private void BodyCatalog_SetBodyPrefabs(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)
         {
             orig(newBodyPrefabs);
@@ -230,20 +187,67 @@ namespace Morris
 
             TombstoneBodyIndex = BodyCatalog.FindBodyIndex(TombstoneBodyPrefab);
             Log.Warning("Mortician's tombstone body index is: " + TombstoneBodyIndex);
+        }
 
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
+        private void CustomEmoteAPICompat()
+        {
+            CustomEmotesAPI.boneMapperCreated += CustomEmotesAPI_boneMapperCreated;
+            CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged;
+            On.RoR2.BodyCatalog.SetBodyPrefabs += CreateEmoteSkeletons;
+        }
+
+        private void CreateEmoteSkeletons(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)
+        {
+            orig(newBodyPrefabs);
+
+            Log.Warning("Creating Morris emote skeleton");
+            GameObject morrisSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("MorrisHumanoidSkeleton");
+            CustomEmotesAPI.ImportArmature(MorrisBodyPrefab, morrisSkeleton);
+            morrisSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
+
+            Log.Warning("Creating Ghoul emote skeleton");
+            GameObject ghoulSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("GhoulHumanoidSkeleton");
+            CustomEmotesAPI.ImportArmature(GhoulBodyPrefab, ghoulSkeleton);
+            ghoulSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
+        }
+
+        private void CustomEmotesAPI_boneMapperCreated(BoneMapper mapper)
+        {
+            if (mapper.mapperBody.bodyIndex == GhoulBodyIndex)
             {
-                Log.Warning("Creating Morris emote skeleton");
-                GameObject morrisSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("MorrisHumanoidSkeleton");
-                CustomEmotesAPI.ImportArmature(MorrisBodyPrefab, morrisSkeleton);
-                morrisSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
+                MorrisMinionController minionController = mapper.mapperBody.GetComponent<MorrisMinionController>();
 
-                Log.Warning("Creating Ghoul emote skeleton");
-                GameObject ghoulSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("GhoulHumanoidSkeleton");
-                CustomEmotesAPI.ImportArmature(GhoulBodyPrefab, ghoulSkeleton);
-                ghoulSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
+                if (minionController.owner)
+                {
+                    BoneMapper ownerMapper = minionController.owner.GetComponent<ModelLocator>().modelTransform.GetComponentInChildren<BoneMapper>();
+
+                    if (ownerMapper && ownerMapper.currentClipName != "none")
+                    {
+                        CustomEmotesAPI.PlayAnimation(ownerMapper.currentClipName, mapper);
+                    }
+                }
             }
         }
 
+        private void CustomEmotesAPI_animChanged(string newAnimation, BoneMapper mapper)
+        {
+            if (mapper.mapperBody.bodyIndex == MorrisBodyIndex)
+            {
+                var minions = CharacterMaster.readOnlyInstancesList.Where(el => el.minionOwnership.ownerMaster == mapper.mapperBody.master);
+
+                foreach (var minion in minions)
+                {
+                    if (minion.GetBody().bodyIndex == GhoulBodyIndex && minion.GetBody().healthComponent.alive)
+                    {
+                        ModelLocator modelLocator = minion.GetBodyObject().GetComponent<ModelLocator>();
+                        if (modelLocator)
+                        {
+                            BoneMapper ghoulMapper = modelLocator.modelTransform.GetComponentInChildren<BoneMapper>();
+                            CustomEmotesAPI.PlayAnimation(newAnimation, ghoulMapper);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ using System;
 using Path = System.IO.Path;
 using ShaderSwapper;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace Morris.Modules
 {
@@ -41,6 +42,11 @@ namespace Morris.Modules
         public static Material GhoulSacrificedMat;
         public static GameObject GhoulSacrificeExplosion;
         public static GameObject OmniImpactVFXGhoul;
+
+        public static Dictionary<int, GameObject> GhoulMeleeEffects = new Dictionary<int, GameObject>();
+        public static GameObject GhoulBiteEffect;
+        public static GameObject GhoulLickEffect;
+        public static GameObject GhoulSlashEffect;
 
         public static GameObject TombstoneBlueprintsPrefab;
 
@@ -155,6 +161,16 @@ namespace Morris.Modules
             GhoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
 
             OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul");
+
+            GhoulBiteEffect = LoadEffect("GhoulBite", true);
+            GhoulLickEffect = LoadEffect("GhoulLick", true);
+            GhoulSlashEffect = LoadEffect("GhoulSlash", true);
+            
+            GhoulMeleeEffects.Add(1, GhoulBiteEffect);
+            GhoulMeleeEffects.Add(2, GhoulLickEffect);
+            GhoulMeleeEffects.Add(3, GhoulSlashEffect);
+            GhoulMeleeEffects.Add(4, GhoulSlashEffect);
+
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle
             /*

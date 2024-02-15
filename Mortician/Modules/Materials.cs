@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Morris.Modules
@@ -26,6 +27,17 @@ namespace Morris.Modules
             }
 
             return tempMat.SetHopooMaterial();
+        }
+
+        public static IEnumerator FixRenderQueues()
+        {
+            Material blueFire = Assets.mainAssetBundle.LoadAsset<Material>("matMorrisFireBlue");
+            Material greenFire = Assets.mainAssetBundle.LoadAsset<Material>("matMorrisFireGreen");
+
+            blueFire.renderQueue = 2950;
+            greenFire.renderQueue = 2900;
+
+            yield return null;
         }
 
         public static Material SetHopooMaterial(this Material tempMat)

@@ -47,7 +47,7 @@ namespace Morris.Modules.Survivors
             damage = StaticValues.morrisBaseDamage,
             damageGrowth = StaticValues.morrisDamageGrowth,
             armor = 20f,
-            sortPosition = 1f,
+            sortPosition = 16f,
 
             cameraPivotPosition = new Vector3(0f, 0.3f, 0f),
             cameraParamsDepth = -12f

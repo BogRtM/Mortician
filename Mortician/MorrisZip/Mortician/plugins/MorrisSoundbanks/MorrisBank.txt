@@ -1,0 +1,18 @@
+Event	ID	Name			Wwise Object Path	Notes
+	519074190	FingerSnap			\Default Work Unit\Morris\FingerSnap	
+	1205554226	ShovelImpact			\Default Work Unit\Morris\ShovelImpact	
+	2833622834	HitGhoulWithShovel			\Default Work Unit\Morris\HitGhoulWithShovel	
+	4137789085	SwingShovel1			\Default Work Unit\Morris\SwingShovel1	
+	4137789086	SwingShovel2			\Default Work Unit\Morris\SwingShovel2	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	172542007	SwingShovel1	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\SWSH_Swing 6 Large 07_DDUMAIS_NONE_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\SwingShovel1		161168
+	486942005	METLImpt_Impact Metal Heavy 01_DDUMAIS_NONE	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\METLImpt_Impact Metal Heavy 01_DDUMAIS_NONE_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\ShovelImpact\METLImpt_Impact Metal Heavy 01_DDUMAIS_NONE		338648
+	536762341	HitGhoulWithShovel	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\KickWhoosh FS041101_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\HitGhoulWithShovel		93248
+	616505329	FingerSnap	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\FingerSnap_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\FingerSnap		133740
+	805197823	SwingShovel2	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\SWSH_Swing 6 Large 04_DDUMAIS_NONE_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\SwingShovel2		112984
+	1033981314	ShovelHit2	C:\Users\rtmbo\My project (1)\My project (1)_WwiseProject\.cache\Mac\SFX\METLImpt_Impact Metal Heavy 05_DDUMAIS_NONE_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\Morris\ShovelImpact\ShovelHit2		291316
+

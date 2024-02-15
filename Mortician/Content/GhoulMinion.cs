@@ -124,7 +124,7 @@ namespace Morris.Modules.NPC
             ghoulPrimary.skillDescriptionToken = prefix + "_GHOUL_BODY_PRIMARY_MELEE_DESCRIPTION";
             ghoulPrimary.icon = null;
             ghoulPrimary.activationState = new EntityStates.SerializableEntityStateType(typeof(GhoulMelee));
-            ghoulPrimary.activationStateMachineName = "Body";
+            ghoulPrimary.activationStateMachineName = "Weapon";
             ghoulPrimary.baseMaxStock = 1;
             ghoulPrimary.baseRechargeInterval = 2f;
             ghoulPrimary.beginSkillCooldownOnSkillEnd = false;
