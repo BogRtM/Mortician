@@ -110,7 +110,7 @@ namespace SkillStates.Morris
             placementInfo.ok = false;
             placementInfo.rotation = Util.QuaternionSafeLookRotation(-direction);
 
-            Ray ray = new Ray(aimRay.GetPoint(3f) + Vector3.up * 2f, Vector3.down);
+            Ray ray = new Ray(aimRay.GetPoint(4f) + Vector3.up * 2f, Vector3.down);
             RaycastHit raycastHit;
 
             float raycastDistance = 8f;

@@ -9,6 +9,7 @@ using Path = System.IO.Path;
 using ShaderSwapper;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using RoR2.Orbs;
 
 namespace Morris.Modules
 {
@@ -49,6 +50,7 @@ namespace Morris.Modules
         public static GameObject GhoulSlashEffect;
 
         public static GameObject TombstoneBlueprintsPrefab;
+        public static GameObject SoulOrbEffect;
 
         public static string AssetBundlePath
         {
@@ -170,6 +172,19 @@ namespace Morris.Modules
             GhoulMeleeEffects.Add(2, GhoulLickEffect);
             GhoulMeleeEffects.Add(3, GhoulSlashEffect);
             GhoulMeleeEffects.Add(4, GhoulSlashEffect);
+
+            SoulOrbEffect = mainAssetBundle.LoadAsset<GameObject>("SoulOrbEffect");
+            SoulOrbEffect.AddComponent<EffectComponent>();
+            OrbEffect orbEffect = SoulOrbEffect.AddComponent<OrbEffect>();
+            orbEffect.startVelocity1 = new Vector3(-5, 16, -5);
+            orbEffect.startVelocity2 = new Vector3(5, 8, 5);
+            orbEffect.movementCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+            orbEffect.faceMovement = true;
+            SoulOrbEffect.AddComponent<Rigidbody>();
+            VFXAttributes soulOrbVFX = SoulOrbEffect.AddComponent<VFXAttributes>();
+            soulOrbVFX.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            soulOrbVFX.vfxPriority = VFXAttributes.VFXPriority.Medium;
+            AddNewEffectDef(SoulOrbEffect);
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

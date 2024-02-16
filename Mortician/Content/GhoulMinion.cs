@@ -126,7 +126,7 @@ namespace Morris.Modules.NPC
             ghoulPrimary.activationState = new EntityStates.SerializableEntityStateType(typeof(GhoulMelee));
             ghoulPrimary.activationStateMachineName = "Weapon";
             ghoulPrimary.baseMaxStock = 1;
-            ghoulPrimary.baseRechargeInterval = 2f;
+            ghoulPrimary.baseRechargeInterval = 1f;
             ghoulPrimary.beginSkillCooldownOnSkillEnd = false;
             ghoulPrimary.canceledFromSprinting = false;
             ghoulPrimary.forceSprintDuringState = false;

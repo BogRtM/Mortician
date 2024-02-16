@@ -13,8 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MorrisZip\**" />
     <Compile Remove="Soundbanks\**" />
+    <EmbeddedResource Remove="MorrisZip\**" />
     <EmbeddedResource Remove="Soundbanks\**" />
+    <None Remove="MorrisZip\**" />
     <None Remove="Soundbanks\**" />
   </ItemGroup>
 

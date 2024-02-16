@@ -55,12 +55,16 @@ namespace Morris.Components
         public void FixedUpdate()
         {
             spawnStopwatch += Time.fixedDeltaTime;
-            fireStopwatch += Time.fixedDeltaTime;
 
-            if(spawnStopwatch >= spawnTime)
+            if (spawnStopwatch >= spawnTime)
             {
                 spawnStopwatch = 0f;
                 SpawnGhoul();
+            }
+
+            if (soulStock > 0)
+            {
+                fireStopwatch += Time.fixedDeltaTime;
             }
 
             if(fireStopwatch >= fireTime && soulStock > 0)

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using RoR2;
 using RoR2.Orbs;
+using Morris.Modules;
 
 namespace Morris.Content
 {
@@ -19,7 +20,8 @@ namespace Morris.Content
 
         public override GameObject GetOrbEffect()
         {
-            return Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/EliteHaunted/HauntOrbEffect.prefab").WaitForCompletion();
+            //return Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/EliteHaunted/HauntOrbEffect.prefab").WaitForCompletion();
+            return Assets.SoulOrbEffect;
         }
 
         public override void OnArrival()

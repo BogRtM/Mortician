@@ -207,7 +207,7 @@ namespace Morris.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SpawnGhoul)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 6f,
+                baseRechargeInterval = 7f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

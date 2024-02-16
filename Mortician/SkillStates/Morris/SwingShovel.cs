@@ -14,7 +14,7 @@ namespace SkillStates.Morris
         public static float baseDuration = 1.833f;
         public static float damageCoefficient = 8f;
         public static float smallHopVelocity = 6f;
-        public static float hitPauseDuration = 0.1f;
+        public static float hitPauseDuration = 0.12f;
 
         private Animator animator;
 
@@ -24,6 +24,7 @@ namespace SkillStates.Morris
         private float duration;
         private float step;
         private float fireTime;
+        private float fireEndTime;
         private float earlyExitTime;
 
         private bool hasFired;
@@ -42,6 +43,7 @@ namespace SkillStates.Morris
 
             duration = baseDuration / base.attackSpeedStat;
             fireTime = duration * 0.18f;
+            fireEndTime = duration * 0.22f;
             earlyExitTime = duration * 0.54f;
 
             base.StartAimMode(2f, false);
@@ -81,7 +83,15 @@ namespace SkillStates.Morris
 
             hitPauseTimer -= Time.fixedDeltaTime;
 
+            /*
             if (base.fixedAge >= fireTime && !hasFired)
+            {
+                FireAttack();
+                HitGhoul(this.hitBoxGroup);
+            }
+            */
+
+            if (base.fixedAge >= fireTime && base.fixedAge <= fireEndTime)
             {
                 FireAttack();
                 HitGhoul(this.hitBoxGroup);
@@ -111,9 +121,11 @@ namespace SkillStates.Morris
 
         public void FireAttack()
         {
-            hasFired = true;
-
-            PlaySwingEffect();
+            if (!hasFired)
+            {
+                PlaySwingEffect();
+                hasFired = true;
+            }
 
             if (base.isAuthority)
             {

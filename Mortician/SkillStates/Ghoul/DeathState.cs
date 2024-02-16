@@ -34,7 +34,7 @@ namespace SkillStates.Ghoul
 
                 Transform modelTransform = base.GetModelTransform();
                 TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = duration;
+                temporaryOverlay.duration = duration * 1.5f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
                 temporaryOverlay.destroyComponentOnEnd = true;
