@@ -4,10 +4,10 @@ using System.Text;
 using RoR2;
 using EntityStates;
 using UnityEngine;
+using UnityEngine.Networking;
 using SkillStates.Ghoul;
 using SkillStates.Tombstone;
 using RoR2.UI;
-using UnityEngine.Networking;
 
 namespace Morris.Components
 {
@@ -42,8 +42,11 @@ namespace Morris.Components
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = base.GetComponent<HealthComponent>();
 
-            if (characterBody.inventory)
+
+            if (characterBody.inventory && NetworkServer.active)
+            {
                 characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
+            }
 
             if(characterBody.master)
             {
@@ -87,7 +90,10 @@ namespace Morris.Components
             sacrificed = true;
             sacrificeOwner = sacrificer;
 
-            this.healthComponent.Suicide();
+            if(NetworkServer.active)
+            { 
+                this.healthComponent.Suicide(); 
+            }
         }
 
         public void OnDeathStart()
@@ -115,7 +121,7 @@ namespace Morris.Components
                     {
                         if (ownerLocator.activeTombstone)
                         {
-                            ownerLocator.activeTombstone.AddSoulStock();
+                            ownerLocator.activeTombstone.RpcAddSoulStock();
                         }
                     }
                 }

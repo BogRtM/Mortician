@@ -17,7 +17,7 @@ namespace SkillStates.Ghoul
         public static Vector3 downwardForce = Vector3.down * 800f;
         
         public HurtBox initialTarget;
-        public HealthComponent targetHealthComponent;
+        //public HealthComponent targetHealthComponent;
         public HurtBoxGroup targetGroup;
 
         private Transform modelTransform;
@@ -42,37 +42,47 @@ namespace SkillStates.Ghoul
             negativeOffset = UnityEngine.Random.value > 0.5f;
 
             //Get random hurtbox to cling to
-            targetGroup = initialTarget.hurtBoxGroup;
-            int randomIndex = UnityEngine.Random.Range(0, targetGroup.hurtBoxes.Length);
-            clingHurtbox = targetGroup.hurtBoxes[randomIndex];
-            targetCollider = clingHurtbox.GetComponent<Collider>();
+            if(initialTarget)
+            {
+                targetGroup = initialTarget.hurtBoxGroup;
+                int randomIndex = UnityEngine.Random.Range(0, targetGroup.hurtBoxes.Length);
+                clingHurtbox = targetGroup.hurtBoxes[randomIndex];
+                targetCollider = clingHurtbox.GetComponent<Collider>();
+            }
 
-            //base.gameObject.layer = LayerIndex.entityPrecise.intVal;
-            //base.characterMotor.Motor.RebuildCollidableLayers();
-
-            base.characterMotor.velocity = Vector3.zero;
+            if(base.isAuthority)
+            {
+                base.characterMotor.velocity = Vector3.zero;
+            }
 
             minionController = base.GetComponent<MorrisMinionController>();
+        }
+
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            writer.Write(HurtBoxReference.FromHurtBox(this.initialTarget));
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            initialTarget = reader.ReadHurtBoxReference().ResolveHurtBox();
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if(base.isAuthority)
-            {
-                UpdateClingPoint();
-            }
+            UpdateClingPoint();
 
             stopwatch += Time.fixedDeltaTime;
 
-            if (stopwatch >= biteInterval && targetHealthComponent.alive)
+            if (stopwatch >= biteInterval && initialTarget.healthComponent.alive)
             {
                 stopwatch = 0f;
                 Bite();
             }
 
-            if (!targetHealthComponent.alive && base.isAuthority)
+            if (!initialTarget.healthComponent.alive && base.isAuthority)
             {
                 outer.SetNextStateToMain();
             }
@@ -80,35 +90,27 @@ namespace SkillStates.Ghoul
 
         public void UpdateClingPoint()
         {
-            try
+            base.characterMotor.velocity = Vector3.zero;
+            base.characterMotor.rootMotion = Vector3.zero;
+
+            //Find bounds of hurtbox collider
+            Vector3 pointWithOffset = targetCollider.bounds.center;
+
+            float zOffset = targetCollider.bounds.extents.z;
+            Quaternion rotationToSet = targetCollider.transform.rotation;
+
+            if (negativeOffset)
             {
-                base.characterMotor.velocity = Vector3.zero;
-                base.characterMotor.rootMotion = Vector3.zero;
-
-                //Find bounds of hurtbox collider
-                Vector3 pointWithOffset = targetCollider.bounds.center;
-
-                float zOffset = targetCollider.bounds.extents.z;
-                Quaternion rotationToSet = targetCollider.transform.rotation;
-
-                if (negativeOffset)
-                {
-                    zOffset *= -1f;
-                    rotationToSet = Quaternion.Inverse(rotationToSet);
-                }
-
-                pointWithOffset.z -= zOffset;
-
-                //Set position and rotation
-                base.characterMotor.Motor.SetPosition(pointWithOffset, true);
-                modelTransform.position = pointWithOffset;
-                modelTransform.rotation = rotationToSet;
+                zOffset *= -1f;
+                rotationToSet = Quaternion.Inverse(rotationToSet);
             }
-            catch(Exception e)
-            {
-                Log.Warning("NRE in UpdateClingPoint()");
-            }
-            
+
+            pointWithOffset.z -= zOffset;
+
+            //Set position and rotation
+            base.characterMotor.Motor.SetPosition(pointWithOffset, true);
+            modelTransform.position = pointWithOffset;
+            modelTransform.rotation = rotationToSet;
         }
 
         public void Bite()

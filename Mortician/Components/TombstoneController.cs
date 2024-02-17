@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 
 namespace Morris.Components
 {
-    internal class TombstoneController : MonoBehaviour
+    internal class TombstoneController : NetworkBehaviour
     {
         public static float spawnTime = 10f;
         public static float soulOrbDamage = 3.5f;
@@ -28,6 +28,8 @@ namespace Morris.Components
         private float fireTime = 1f;
         private float spawnStopwatch = spawnTime;
         private float fireStopwatch;
+
+        [SyncVar]
         private int soulStock;
 
         public void Start()
@@ -81,11 +83,11 @@ namespace Morris.Components
         public void FireSoulOrb(HurtBox target)
         {
             Vector3 orbMuzzle = soulOrbLocator.GetPosition(soulStock - 1);
-            soulOrbLocator.DeactivateOrb(soulStock - 1);
-            soulStock--;
-
+            
             if (NetworkServer.active)
             {
+                RpcDetractSoulStock();
+
                 TombstoneSoulOrb soulOrb = new TombstoneSoulOrb();
                 soulOrb.attacker = base.gameObject;
                 soulOrb.origin = orbMuzzle;
@@ -99,11 +101,20 @@ namespace Morris.Components
             }
         }
 
-        public void AddSoulStock()
+        [ClientRpc]
+        public void RpcAddSoulStock()
         {
             soulStock = Mathf.Clamp(soulStock + 1, 0, 10);
 
-            soulOrbLocator.ActivateOrb(soulStock - 1);
+            soulOrbLocator.ActivateSphere(soulStock - 1);
+        }
+
+        [ClientRpc]
+        public void RpcDetractSoulStock()
+        {
+            soulOrbLocator.DeactivateSphere(soulStock - 1);
+
+            soulStock = Mathf.Clamp(soulStock - 1, 0, 10);
         }
 
         public HurtBox FindOrbTarget()

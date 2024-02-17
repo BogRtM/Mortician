@@ -44,7 +44,7 @@ namespace SkillStates.Morris
                 ghoulMaster = masterSummon.Perform();
                 if (ghoulMaster)
                 {
-                    ghoulMaster.inventory.CopyEquipmentFrom(base.characterBody.inventory);
+                    //ghoulMaster.inventory.CopyEquipmentFrom(base.characterBody.inventory);
                 }
             }
         }

@@ -8,12 +8,12 @@ public class SoulOrbLocator : MonoBehaviour
     [SerializeField]
     private GameObject[] soulOrbs;
 
-    public void ActivateOrb(int i)
+    public void ActivateSphere(int i)
     {
         soulOrbs[i].SetActive(true);
     }
 
-    public void DeactivateOrb(int i)
+    public void DeactivateSphere(int i)
     {
         soulOrbs[i].SetActive(false);
     }

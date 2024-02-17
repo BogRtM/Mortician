@@ -14,6 +14,7 @@ namespace SkillStates.SharedStates
     internal class BaseLaunchedState : BaseState
     {
         public static float minDuration = 0.3f;
+        public static float maxDuration = 5f;
         public static float damageCoefficient = 3.5f;
         public static float yOffset = 0.1f;
         public static float minMassToExitState = 200f;
@@ -92,10 +93,10 @@ namespace SkillStates.SharedStates
                     {
                         if (victim.healthComponent && victim.healthComponent.alive)
                         {
-                            Rigidbody rigidBody = victim.healthComponent.GetComponent<Rigidbody>();
-                            if (rigidBody)
+                            Rigidbody victimRigidBody = victim.healthComponent.GetComponent<Rigidbody>();
+                            if (victimRigidBody)
                             {
-                                float victimMass = rigidBody.mass;
+                                float victimMass = victimRigidBody.mass;
 
                                 if (victimMass >= minMassToExitState)
                                 {
@@ -114,9 +115,8 @@ namespace SkillStates.SharedStates
                     }
                 }
 
-                if (base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround)
+                if ((base.fixedAge >= minDuration && base.characterMotor.Motor.GroundingStatus.IsStableOnGround) || base.fixedAge >= maxDuration)
                 {
-                    PlayLaunchExit();
                     outer.SetNextStateToMain();
                 }
             }
@@ -139,6 +139,8 @@ namespace SkillStates.SharedStates
 
         public override void OnExit()
         {
+            PlayLaunchExit();
+
             if (NetworkServer.active)
             {
                 characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);

@@ -135,6 +135,8 @@ namespace Morris.Modules.Characters
 
         #region Stats
         //main stats
+        public bool hasAimAnimator = true;
+
         public float capsuleHeight;
         public float capsuleRadius;
         public float maxHealth = 100f;

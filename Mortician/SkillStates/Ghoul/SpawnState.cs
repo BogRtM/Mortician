@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using RoR2;
 using EntityStates;
+using UnityEngine.Networking;
 namespace SkillStates.Ghoul
 {
     internal class SpawnState : BaseState
@@ -11,7 +12,10 @@ namespace SkillStates.Ghoul
         {
             base.OnEnter();
 
-            base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+            if(NetworkServer.active)
+            {
+                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+            }
         }
 
         public override void FixedUpdate()
@@ -26,7 +30,10 @@ namespace SkillStates.Ghoul
 
         public override void OnExit()
         {
-            base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+            if (NetworkServer.active)
+            {
+                base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+            }
 
             base.OnExit();
         }

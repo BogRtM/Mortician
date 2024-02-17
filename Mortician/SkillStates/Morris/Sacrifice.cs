@@ -18,6 +18,7 @@ namespace SkillStates.Morris
 
         private float duration;
         private float effectTime;
+        private float earlyExitTime;
         private bool hasSnapped;
 
         private HurtBox target;
@@ -27,6 +28,7 @@ namespace SkillStates.Morris
 
             duration = baseDuration / base.attackSpeedStat;
             effectTime = duration * 0.35f;
+            earlyExitTime = duration * 0.625f;
 
             lanternTracker = base.GetComponent<LanternTracker>();
             target = lanternTracker.GetTrackingTarget();
@@ -78,7 +80,7 @@ namespace SkillStates.Morris
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return base.fixedAge >= earlyExitTime ? InterruptPriority.Any : InterruptPriority.PrioritySkill;
         }
     }
 }

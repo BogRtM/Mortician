@@ -123,7 +123,10 @@ namespace Morris.Modules {
             
             SetupMainHurtbox(newBodyPrefab, model);
 
-            SetupAimAnimator(newBodyPrefab, model);
+            if (bodyInfo.hasAimAnimator)
+            {
+                SetupAimAnimator(newBodyPrefab, model);
+            }
 
             if (modelBaseTransform != null) SetupCharacterDirection(newBodyPrefab, modelBaseTransform, model.transform);
             SetupFootstepController(model);

@@ -56,7 +56,8 @@ namespace Morris.Modules.NPC
             armor = 20f,
 
             cameraPivotPosition = new Vector3(0f, 0.5f, 0f),
-            cameraParamsDepth = -12f
+            cameraParamsDepth = -12f,
+            hasAimAnimator = false
         };
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[]
@@ -119,6 +120,8 @@ namespace Morris.Modules.NPC
 
             SfxLocator sfxLocator = bodyPrefab.GetComponent<SfxLocator>();
             sfxLocator.deathSound = null;
+
+            
         }
 
         public override void InitializeHitboxes()

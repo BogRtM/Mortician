@@ -186,7 +186,7 @@ namespace SkillStates.Morris
 
             Util.PlaySound(soundString, base.gameObject);
 
-            EffectManager.SimpleMuzzleFlash(Assets.ShovelSwingVFX, base.gameObject, muzzleName, true);
+            EffectManager.SimpleMuzzleFlash(Assets.ShovelSwingVFX, base.gameObject, muzzleName, false);
         }
 
         public override void OnExit()

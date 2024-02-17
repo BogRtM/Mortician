@@ -4,6 +4,7 @@ using EntityStates;
 using SkillStates.SharedStates;
 using RoR2.CharacterAI;
 using EntityStates.ParentEgg;
+using Morris;
 
 namespace SkillStates.Ghoul
 {
@@ -27,13 +28,16 @@ namespace SkillStates.Ghoul
 
         public override void OnHitLargeEnemy(HurtBox target)
         {
-            ClingState nextState = new ClingState()
+            if (base.isAuthority)
             {
-                initialTarget = target,
-                targetHealthComponent = target.healthComponent
-            };
-            
-            this.outer.SetNextState(nextState);
+                ClingState nextState = new ClingState()
+                {
+                    initialTarget = target,
+                    //targetHealthComponent = target.healthComponent
+                };
+
+                this.outer.SetNextState(nextState);
+            }
         }
 
         public override void PlayLaunchEntry()
@@ -51,15 +55,18 @@ namespace SkillStates.Ghoul
             launchTrail.gameObject.SetActive(false);
             launchRings.gameObject.SetActive(false);
 
-            if (base.healthComponent.alive)
+            if (base.isAuthority)
             {
-                GameObject masterObject = base.characterBody.masterObject;
-                BaseAI baseAI = masterObject.GetComponent<BaseAI>();
-
-                if (baseAI)
+                if (base.healthComponent.alive)
                 {
-                    baseAI.currentEnemy.Reset();
-                    baseAI.ForceAcquireNearestEnemyIfNoCurrentEnemy();
+                    GameObject masterObject = base.characterBody.masterObject;
+                    BaseAI baseAI = masterObject.GetComponent<BaseAI>();
+
+                    if (baseAI)
+                    {
+                        baseAI.currentEnemy.Reset();
+                        baseAI.ForceAcquireNearestEnemyIfNoCurrentEnemy();
+                    }
                 }
             }
 
