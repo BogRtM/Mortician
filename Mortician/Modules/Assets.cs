@@ -50,7 +50,9 @@ namespace Morris.Modules
         public static GameObject GhoulSlashEffect;
 
         public static GameObject TombstoneBlueprintsPrefab;
+        public static Material TombstoneSpawnMat;
         public static GameObject SoulOrbEffect;
+        public static GameObject SoulOrbExplosion;
 
         public static string AssetBundlePath
         {
@@ -173,6 +175,8 @@ namespace Morris.Modules
             GhoulMeleeEffects.Add(3, GhoulSlashEffect);
             GhoulMeleeEffects.Add(4, GhoulSlashEffect);
 
+            TombstoneSpawnMat = mainAssetBundle.LoadAsset<Material>("matTombstoneSpawn");
+
             SoulOrbEffect = mainAssetBundle.LoadAsset<GameObject>("SoulOrbEffect");
             SoulOrbEffect.AddComponent<EffectComponent>();
             OrbEffect orbEffect = SoulOrbEffect.AddComponent<OrbEffect>();
@@ -185,6 +189,12 @@ namespace Morris.Modules
             soulOrbVFX.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             soulOrbVFX.vfxPriority = VFXAttributes.VFXPriority.Medium;
             AddNewEffectDef(SoulOrbEffect);
+
+            SoulOrbExplosion = LoadEffect("SoulOrbExplosion");
+            GameObject orbExplosionLight = SoulOrbExplosion.transform.FindChild("Point Light").gameObject;
+            LightIntensityCurve lightIntensityCurve = orbExplosionLight.AddComponent<LightIntensityCurve>();
+            lightIntensityCurve.curve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+            lightIntensityCurve.timeMax = 0.3f;
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

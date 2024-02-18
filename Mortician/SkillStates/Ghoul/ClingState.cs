@@ -131,7 +131,7 @@ namespace SkillStates.Ghoul
                 DamageInfo damageInfo = new DamageInfo
                 {
                     position = initialTarget.transform.position,
-                    attacker = minionController.owner,
+                    attacker = minionController.owner ? minionController.owner : base.gameObject,
                     inflictor = gameObject,
                     damage = damageCoefficient * base.damageStat,
                     damageColorIndex = DamageColorIndex.Default,

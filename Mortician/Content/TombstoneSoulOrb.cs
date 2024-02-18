@@ -26,7 +26,7 @@ namespace Morris.Content
 
         public override void OnArrival()
         {
-            var blastEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/LunarGolem/LunarGolemTwinShotExplosion.prefab").WaitForCompletion();
+            var blastEffect = Assets.SoulOrbExplosion;
             var effectData = new EffectData()
             {
                 origin = base.target.transform.position,

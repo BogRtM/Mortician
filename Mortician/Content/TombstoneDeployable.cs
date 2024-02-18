@@ -72,7 +72,7 @@ namespace Morris.Modules.NPC
         //public override UnlockableDef characterUnlockableDef => null;
 
         public override Type characterMainState => typeof(TombstoneMain);
-        public override Type characterSpawnState => typeof(TombstoneMain);
+        public override Type characterSpawnState => typeof(SpawnState);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 

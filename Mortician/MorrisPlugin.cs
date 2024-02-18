@@ -73,7 +73,7 @@ namespace Morris
 
             Modules.Assets.Initialize(); // load assets and read config
 
-            StartCoroutine(CoroutineMaterialStuff());
+            StartCoroutine(Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync());
 
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
@@ -180,13 +180,13 @@ namespace Morris
             orig(newBodyPrefabs);
 
             MorrisBodyIndex = BodyCatalog.FindBodyIndex(MorrisBodyPrefab);
-            Log.Warning("Mortician's body index is: " + MorrisBodyIndex);
+            //Log.Warning("Mortician's body index is: " + MorrisBodyIndex);
 
             GhoulBodyIndex = BodyCatalog.FindBodyIndex(GhoulBodyPrefab);
-            Log.Warning("Mortician's ghoul body index is: " + GhoulBodyIndex);
+            //Log.Warning("Mortician's ghoul body index is: " + GhoulBodyIndex);
 
             TombstoneBodyIndex = BodyCatalog.FindBodyIndex(TombstoneBodyPrefab);
-            Log.Warning("Mortician's tombstone body index is: " + TombstoneBodyIndex);
+            //Log.Warning("Mortician's tombstone body index is: " + TombstoneBodyIndex);
         }
 
         private void CustomEmoteAPICompat()

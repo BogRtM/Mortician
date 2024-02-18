@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 using Morris.Modules;
 using System;
 using Morris.Components;
+using UnityEngine.Networking;
 
 namespace SkillStates.Ghoul
 {
@@ -36,7 +37,10 @@ namespace SkillStates.Ghoul
 
             minionController = base.GetComponent<MorrisMinionController>();
 
-            meleeIndex = UnityEngine.Random.RandomRangeInt(1, 5);
+            if(meleeIndex == 0)
+            {
+                meleeIndex = UnityEngine.Random.RandomRangeInt(1, 5);
+            }
             animString += meleeIndex;
             muzzleName += meleeIndex;
             base.PlayCrossfade("Gesture, Override", animString, "Attack.playbackRate", duration, 0.1f);
@@ -61,6 +65,18 @@ namespace SkillStates.Ghoul
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
             attack.hitEffectPrefab = Assets.OmniImpactVFXGhoul;
+        }
+
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            base.OnSerialize(writer);
+            writer.Write((byte)meleeIndex);
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            base.OnDeserialize(reader);
+            meleeIndex = (int)reader.ReadByte();
         }
 
         public override void FixedUpdate()

@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\FootstepHandler.cs" />
      <Compile Include="Assets\Scripts\HurtBox.cs" />
      <Compile Include="Assets\Scripts\RagdollController.cs" />
+     <Compile Include="Assets\TestCurve.cs" />
      <None Include="Assets\MorrisAssetBundle\SharedAssets\RoR2StubbedShaders-1.0.0\RoR2\MobileBlur.shader" />
      <None Include="Assets\MorrisAssetBundle\SharedAssets\RoR2StubbedShaders-1.0.0\RoR2\PostProcess\HGSobelBuffer.shader" />
      <None Include="Assets\MorrisAssetBundle\SharedAssets\RoR2StubbedShaders-1.0.0\RoR2\Deferred\HGStandard.shader" />
