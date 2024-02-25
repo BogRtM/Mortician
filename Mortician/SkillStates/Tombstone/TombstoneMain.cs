@@ -12,8 +12,6 @@ namespace SkillStates.Tombstone
     {
         private MorrisMinionController minionController;
 
-        private float summonTimer;
-
         public override void OnEnter()
         {
             base.OnEnter();

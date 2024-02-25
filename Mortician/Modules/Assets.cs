@@ -51,7 +51,8 @@ namespace Morris.Modules
 
         public static GameObject TombstoneBlueprintsPrefab;
         public static Material TombstoneSpawnMat;
-        public static GameObject SoulOrbEffect;
+        public static GameObject SoulOrbActivatedEffect;
+        public static GameObject SoulOrbTrailEffect;
         public static GameObject SoulOrbExplosion;
 
         public static string AssetBundlePath
@@ -142,20 +143,22 @@ namespace Morris.Modules
                 return;
             }
 
-            TombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
-            BlueprintController blueprintController = TombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
-            blueprintController.okMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsOk.mat").WaitForCompletion();
-            blueprintController.invalidMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsInvalid.mat").WaitForCompletion();
-
+            #region Morris
+            //Lantern tracker
             LanternIndicator = mainAssetBundle.LoadAsset<GameObject>("LanternTrackingIndicator");
 
+            //Shovel swing VFX
             ShovelSwingVFX = LoadEffect("MorrisSwing", true);
 
-            MorrisShovelHit = LoadEffect("OmniImpactVFXMorris", "ShovelImpact");
+            //Shovel impact VFX
+            MorrisShovelHit = LoadEffect("OmniImpactVFXMorris", "Morris_ShovelImpact");
 
-            MorrisFingerSnap = LoadEffect("HitsparkMorrisFinger", "FingerSnap", true);
+            //Finger snap VFX
+            MorrisFingerSnap = LoadEffect("HitsparkMorrisFinger", "Morris_FingerSnap", true);
+            #endregion
 
-            //MorrisShovelHitGhoul = LoadEffect("OmniImpactVFXMorris", "HitGhoulWithShovel");
+            #region Ghoul
+            //Ghoul sacrifice explosion VFX
             Material ghoulSphereMat = mainAssetBundle.LoadAsset<Material>("matGhoulExplosion");
             var newRampTex = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/ColorRamps/texRampTritone.png").WaitForCompletion();
             ghoulSphereMat.SetTexture("_RemapTex", newRampTex);
@@ -163,9 +166,11 @@ namespace Morris.Modules
             GhoulSacrificeExplosion = LoadEffect("GhoulSacrificeExplosion", "Play_bleedOnCritAndExplode_explode");
 
             GhoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
-
+            
+            //Ghoul impact VFX
             OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul");
 
+            //Ghoul melee swings VFX
             GhoulBiteEffect = LoadEffect("GhoulBite", true);
             GhoulLickEffect = LoadEffect("GhoulLick", true);
             GhoulSlashEffect = LoadEffect("GhoulSlash", true);
@@ -174,27 +179,38 @@ namespace Morris.Modules
             GhoulMeleeEffects.Add(2, GhoulLickEffect);
             GhoulMeleeEffects.Add(3, GhoulSlashEffect);
             GhoulMeleeEffects.Add(4, GhoulSlashEffect);
+            #endregion
+
+            #region Tombstone
+            //Tombstone blueprint mat
+            TombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
+            BlueprintController blueprintController = TombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
+            blueprintController.okMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsOk.mat").WaitForCompletion();
+            blueprintController.invalidMaterial = Addressables.LoadAssetAsync<Material>("RoR2/Base/Engi/matBlueprintsInvalid.mat").WaitForCompletion();
 
             TombstoneSpawnMat = mainAssetBundle.LoadAsset<Material>("matTombstoneSpawn");
 
-            SoulOrbEffect = mainAssetBundle.LoadAsset<GameObject>("SoulOrbEffect");
-            SoulOrbEffect.AddComponent<EffectComponent>();
-            OrbEffect orbEffect = SoulOrbEffect.AddComponent<OrbEffect>();
+            SoulOrbActivatedEffect = LoadEffect("SoulOrbActivatedEffect");
+
+            SoulOrbTrailEffect = mainAssetBundle.LoadAsset<GameObject>("SoulOrbEffect");
+            SoulOrbTrailEffect.AddComponent<EffectComponent>();
+            OrbEffect orbEffect = SoulOrbTrailEffect.AddComponent<OrbEffect>();
             orbEffect.startVelocity1 = new Vector3(-5, 16, -5);
             orbEffect.startVelocity2 = new Vector3(5, 8, 5);
             orbEffect.movementCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
             orbEffect.faceMovement = true;
-            SoulOrbEffect.AddComponent<Rigidbody>();
-            VFXAttributes soulOrbVFX = SoulOrbEffect.AddComponent<VFXAttributes>();
+            SoulOrbTrailEffect.AddComponent<Rigidbody>();
+            VFXAttributes soulOrbVFX = SoulOrbTrailEffect.AddComponent<VFXAttributes>();
             soulOrbVFX.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             soulOrbVFX.vfxPriority = VFXAttributes.VFXPriority.Medium;
-            AddNewEffectDef(SoulOrbEffect);
+            AddNewEffectDef(SoulOrbTrailEffect);
 
             SoulOrbExplosion = LoadEffect("SoulOrbExplosion");
-            GameObject orbExplosionLight = SoulOrbExplosion.transform.FindChild("Point Light").gameObject;
+            GameObject orbExplosionLight = SoulOrbExplosion.transform.Find("Point Light").gameObject;
             LightIntensityCurve lightIntensityCurve = orbExplosionLight.AddComponent<LightIntensityCurve>();
             lightIntensityCurve.curve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
             lightIntensityCurve.timeMax = 0.3f;
+            #endregion
 
             // feel free to delete everything in here and load in your own assets instead
             // it should work fine even if left as is- even if the assets aren't in the bundle

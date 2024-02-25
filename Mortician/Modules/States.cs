@@ -23,18 +23,18 @@ namespace Morris.Modules
             #endregion
 
             #region Ghoul
-            Modules.Content.AddEntityState(typeof(SkillStates.Ghoul.SpawnState));
+            Modules.Content.AddEntityState(typeof(SkillStates.Ghoul.GhoulSpawn));
             Modules.Content.AddEntityState(typeof(GhoulMelee));
             Modules.Content.AddEntityState(typeof(BileSpit));
-            Modules.Content.AddEntityState(typeof(SkillStates.Ghoul.LaunchedState));
+            Modules.Content.AddEntityState(typeof(SkillStates.Ghoul.GhoulLaunched));
             Modules.Content.AddEntityState(typeof(ClingState));
-            Modules.Content.AddEntityState(typeof(DeathState));
+            Modules.Content.AddEntityState(typeof(GhoulDeath));
             #endregion
 
             #region Tombstone
-            Modules.Content.AddEntityState(typeof(SkillStates.Tombstone.SpawnState));
+            Modules.Content.AddEntityState(typeof(SkillStates.Tombstone.TombstoneSpawn));
             Modules.Content.AddEntityState(typeof(TombstoneMain));
-            Modules.Content.AddEntityState(typeof(SkillStates.Tombstone.LaunchedState));
+            Modules.Content.AddEntityState(typeof(SkillStates.Tombstone.TombstoneLaunched));
             #endregion
         }
     }

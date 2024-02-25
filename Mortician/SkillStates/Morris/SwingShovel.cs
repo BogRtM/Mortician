@@ -30,6 +30,10 @@ namespace SkillStates.Morris
         private bool hasFired;
         private bool hasHopped;
 
+        public string swingSoundString = "Morris_SwingShovel";
+        public string hitGhoulSoundString = "Morris_HitGhoulWithShovel";
+        public string hitTombstoneSoundString = "Morris_HitTombstoneWithShovel";
+
         private HitStopCachedState hitStopCachedState;
         private float stopWatch;
         private float hitPauseTimer;
@@ -93,8 +97,12 @@ namespace SkillStates.Morris
 
             if (base.fixedAge >= fireTime && base.fixedAge <= fireEndTime)
             {
+                if (!hasFired)
+                {
+                    HitGhoul(this.hitBoxGroup);
+                }
+
                 FireAttack();
-                HitGhoul(this.hitBoxGroup);
             }
 
             if (hitPauseTimer <= 0f && inHitPause)
@@ -159,19 +167,28 @@ namespace SkillStates.Morris
                 Vector3 halfExtent = transform.lossyScale * 0.5f;
                 Quaternion rotation = transform.rotation;
 
-                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.debris.mask | LayerIndex.defaultLayer.mask);
+                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask);
 
                 foreach(Collider collider in hitObjects)
                 {
                     MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
                     if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
                     {
-                        EffectData effectData = new EffectData()
+                        Log.Warning("Hit ghoul collider " + collider.name + " on layer: " + collider.gameObject.layer);
+
+                        switch (minionController.minionType)
                         {
-                            origin = minionController.transform.position
-                        };
-                        //EffectManager.SpawnEffect(Assets.MorrisShovelHitGhoul, effectData, false);
-                        //Util.PlaySound("HitGhoulWithShovel", minionController.gameObject);
+                            case MorrisMinionController.MorrisMinionType.Ghoul:
+                                Util.PlaySound(hitGhoulSoundString, minionController.gameObject);
+                                break;
+
+                            case MorrisMinionController.MorrisMinionType.Tombstone:
+                                //Util.PlaySound(hitTombstoneSoundString, minionController.gameObject);
+                                break;
+
+                            default:
+                                break;
+                        }
 
                         minionController.Launch(launchVector);
                     }
@@ -182,7 +199,9 @@ namespace SkillStates.Morris
         public void PlaySwingEffect()
         {
             string muzzleName = step == 0 ? "SwingLeft" : "SwingRight";
-            string soundString = step == 0 ? "SwingShovel1" : "SwingShovel2";
+            string soundString = step == 0 ? "1" : "2";
+
+            soundString = swingSoundString + soundString;
 
             Util.PlaySound(soundString, base.gameObject);
 

@@ -18,19 +18,17 @@ namespace Morris.Modules
 
             string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting></style>";
 
-            string desc = "The Mortician is a lumbering melee tank who faces the horde with an army of undead and an array of ghastly powers.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            string desc = "The Mortician is a slow, yet durable melee necromancer who specializes in controlling territory with his undead army.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls launched by your shovel will latch onto larger enemies and bite them repeatedly." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls make no effort to follow you, and instead focus solely on their targets." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > You can quickly clear groups of flying enemies by launching your ghouls up high then sacrificing them mid-air." + Environment.NewLine + Environment.NewLine;
-            desc += "< ! > " + Environment.NewLine + Environment.NewLine + Environment.NewLine;
-
-            desc += modderNote;
+            desc += "< ! > You can quickly clear groups of flying enemies by launching your ghouls up high, then sacrificing them mid-air." + Environment.NewLine + Environment.NewLine;
+            desc += "< ! > Your tombstone can be used as an effective tool to establish control of an area from a distance." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
 
             string lore =
-                "";
+                "They excommunicated me, exiled me, branded me a heretic and a blasphemer. They even tried to have me assassinated. ";
 
             string outro = "..and so he left, his somber duty yet unfilled.";
-            string outroFailure = "..and so he vanished, finally put to rest.";
+            string outroFailure = "..and so he vanished, put to rest for the final time.";
 
             LanguageAPI.Add(prefix + "NAME", "Mortician");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
@@ -75,7 +73,7 @@ namespace Morris.Modules
             #region Utility
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_NAME", "Sacrifice");
             LanguageAPI.Add(prefix + "UTILITY_LANTERN_DESCRIPTION", 
-                $"<style=cIsHealth>Detonate</style> the target ghoul for <style=cIsDamage>{DeathState.sacrificedDamageCoefficient * 100f}% damage</style>, " +
+                $"<style=cIsHealth>Detonate</style> the target ghoul for <style=cIsDamage>{GhoulDeath.sacrificedDamageCoefficient * 100f}% damage</style>, " +
                 $"and <style=cIsHealing>heal {Sacrifice.sacrificePercentHealAmount * 100f}% of your maximum health</style>.");
             #endregion
 

@@ -261,7 +261,7 @@ namespace Morris.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(PlaceTombstone)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 5f, //30f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

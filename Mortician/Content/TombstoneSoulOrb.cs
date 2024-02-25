@@ -9,6 +9,7 @@ namespace Morris.Content
 {
     internal class TombstoneSoulOrb : GenericDamageOrb
     {
+        public static string explodeSoundString = "Play_engi_M2_explo";
         public static float orbSpeed = 100f;
         public static float blastRadius = 10f;
 
@@ -21,7 +22,7 @@ namespace Morris.Content
         public override GameObject GetOrbEffect()
         {
             //return Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/EliteHaunted/HauntOrbEffect.prefab").WaitForCompletion();
-            return Assets.SoulOrbEffect;
+            return Assets.SoulOrbTrailEffect;
         }
 
         public override void OnArrival()
@@ -34,6 +35,7 @@ namespace Morris.Content
             };
 
             EffectManager.SpawnEffect(blastEffect, effectData, true);
+            Util.PlaySound(explodeSoundString, target.gameObject);
 
             if (this.attacker)
             {

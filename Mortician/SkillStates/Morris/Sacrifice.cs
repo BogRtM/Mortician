@@ -31,13 +31,25 @@ namespace SkillStates.Morris
             earlyExitTime = duration * 0.625f;
 
             lanternTracker = base.GetComponent<LanternTracker>();
-            target = lanternTracker.GetTrackingTarget();
+
+            if(!target)
+                target = lanternTracker.GetTrackingTarget();
 
             PlayCrossfade("Right Arm, Override", "FingerSnap", "Swing.playbackRate", duration, 0.05f);
 
             SacrificeGhoul(target);
 
             StartAimMode(2f, false);
+        }
+
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            writer.Write(HurtBoxReference.FromHurtBox(this.target));
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            target = reader.ReadHurtBoxReference().ResolveHurtBox();
         }
 
         public override void FixedUpdate()

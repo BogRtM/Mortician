@@ -63,7 +63,7 @@ namespace Morris.Modules.NPC
         //public override UnlockableDef characterUnlockableDef => null;
 
         public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
-        public override Type characterSpawnState => typeof(SpawnState);
+        public override Type characterSpawnState => typeof(GhoulSpawn);
 
         public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
 
@@ -80,7 +80,7 @@ namespace Morris.Modules.NPC
             base.InitializeCharacter();
             MorrisPlugin.GhoulBodyPrefab = this.bodyPrefab;
 
-            bodyPrefab.layer = LayerIndex.debris.intVal;
+            //bodyPrefab.layer = LayerIndex.debris.intVal;
 
             EntityStateMachine ghoulBodyESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Body");
 
@@ -92,7 +92,7 @@ namespace Morris.Modules.NPC
 
             CharacterDeathBehavior CDB = bodyPrefab.GetComponent<CharacterDeathBehavior>();
             CDB.deathStateMachine = ghoulBodyESM;
-            CDB.deathState = new SerializableEntityStateType(typeof(DeathState));
+            CDB.deathState = new SerializableEntityStateType(typeof(GhoulDeath));
 
             SfxLocator sfxLocator = bodyPrefab.GetComponent<SfxLocator>();
             sfxLocator.deathSound = null;

@@ -56,6 +56,7 @@ namespace SkillStates.Ghoul
             }
 
             minionController = base.GetComponent<MorrisMinionController>();
+            minionController.isInClingState = true;
         }
 
         public override void OnSerialize(NetworkWriter writer)
@@ -159,6 +160,11 @@ namespace SkillStates.Ghoul
         {
             base.modelLocator.enabled = true;
             base.characterDirection.enabled = true;
+
+            minionController.isInClingState = false;
+
+            gameObject.layer = LayerIndex.defaultLayer.intVal;
+            characterMotor.Motor.RebuildCollidableLayers();
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");
 

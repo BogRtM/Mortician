@@ -33,6 +33,8 @@ namespace Morris.Components
             Tombstone
         }
 
+        public bool isInClingState { get; set; }
+
         public MorrisMinionType minionType;
 
         private void Start()
@@ -41,7 +43,6 @@ namespace Morris.Components
             teamIndex = base.GetComponent<TeamComponent>().teamIndex;
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = base.GetComponent<HealthComponent>();
-
 
             if (characterBody.inventory && NetworkServer.active)
             {
@@ -63,7 +64,7 @@ namespace Morris.Components
             switch (minionType)
             {
                 case MorrisMinionType.Ghoul:
-                    var ghoulState = new SkillStates.Ghoul.LaunchedState()
+                    var ghoulState = new SkillStates.Ghoul.GhoulLaunched()
                     {
                         launchVector = direction.normalized
                     };
@@ -72,7 +73,7 @@ namespace Morris.Components
                     break;
                 
                 case MorrisMinionType.Tombstone:
-                    var tombstoneState = new SkillStates.Tombstone.LaunchedState()
+                    var tombstoneState = new SkillStates.Tombstone.TombstoneLaunched()
                     {
                         launchVector = direction.normalized
                     };
