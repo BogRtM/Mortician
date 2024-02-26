@@ -5473,6 +5473,22 @@ MonoBehaviour:
     transform: {fileID: 342508994816611563}
   - name: Hat
     transform: {fileID: 6095740732323172768}
+  - name: ShoulderL
+    transform: {fileID: 2601327969351652161}
+  - name: ShoulderR
+    transform: {fileID: 3718285230581141921}
+  - name: ShovelShaft1
+    transform: {fileID: 1103851666186715614}
+  - name: ShovelShaft2
+    transform: {fileID: 8429163961897557080}
+  - name: ShovelShaft3
+    transform: {fileID: 4990362683174540484}
+  - name: ShovelShaft4
+    transform: {fileID: 2875772515415124943}
+  - name: ShovelHead
+    transform: {fileID: 8492955360666271114}
+  - name: Cross
+    transform: {fileID: 3021818227415436337}
 --- !u!114 &1188368978
 MonoBehaviour:
   m_ObjectHideFlags: 0

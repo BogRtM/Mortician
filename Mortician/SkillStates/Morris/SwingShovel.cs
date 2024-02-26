@@ -174,8 +174,6 @@ namespace SkillStates.Morris
                     MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
                     if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
                     {
-                        Log.Warning("Hit ghoul collider " + collider.name + " on layer: " + collider.gameObject.layer);
-
                         switch (minionController.minionType)
                         {
                             case MorrisMinionController.MorrisMinionType.Ghoul:
