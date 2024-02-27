@@ -166,9 +166,9 @@ namespace Morris.Modules
             GhoulSacrificeExplosion = LoadEffect("GhoulSacrificeExplosion", "Play_bleedOnCritAndExplode_explode");
 
             GhoulSacrificedMat = mainAssetBundle.LoadAsset<Material>("matGhoulSacrificed");
-            
+
             //Ghoul impact VFX
-            OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul");
+            OmniImpactVFXGhoul = LoadEffect("OmniImpactVFXGhoul", "Play_acrid_m1_hit");
 
             //Ghoul melee swings VFX
             GhoulBiteEffect = LoadEffect("GhoulBite", true);

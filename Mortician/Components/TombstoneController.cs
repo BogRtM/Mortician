@@ -83,9 +83,13 @@ namespace Morris.Components
         public void FireSoulOrb(HurtBox target)
         {
             Vector3 orbMuzzle = soulOrbLocator.GetPosition(soulStock - 1);
-            
+
+            Log.Warning("(Client) Firing soul orb at: " + target.healthComponent.name);
+
             if (NetworkServer.active)
             {
+                Log.Warning("(Server) Firing soul orb at: " + target.healthComponent.name);
+
                 RpcDetractSoulStock();
 
                 TombstoneSoulOrb soulOrb = new TombstoneSoulOrb();

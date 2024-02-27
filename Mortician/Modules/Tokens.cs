@@ -18,17 +18,38 @@ namespace Morris.Modules
 
             string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting></style>";
 
-            string desc = "The Mortician is a slow, yet durable melee necromancer who specializes in controlling territory with his undead army.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            string desc = "The Mortician is a slow, yet durable melee necromancer who specializes in controlling territory with his army of undead.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls launched by your shovel will latch onto larger enemies and bite them repeatedly." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls make no effort to follow you, and instead focus solely on their targets." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > You can quickly clear groups of flying enemies by launching your ghouls up high, then sacrificing them mid-air." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Your tombstone can be used as an effective tool to establish control of an area from a distance." + Environment.NewLine + Environment.NewLine + Environment.NewLine;
 
             string lore =
-                "They excommunicated me, exiled me, branded me a heretic and a blasphemer. They even tried to have me assassinated. ";
+                "God has abandoned us.\n\n" +
+                "" +
+                "In truth, I don't think he ever cared in the first place.\n\n" +
+                "" +
+                "Somewhere beyond the furthest depths of human comprehension lies a realm to which we are all condemned to one day find ourselves in. It is not a " +
+                "realm of pearly gates and angels, nor of fire and brimstone, but one of darkness and despair. It is an abyssal prison in which all its inmates " +
+                "are reduced to mere data, governed by curious, sinister beings who shall poke and prod at you and conduct their twisted experiments on you for all eternity.\n\n" +
+                "" +
+                "Every soul that I pull out of that wretched place tells me a story. Some are forced to relive the worst pain they have ever " +
+                "experienced, time and time again. Some are suspended in an eternal, lonely darkness, with no companionship or stimulation. Some tell me of " +
+                "crabs and prawns. Each and every one of them begs me not to make them go back to that place. I've managed to create new vessels for these souls to inhabit, " +
+                "and should they die, they return to me once again.\n\n" +
+                "" +
+                "And the creatures that rule this prison, they come to me in my dreams. To taunt me. To tell me of what they will do to me once I am dead and in their clutches. " +
+                "I know that what they have planned will be far worse than anything the devil could ever do to me. Each soul that I save is one more toy I take away " +
+                "from them, and they will make me pay for ruining their fun.\n\n" +
+                "" +
+                "I have grown old, and my time shall soon come as well. So I have decided; I will find a passage to this realm, " +
+                "slay its wicked overlords, and free all of its prisoners.\n\n" +
+                "" +
+                "I will not do it alone; the souls that I have freed shall fight alongside me. " +
+                "They will guide me, and I will guide them. Together, we will restore the sanctity in death, and restore the peace that we were promised.";
 
-            string outro = "..and so he left, his somber duty yet unfilled.";
-            string outroFailure = "..and so he vanished, put to rest for the final time.";
+            string outro = "..and so he left, his somber duty yet unfulfilled.";
+            string outroFailure = "..and so he vanished, finally granted the peace he desired.";
 
             LanguageAPI.Add(prefix + "NAME", "Mortician");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
@@ -48,7 +69,7 @@ namespace Morris.Modules
             #endregion
 
             #region Keywords
-            LanguageAPI.Add("KEYWORD_LINKED", $"<style=cKeywordName>Linked</style><style=cSub>Ghouls do not inherit your items, but all damage they deal " +
+            LanguageAPI.Add("KEYWORD_LINKED", $"<style=cKeywordName>Soulbound</style><style=cSub>Ghouls do not inherit your items, but all damage they deal " +
                 $"is treated as your own.</style>");
             LanguageAPI.Add("KEYWORD_EXHAUST", $"<style=cKeywordName>Exhaustion</style><style=cSub>Reduces movement speed and damage by " +
                 $"<style=cIsUtility>{(1 - Buffs.exhaustStatReduction) * 100f}%</style>. Increases cooldowns by " +
@@ -65,7 +86,7 @@ namespace Morris.Modules
 
             #region Secondary
             LanguageAPI.Add(prefix + "SECONDARY_GHOUL_NAME", "Raise Dead");
-            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"<style=cIsUtility>Linked</style>. Spawn a ghoul on the ground in front of you. Ghouls bite for " +
+            LanguageAPI.Add(prefix + "SECONDARY_GHOUL_DESCRIPTION", $"<style=cIsUtility>Soulbound</style>. Spawn a ghoul on the ground in front of you. Ghouls bite for " +
                 $"<style=cIsDamage>{GhoulMelee.damageCoefficient * 100f}% damage</style>, and " +
                 $"spit <style=cIsDamage>Blighted</style> bile for <style=cIsDamage>{BileSpit.damageCoefficient * 100f}% damage</style>.");
             #endregion
