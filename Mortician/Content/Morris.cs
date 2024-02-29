@@ -295,7 +295,7 @@ namespace Morris.Modules.Survivors
 
             #region DefaultSkin
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
+                Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisDefaultSkin"), 
                 defaultRenderers,
                 mainRenderer,
                 model);
