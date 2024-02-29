@@ -1,4 +1,4 @@
-![image](https://github.com/BogRtM/Mortician/assets/55299061/2d2e76df-ed6a-403c-83ca-9a878f73f5f0)# I NEED YOUR FEEDBACK
+# I NEED YOUR FEEDBACK
 I did some multiplayer testing internally, but I cannot say with 100% certainty that he works fine in multiplayer. If you play as a client, you will experience some latency, but otherwise please contact me if you encounter any game-breaking bugs. Morticians in multiplayer should be able to hit and sacrifice each other's ghouls, but let me know if that isn't the case.
 
 Also I'm not 100% decided on Tombstone's functionality. There may be a _slight_ chance in the future that it gets reworked. Probably not, though.
@@ -58,6 +58,10 @@ For feedback and bug reports, please reach out to `Bog4770` on Discord. You can 
 • Add more custom SFX for the tombstone
 • Remake icon for secondary skill
 ```
+___________
+![Icon1](https://github.com/BogRtM/Mortician/assets/55299061/552c5c77-1dd3-4913-9d01-f94b78bcc89f)
+![Mortician ortho](https://github.com/BogRtM/Mortician/assets/55299061/a2d1a63f-ee8f-4c2b-9a4f-ebea8f0e5706)
+![Ghoul ortho](https://github.com/BogRtM/Mortician/assets/55299061/32d71956-4bdc-4370-a7b9-80e24e874b06)
 
 ## DISCLAIMER
 
