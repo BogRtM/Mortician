@@ -1,4 +1,14 @@
+# I NEED YOUR FEEDBACK
+I did some multiplayer testing internally, but I cannot say with 100% certainty that he works fine in multiplayer. If you play as a client, you will experience some latency, but please let me know if you encounter any game-breaking bugs.
+
+Also I'm not 100% decided on Tombstone's functionality. There may be a _slight_ chance in the future that it gets reworked. Probably not, though.
+
 # The Mortician
+I was listening to Spotify one day when the song [Till Death Us Do Part (2019)](https://www.youtube.com/watch?v=-V8fJqamOsE) by Lord Of The Lost came on. I instantly got the idea for a necromancer character who you could play while listening to that song.
+
+So yeah, Mortician was born entirely from that one song; if you play him, you gotta listen to it.
+
+Actually just make yourself a playlist with Lord Of The Lost, Gothminister, and Deathstars while playing him because that was pretty much all I listened to while making this guy.
 
 Tips<br/>
 • Use Shooting Star immediately after Crashing Comet to quickly traverse long distances.<br/>
@@ -23,7 +33,7 @@ For feedback and bug reports, please reach out to `Bog4770` on Discord. You can 
 ## Planned Updates
 ```
 • Mastery skin
-• Logbook entry
+• 
 • Fix animation smoothing issue
 • Add more VFX for pretty much everything
 • Add more custom SFX
