@@ -1,5 +1,5 @@
 # I NEED YOUR FEEDBACK
-I did some multiplayer testing internally, but I cannot say with 100% certainty that he works fine in multiplayer. If you play as a client, you will experience some latency, but otherwise please contact me if you encounter any game-breaking bugs. Morticians in multiplayer should be able to hit and sacrifice each other's ghouls, but let me know if that isn't the case.
+I did some multiplayer testing internally, but I cannot say with 100% certainty that he works fine in multiplayer. If you play as a client, you will experience some latency as well as warning spam in the console (I am working to fix this), but otherwise please contact me (bog4770 on Discord) if you encounter any game-breaking bugs. Morticians in multiplayer should be able to hit and sacrifice each other's ghouls, but let me know if that isn't the case.
 
 Also I'm not 100% decided on Tombstone's functionality. There may be a _slight_ chance in the future that it gets reworked. Probably not, though.
 
@@ -17,7 +17,8 @@ Actually just make yourself a playlist with Lord Of The Lost, Gothminister, and 
 **Tips**<br/>
 • Ghouls hit by your shovel will be launched in the direction that you are facing. You can influence the angle by looking up or down.<br/>
 • Ghouls don't inherit your items, but they do proc your on-hit effects, and any kill they earn will belong to you.<br/>
-• Unlike ghouls, your tombstone does inherit your items.
+• Unlike ghouls, your tombstone does inherit your items.<br/>
+~~Also I know he's overpowered as shit any semblance of balance is out the window~~
 
 ![image](https://github.com/BogRtM/Mortician/assets/55299061/e66356cb-d474-48ec-ab03-a2347d2b368b)
 ![image](https://github.com/BogRtM/Mortician/assets/55299061/8d644b23-f406-47ca-a6c6-c8eeef937fad)
@@ -53,6 +54,7 @@ For feedback and bug reports, please reach out to `Bog4770` on Discord. You can 
 • Ghoul voice acting
 • Alt utility skill
 • Alt special skill
+• Ancient Scepter compat
 • Tombstone item displays
 • Tombstone death animation
 • Add more custom SFX for the tombstone
