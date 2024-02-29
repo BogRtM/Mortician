@@ -50,7 +50,7 @@ namespace SkillStates.Ghoul
                     Ray aimRay = base.GetAimRay();
 
                     FireProjectileInfo FPI = new FireProjectileInfo();
-                    FPI.crit = base.RollCrit();
+                    FPI.crit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();
                     FPI.damage = damageCoefficient * base.damageStat;
                     FPI.force = 100f;
                     FPI.owner = minionController.owner ? minionController.owner : base.gameObject; ;

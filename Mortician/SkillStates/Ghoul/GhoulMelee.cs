@@ -59,7 +59,7 @@ namespace SkillStates.Ghoul
             attack.damageType = DamageType.Generic;
             attack.procCoefficient = 1f;
             attack.teamIndex = base.GetTeam();
-            attack.isCrit = base.RollCrit();
+            attack.isCrit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();
             attack.forceVector = Vector3.zero;
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;

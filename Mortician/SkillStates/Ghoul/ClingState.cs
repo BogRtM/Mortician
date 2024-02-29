@@ -139,7 +139,7 @@ namespace SkillStates.Ghoul
                     damage = damageCoefficient * base.damageStat,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = DamageType.Generic,
-                    crit = RollCrit(),
+                    crit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit(),
                     force = downwardForce,
                     procChainMask = default,
                     procCoefficient = 1f

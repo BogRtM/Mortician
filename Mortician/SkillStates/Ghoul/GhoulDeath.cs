@@ -95,7 +95,7 @@ namespace SkillStates.Ghoul
                 attack.inflictor = base.gameObject;
                 attack.teamIndex = base.GetTeam();
                 attack.baseDamage = sacrificedDamageCoefficient * base.damageStat;
-                attack.crit = base.RollCrit();
+                attack.crit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();
                 attack.procCoefficient = 1f;
                 attack.damageType = DamageType.Generic;
                 attack.baseForce = 0f;

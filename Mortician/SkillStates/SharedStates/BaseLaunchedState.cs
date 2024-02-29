@@ -74,7 +74,7 @@ namespace SkillStates.SharedStates
             attack.damageType = DamageType.Generic;
             attack.procCoefficient = 1f;
             attack.teamIndex = GetTeam();
-            attack.isCrit = RollCrit();
+            attack.isCrit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();
             attack.forceVector = downwardForce;
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * damageStat;

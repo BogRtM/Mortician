@@ -14,6 +14,7 @@ namespace Morris.Components
     internal class MorrisMinionController : MonoBehaviour, ILifeBehavior
     {
         public GameObject owner { get; private set; }
+        public CharacterBody ownerBody { get; private set; }
         public GameObject sacrificeOwner { get; private set; }
 
         public TeamIndex teamIndex { get; private set; }
@@ -54,7 +55,10 @@ namespace Morris.Components
                 MinionOwnership minionOwnership = characterBody.master.GetComponent<MinionOwnership>();
 
                 if (minionOwnership)
+                {
                     this.owner = minionOwnership.ownerMaster.GetBodyObject();
+                    this.ownerBody = minionOwnership.ownerMaster.GetBody();
+                }
             }
         }
 
