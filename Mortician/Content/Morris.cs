@@ -34,8 +34,8 @@ namespace Morris.Modules.Survivors
             bodyColor = new Color32(33, 255, 189, 255),
 
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
-            podPrefab = null,
-            
+            podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
+
             capsuleHeight = 3.2f,
             capsuleRadius = 0.9f,
             modelBasePosition = new Vector3(0f, -1.6f, 0f),

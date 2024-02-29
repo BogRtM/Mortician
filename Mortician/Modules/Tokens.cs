@@ -18,7 +18,7 @@ namespace Morris.Modules
 
             string modderNote = "<style=cShrine>Modder's Note:</style> <style=cUserSetting></style>";
 
-            string desc = "The Mortician is a slow, yet durable melee necromancer who specializes in controlling territory with his army of undead.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            string desc = "The Mortician is a slow, yet durable melee necromancer who excels at controlling territory with his army of undead.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls launched by your shovel will latch onto larger enemies and bite them repeatedly." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > Ghouls make no effort to follow you, and instead focus solely on their targets." + Environment.NewLine + Environment.NewLine;
             desc += "< ! > You can quickly clear groups of flying enemies by launching your ghouls up high, then sacrificing them mid-air." + Environment.NewLine + Environment.NewLine;

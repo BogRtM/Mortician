@@ -27,6 +27,8 @@ namespace Morris.Content
 
         public override void OnArrival()
         {
+            if (!target) return;
+
             var blastEffect = Assets.SoulOrbExplosion;
             var effectData = new EffectData()
             {

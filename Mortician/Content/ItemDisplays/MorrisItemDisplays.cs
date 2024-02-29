@@ -3278,28 +3278,6 @@ localScale = new Vector3(0.39193F, 0.35848F, 0.35848F),
                     }
                 }
             });
-            
-            
-            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
-            {
-                keyAsset = DLC1Content.Items.DroneWeapons,
-                displayRuleGroup = new DisplayRuleGroup
-                {
-                    rules = new ItemDisplayRule[]
-                    {
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplayDroneWeaponRobotArm"),
-                            childName = "Chest",
-                            localPos = new Vector3(0F, 0f, 0f),
-                            localAngles = new Vector3(0f, 0F, 0F),
-                            localScale = new Vector3(0.22762F, 0.20819F, 0.20819F),
-                            limbMask = LimbFlags.None
-                        }
-                    }
-                }
-            });
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
