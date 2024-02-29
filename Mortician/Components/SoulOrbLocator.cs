@@ -19,7 +19,7 @@ public class SoulOrbLocator : MonoBehaviour
             origin = soulOrbs[i].transform.position
         };
 
-        Util.PlaySound("Play_mage_m1_impact", soulOrbs[i]);
+        //Util.PlaySound("Play_mage_m1_impact", soulOrbs[i]);
         EffectManager.SpawnEffect(Assets.SoulOrbActivatedEffect, effectData, true);
     }
 

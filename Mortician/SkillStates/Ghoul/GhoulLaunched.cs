@@ -4,7 +4,7 @@ using EntityStates;
 using SkillStates.SharedStates;
 using RoR2.CharacterAI;
 using EntityStates.ParentEgg;
-using Morris;
+using Morris.Modules;
 
 namespace SkillStates.Ghoul
 {
@@ -18,6 +18,8 @@ namespace SkillStates.Ghoul
         public override void OnEnter()
         {
             launchPower = 85f;
+
+            impactVFX = Assets.OmniImpactVFXGhoul;
 
             base.OnEnter();
 
@@ -61,7 +63,7 @@ namespace SkillStates.Ghoul
         {
             if (!willCling)
             {
-                gameObject.layer = LayerIndex.defaultLayer.intVal;
+                gameObject.layer = LayerIndex.fakeActor.intVal;
                 characterMotor.Motor.RebuildCollidableLayers();
             }
 

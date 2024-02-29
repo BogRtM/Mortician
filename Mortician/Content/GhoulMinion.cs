@@ -80,7 +80,7 @@ namespace Morris.Modules.NPC
             base.InitializeCharacter();
             MorrisPlugin.GhoulBodyPrefab = this.bodyPrefab;
 
-            //bodyPrefab.layer = LayerIndex.debris.intVal;
+            bodyPrefab.layer = LayerIndex.fakeActor.intVal;
 
             EntityStateMachine ghoulBodyESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Body");
 

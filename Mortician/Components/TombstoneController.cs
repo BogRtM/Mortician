@@ -29,7 +29,6 @@ namespace Morris.Components
         private float spawnStopwatch = spawnTime;
         private float fireStopwatch;
 
-        [SyncVar]
         private int soulStock;
 
         public void Start()
@@ -61,7 +60,11 @@ namespace Morris.Components
             if (spawnStopwatch >= spawnTime)
             {
                 spawnStopwatch = 0f;
-                SpawnGhoul();
+
+                if(NetworkServer.active)
+                {
+                    SpawnGhoul();
+                }
             }
 
             if (soulStock > 0)
@@ -72,53 +75,72 @@ namespace Morris.Components
             if(fireStopwatch >= fireTime && soulStock > 0)
             {
                 fireStopwatch = 0f;
-                var target = FindOrbTarget();
-                if (target && target.healthComponent.alive)
+
+                if (NetworkServer.active)
                 {
-                    FireSoulOrb(target);
+                    var target = FindOrbTarget();
+
+                    if (target && target.healthComponent.alive)
+                    {
+                        FireSoulOrb(target);
+                    }
                 }
             }
         }
 
+        [Server]
         public void FireSoulOrb(HurtBox target)
         {
             Vector3 orbMuzzle = soulOrbLocator.GetPosition(soulStock - 1);
 
-            Log.Warning("(Client) Firing soul orb at: " + target.healthComponent.name);
+            TombstoneSoulOrb soulOrb = new TombstoneSoulOrb();
+            soulOrb.attacker = base.gameObject;
+            soulOrb.origin = orbMuzzle;
+            soulOrb.target = target;
+            soulOrb.damageValue = characterBody.damage * soulOrbDamage;
+            soulOrb.damageType = DamageType.Generic;
+            soulOrb.damageColorIndex = DamageColorIndex.Default;
+            soulOrb.isCrit = Util.CheckRoll(characterBody.crit, characterBody.master);
+            soulOrb.teamIndex = teamComponent.teamIndex;
 
-            if (NetworkServer.active)
-            {
-                Log.Warning("(Server) Firing soul orb at: " + target.healthComponent.name);
-
-                RpcDetractSoulStock();
-
-                TombstoneSoulOrb soulOrb = new TombstoneSoulOrb();
-                soulOrb.attacker = base.gameObject;
-                soulOrb.origin = orbMuzzle;
-                soulOrb.target = target;
-                soulOrb.damageValue = characterBody.damage * soulOrbDamage;
-                soulOrb.damageType = DamageType.Generic;
-                soulOrb.damageColorIndex = DamageColorIndex.Default;
-                soulOrb.isCrit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                soulOrb.teamIndex = teamComponent.teamIndex;
-                OrbManager.instance.AddOrb(soulOrb);
-            }
+            DetractSoulStockServer();
+            OrbManager.instance.AddOrb(soulOrb);
         }
 
-        [ClientRpc]
-        public void RpcAddSoulStock()
+        [Server]
+        public void AddSoulStockServer()
         {
             soulStock = Mathf.Clamp(soulStock + 1, 0, 10);
 
             soulOrbLocator.ActivateSphere(soulStock - 1);
+
+            //Log.Warning("Soul Stock on server is: " + soulStock);
+
+            RpcAddSoulStock(soulStock);
         }
 
         [ClientRpc]
-        public void RpcDetractSoulStock()
+        public void RpcAddSoulStock(int i)
+        {
+            soulOrbLocator.ActivateSphere(i - 1);
+        }
+
+        [Server]
+        public void DetractSoulStockServer()
         {
             soulOrbLocator.DeactivateSphere(soulStock - 1);
 
             soulStock = Mathf.Clamp(soulStock - 1, 0, 10);
+
+            //Log.Warning("Soul Stock on server is: " + soulStock);
+
+            RpcDetractSoulStock(soulStock);
+        }
+
+        [ClientRpc]
+        public void RpcDetractSoulStock(int i)
+        {
+            soulOrbLocator.DeactivateSphere(i);
         }
 
         public HurtBox FindOrbTarget()
@@ -137,24 +159,22 @@ namespace Morris.Components
             return bestTarget;
         }
 
+        [Server]
         public void SpawnGhoul()
         {
-            if (NetworkServer.active)
+            DirectorPlacementRule directorPlacementRule = new DirectorPlacementRule()
             {
-                DirectorPlacementRule directorPlacementRule = new DirectorPlacementRule()
-                {
-                    placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                    minDistance = 3f,
-                    maxDistance = 40f,
-                    spawnOnTarget = base.transform
-                };
+                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                minDistance = 3f,
+                maxDistance = 40f,
+                spawnOnTarget = base.transform
+            };
 
-                DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(GhoulMinion.ghoulSpawnCard, directorPlacementRule, RoR2Application.rng);
-                directorSpawnRequest.summonerBodyObject = minionController.owner;
-                directorSpawnRequest.ignoreTeamMemberLimit = true;
-                directorSpawnRequest.teamIndexOverride = teamComponent.teamIndex;
-                DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-            }
+            DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(GhoulMinion.ghoulSpawnCard, directorPlacementRule, RoR2Application.rng);
+            directorSpawnRequest.summonerBodyObject = minionController.owner;
+            directorSpawnRequest.ignoreTeamMemberLimit = true;
+            directorSpawnRequest.teamIndexOverride = teamComponent.teamIndex;
+            DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
         }
     }
 }

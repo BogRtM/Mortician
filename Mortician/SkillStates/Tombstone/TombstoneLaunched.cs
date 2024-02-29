@@ -2,6 +2,7 @@
 using RoR2;
 using EntityStates;
 using SkillStates.SharedStates;
+using Morris.Modules;
 
 namespace SkillStates.Tombstone
 {
@@ -10,6 +11,8 @@ namespace SkillStates.Tombstone
         public override void OnEnter()
         {
             launchPower = 70f;
+
+            impactVFX = Assets.OmniImpactVFXTombstone;
 
             base.OnEnter();
             gameObject.layer = LayerIndex.fakeActor.intVal;

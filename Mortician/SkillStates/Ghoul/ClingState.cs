@@ -121,8 +121,10 @@ namespace SkillStates.Ghoul
             EffectData effectData = new EffectData()
             {
                 origin = clingHurtbox.transform.position,
+                rotation = modelTransform.rotation,
                 scale = 1.5f
             };
+            EffectManager.SpawnEffect(Assets.GhoulBiteEffect, effectData, true);
             EffectManager.SpawnEffect(Assets.OmniImpactVFXGhoul, effectData, true);
 
             Util.PlaySound("Play_acrid_m2_bite_hit", base.gameObject, "Volume_SFX", 0.2f);
@@ -163,7 +165,7 @@ namespace SkillStates.Ghoul
 
             minionController.isInClingState = false;
 
-            gameObject.layer = LayerIndex.defaultLayer.intVal;
+            gameObject.layer = LayerIndex.fakeActor.intVal;
             characterMotor.Motor.RebuildCollidableLayers();
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");

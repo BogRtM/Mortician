@@ -30,6 +30,9 @@ namespace SkillStates.SharedStates
         private List<HurtBox> victims = new List<HurtBox>();
 
         private float cachedAirControl;
+
+        protected GameObject impactVFX;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -76,7 +79,7 @@ namespace SkillStates.SharedStates
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = Assets.OmniImpactVFXGhoul;
+            attack.hitEffectPrefab = impactVFX;
         }
 
         public override void FixedUpdate()

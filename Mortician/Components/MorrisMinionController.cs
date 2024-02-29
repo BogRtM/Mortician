@@ -46,7 +46,7 @@ namespace Morris.Components
 
             if (characterBody.inventory && NetworkServer.active)
             {
-                //characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
+                characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
             }
 
             if(characterBody.master)
@@ -122,7 +122,7 @@ namespace Morris.Components
                     {
                         if (ownerLocator.activeTombstone)
                         {
-                            ownerLocator.activeTombstone.RpcAddSoulStock();
+                            ownerLocator.activeTombstone.AddSoulStockServer();
                         }
                     }
                 }

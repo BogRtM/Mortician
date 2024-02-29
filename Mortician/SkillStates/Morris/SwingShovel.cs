@@ -32,7 +32,7 @@ namespace SkillStates.Morris
 
         public string swingSoundString = "Morris_SwingShovel";
         public string hitGhoulSoundString = "Morris_HitGhoulWithShovel";
-        public string hitTombstoneSoundString = "Morris_HitTombstoneWithShovel";
+        public string hitTombstoneSoundString = "";
 
         private HitStopCachedState hitStopCachedState;
         private float stopWatch;
@@ -167,7 +167,7 @@ namespace SkillStates.Morris
                 Vector3 halfExtent = transform.lossyScale * 0.5f;
                 Quaternion rotation = transform.rotation;
 
-                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask);
+                Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask | LayerIndex.fakeActor.mask);
 
                 foreach(Collider collider in hitObjects)
                 {
@@ -181,7 +181,7 @@ namespace SkillStates.Morris
                                 break;
 
                             case MorrisMinionController.MorrisMinionType.Tombstone:
-                                //Util.PlaySound(hitTombstoneSoundString, minionController.gameObject);
+                                Util.PlaySound(hitTombstoneSoundString, minionController.gameObject);
                                 break;
 
                             default:

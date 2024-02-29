@@ -54,6 +54,7 @@ namespace Morris.Modules
         public static GameObject SoulOrbActivatedEffect;
         public static GameObject SoulOrbTrailEffect;
         public static GameObject SoulOrbExplosion;
+        public static GameObject OmniImpactVFXTombstone;
 
         public static string AssetBundlePath
         {
@@ -182,6 +183,8 @@ namespace Morris.Modules
             #endregion
 
             #region Tombstone
+            OmniImpactVFXTombstone = LoadEffect("OmniImpactVFXTombstone", "Play_golem_step");
+
             //Tombstone blueprint mat
             TombstoneBlueprintsPrefab = mainAssetBundle.LoadAsset<GameObject>("mdlTombstoneBlueprint");
             BlueprintController blueprintController = TombstoneBlueprintsPrefab.GetComponent<BlueprintController>();
@@ -190,7 +193,7 @@ namespace Morris.Modules
 
             TombstoneSpawnMat = mainAssetBundle.LoadAsset<Material>("matTombstoneSpawn");
 
-            SoulOrbActivatedEffect = LoadEffect("SoulOrbActivatedEffect");
+            SoulOrbActivatedEffect = LoadEffect("SoulOrbActivatedEffect", "Play_item_proc_igniteOnKill");
 
             SoulOrbTrailEffect = mainAssetBundle.LoadAsset<GameObject>("SoulOrbEffect");
             SoulOrbTrailEffect.AddComponent<EffectComponent>();
