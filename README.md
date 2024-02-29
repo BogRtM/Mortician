@@ -8,6 +8,8 @@ I was listening to Spotify one day when the song [Till Death Us Do Part (2019)](
 
 So yeah, Mortician was born entirely from that one song; if you play him, you gotta listen to it.
 
+Also listen to [this](https://www.youtube.com/watch?v=ua_qO3vbuP0) song too.
+
 Actually just make yourself a playlist with Lord Of The Lost, Gothminister, and Deathstars while playing him because that was pretty much all I listened to while making this guy.
 
 Tips<br/>
