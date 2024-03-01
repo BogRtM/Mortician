@@ -46,6 +46,12 @@ For feedback and bug reports, please reach out to `Bog4770` on Discord. You can 
     - Everything else
 ```
 
+```
+SFX sourced from:
+    - David Dumais Audio
+    - zapsplat.com
+```
+
 ## Planned Updates
 ```
 • Mastery skin
