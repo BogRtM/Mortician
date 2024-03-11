@@ -1,4 +1,8 @@
 # Change Log
+`0.1.2`
+
+-Readme update lol
+
 `0.1.1`
 
 - Added SFX attribution to readme
