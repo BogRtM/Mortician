@@ -4,6 +4,8 @@
 - Added SFX attribution to readme
 - Added known issues section to readme
 
+- For those wondering about ghoul ragdolls spazzing out, I found this to be an incompatibility with CustomEmoteAPI, which should have been fixed with the latest version of that mod. If you are still encountering this issue and you do not use CustomEmoteAPI, please let me know.
+
 - Removed Deputy's entries from the config ~~how did I even miss this~~
 
 - Fixed issue where Shovel Strike would fail to fire at high attack speed
