@@ -1,5 +1,5 @@
 # I NEED YOUR FEEDBACK
-I did some multiplayer testing internally, but I cannot say with 100% certainty that he works fine in multiplayer. If you play as a client, you will experience some latency as well as warning spam in the console (I am working to fix this), but otherwise please contact me (bog4770 on Discord) if you encounter any game-breaking bugs. Morticians in multiplayer should be able to hit and sacrifice each other's ghouls, but let me know if that isn't the case.
+If you play as a client, you will experience some latency as well as warning spam in the console (I am working to fix this), but otherwise please contact me (bog4770 on Discord) if you encounter any game-breaking bugs.
 
 Also I'm not 100% decided on Tombstone's functionality. There may be a _slight_ chance in the future that it gets reworked. Probably not, though.
 
@@ -66,6 +66,12 @@ SFX sourced from:
 • Add more custom SFX for the tombstone
 • Remake icon for secondary skill
 ```
+## Known Issues
+```
+• Warning spam when playing as client in multiplayer
+• RiskUI may be causing extreme lag (may be some other mod incompatability?)
+• Tombstone does not stop spinning animation when hitting the ground in multiplayer
+```
 ___________
 ![Icon1](https://github.com/BogRtM/Mortician/assets/55299061/552c5c77-1dd3-4913-9d01-f94b78bcc89f)
 ![Mortician ortho](https://github.com/BogRtM/Mortician/assets/55299061/a2d1a63f-ee8f-4c2b-9a4f-ebea8f0e5706)
@@ -79,9 +85,4 @@ In the case that this mod becomes deprecated or unplayable, and I have completel
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L4D8VHO)
 
 ## Change Log
-
-### Latest Patch
-`0.1.0`
-```
-• Initial release
-```
+Check the change log tab!
