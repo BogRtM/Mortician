@@ -1,7 +1,7 @@
 # Change Log
 `0.1.2`
 
--Readme update lol
+- Readme update lol
 
 `0.1.1`
 
