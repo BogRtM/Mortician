@@ -5,6 +5,7 @@ using EntityStates;
 using UnityEngine.Networking;
 using Morris.Components;
 using Morris.Modules;
+using Morris;
 namespace SkillStates.Ghoul
 {
     internal class GhoulDeath : GenericCharacterDeath
@@ -46,7 +47,17 @@ namespace SkillStates.Ghoul
                 RagdollController ragdollController = base.cachedModelTransform.GetComponent<RagdollController>();
                 if (ragdollController)
                 {
-                    Vector3 vector = base.characterMotor.velocity + Vector3.up * 5f;
+                    /*
+                    foreach(Transform bone in ragdollController.bones)
+                    {
+                        bone.gameObject.layer = LayerIndex.ragdoll.intVal;
+                        bone.gameObject.SetActive(true);
+                    }
+                    */
+
+                    //base.GetModelAnimator().enabled = false;
+
+                    Vector3 vector = base.characterMotor.velocity + Vector3.up * 3f;
                     ragdollController.BeginRagdoll(vector);
                 }
             }

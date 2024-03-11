@@ -10,8 +10,8 @@ namespace SkillStates.Tombstone
     {
         public override void OnEnter()
         {
-            launchPower = 70f;
-
+            launchPower = 60f;
+            damageType = DamageType.Stun1s;
             impactVFX = Assets.OmniImpactVFXTombstone;
 
             base.OnEnter();

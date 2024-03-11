@@ -18,7 +18,7 @@ namespace SkillStates.Ghoul
         public override void OnEnter()
         {
             launchPower = 85f;
-
+            damageType = DamageType.Generic;
             impactVFX = Assets.OmniImpactVFXGhoul;
 
             base.OnEnter();

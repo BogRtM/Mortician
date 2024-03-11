@@ -19,7 +19,9 @@ namespace SkillStates.SharedStates
         public static float yOffset = 0.1f;
         public static float minMassToExitState = 200f;
         public static Vector3 downwardForce = Vector3.zero;
+
         public float launchPower;
+        public DamageType damageType;
 
         private MorrisMinionController minionController;
 
@@ -71,7 +73,7 @@ namespace SkillStates.SharedStates
             attack = new OverlapAttack();
             attack.attacker = minionController.owner ? minionController.owner : gameObject;
             attack.inflictor = gameObject;
-            attack.damageType = DamageType.Generic;
+            attack.damageType = damageType;
             attack.procCoefficient = 1f;
             attack.teamIndex = GetTeam();
             attack.isCrit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();

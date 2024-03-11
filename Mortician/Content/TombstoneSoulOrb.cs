@@ -11,7 +11,7 @@ namespace Morris.Content
     {
         public static string explodeSoundString = "Play_engi_M2_explo";
         public static float orbSpeed = 100f;
-        public static float blastRadius = 10f;
+        public static float blastRadius = 15f;
 
         public override void Begin()
         {

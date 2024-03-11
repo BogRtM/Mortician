@@ -14,6 +14,7 @@ namespace Morris.Components
     internal class TombstoneController : NetworkBehaviour
     {
         public static float spawnTime = 10f;
+        public static float searchRadius = 80f;
         public static float soulOrbDamage = 3.5f;
 
         private MorrisMinionController minionController;
@@ -147,7 +148,7 @@ namespace Morris.Components
         {
             search.origin = base.transform.position;
             search.mask = LayerIndex.entityPrecise.mask;
-            search.radius = 40f;
+            search.radius = searchRadius;
             search.RefreshCandidates();
             search.FilterCandidatesByHurtBoxTeam(TeamMask.GetEnemyTeams(teamComponent.teamIndex));
             search.OrderCandidatesByDistance();

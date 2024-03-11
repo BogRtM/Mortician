@@ -95,13 +95,9 @@ namespace SkillStates.Morris
             }
             */
 
-            if (base.fixedAge >= fireTime && base.fixedAge <= fireEndTime)
+            if (base.fixedAge >= fireTime && !hasFired)
             {
-                if (!hasFired)
-                {
-                    HitGhoul(this.hitBoxGroup);
-                }
-
+                HitGhoul();
                 FireAttack();
             }
 
@@ -129,6 +125,10 @@ namespace SkillStates.Morris
 
         public void FireAttack()
         {
+            Transform swingPivot = base.FindModelChild("SwingPivot");
+            Ray aimRay = base.GetAimRay();
+            swingPivot.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
+
             if (!hasFired)
             {
                 PlaySwingEffect();
@@ -151,6 +151,42 @@ namespace SkillStates.Morris
                         hitPauseTimer = hitPauseDuration / attackSpeedStat;
                         inHitPause = true;
                     }
+                }
+            }
+        }
+
+        public void HitGhoul()
+        {
+            Ray aimRay = base.GetAimRay();
+            Vector3 launchVector = aimRay.direction;
+
+            Transform LaunchHitbox = base.FindModelChild("LaunchHitbox");
+            Vector3 position = LaunchHitbox.position;
+            Vector3 halfExtent = LaunchHitbox.lossyScale * 0.5f;
+            Quaternion rotation = LaunchHitbox.rotation;
+
+            Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask | LayerIndex.fakeActor.mask);
+
+            foreach (Collider collider in hitObjects)
+            {
+                MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
+                if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
+                {
+                    switch (minionController.minionType)
+                    {
+                        case MorrisMinionController.MorrisMinionType.Ghoul:
+                            Util.PlaySound(hitGhoulSoundString, minionController.gameObject);
+                            break;
+
+                        case MorrisMinionController.MorrisMinionType.Tombstone:
+                            Util.PlaySound(hitTombstoneSoundString, minionController.gameObject);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    minionController.Launch(launchVector);
                 }
             }
         }
@@ -213,7 +249,7 @@ namespace SkillStates.Morris
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return (base.fixedAge >= earlyExitTime) ? InterruptPriority.Any : InterruptPriority.Skill;
+            return (base.fixedAge >= earlyExitTime && hasFired) ? InterruptPriority.Any : InterruptPriority.Skill;
         }
 
         public void SetStep(int i)

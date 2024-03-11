@@ -1,6 +1,6 @@
 {
   "name": "Mortician",
-  "version_number": "0.1.0",
+  "version_number": "0.1.1",
   "website_url": "https://github.com/BogRtM/Mortician/",
   "description": "The Mortician is a slow, yet durable melee necromancer who excels at controlling territory with his army of undead.",
   "dependencies": [

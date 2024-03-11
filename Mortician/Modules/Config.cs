@@ -8,50 +8,37 @@ namespace Morris.Modules
     public static class Config
     {
         #region Morris General
-        public static ConfigEntry<bool> bulletRicochet;
-        #endregion
+        private static ConfigEntry<string> modVersion;
+        public static ConfigEntry<float> sortPosition;
 
         public static string passiveTitle = "Passive";
-        public static ConfigEntry<int> maxStacks;
-        public static ConfigEntry<float> msPerStack;
-        public static ConfigEntry<float> msBuffDuration;
 
         public static string primaryTitle = "Primary";
-        public static ConfigEntry<float> primaryDamage;
 
         public static string secondaryTitle = "Secondary";
-        public static ConfigEntry<float> gunSlingBulletDamage;
-        public static ConfigEntry<float> gunSlingProcCoefficient;
-        public static ConfigEntry<float> gunSlingBlastDamage;
 
         public static string utilityTitle = "Utility";
-        public static ConfigEntry<float> shootingStarDamage;
 
         public static string specialTitle = "Special";
-        public static ConfigEntry<float> cometDamageCoefficient;
-        public static ConfigEntry<float> bulletHeavenDamage;
-        public static ConfigEntry<float> bulletHeavenProcCoefficient;
+        #endregion
 
         public static void ReadConfig(MorrisPlugin plugin)
         {
             #region Morris
-            bulletRicochet = plugin.Config.Bind<bool>("General", "Enable Bullet Ricochet SFX", false, "Enable this for wacky cartoony bullet ricochet SFX");
+            ((Dictionary<ConfigDefinition, string>)AccessTools.PropertyGetter(typeof(ConfigFile), "OrphanedEntries").Invoke(plugin.Config, null)).Clear();
 
-            maxStacks = plugin.Config.Bind<int>(passiveTitle, "Hot Pursuit Max Stacks", 50, "Maximum stacks of Hot Pursuit");
-            msPerStack = plugin.Config.Bind<float>(passiveTitle, "Hot Pursuit MS per stack", 0.01f, "Bonus movement speed multiplier per stack of Hot Pursuit");
-            msBuffDuration = plugin.Config.Bind<float>(passiveTitle, "Hot Pursuit Stack Duration", 5f, "Duration of Hot Pursuit buff in seconds");
+            /*
+            modVersion = plugin.Config.Bind<string>("General", "Mod Version", MorrisPlugin.MODVERSION, "Current version; don't touch this or it will reset your config");
 
-            primaryDamage = plugin.Config.Bind<float>(primaryTitle, "Trigger Tap Damage Coefficient", 1.5f, "Damage coefficient of Trigger Tap");
+            sortPosition = plugin.Config.Bind<float>("General", "Lobby Sort Position", 16f, "Sort position of Mortician in the character select lobby");
 
-            gunSlingBulletDamage = plugin.Config.Bind<float>(secondaryTitle, "Gun Sling Gunshot Damage Coefficient", 1f, "Damage coefficient of Gun Sling's gunshots");
-            gunSlingProcCoefficient = plugin.Config.Bind<float>(secondaryTitle, "Gun Sling Gunshot Proc Coefficient", 0.7f, "Proc coefficient of Gun Sling's gunshots");
-            gunSlingBlastDamage = plugin.Config.Bind<float>(secondaryTitle, "Gun Sling Explosion Damage Coefficient", 3f, "Damage coefficient of Gun Sling's explosion");
-
-            shootingStarDamage = plugin.Config.Bind<float>(utilityTitle, "Shooting Star Damage Coefficient", 1.5f, "Damage coefficient of Shooting Star");
-
-            cometDamageCoefficient = plugin.Config.Bind<float>(specialTitle, "Crashing Comet Damage Coefficient", 8f, "Damage coefficient of Crashing Comet");
-            bulletHeavenDamage = plugin.Config.Bind<float>(specialTitle, "Bullet Heaven Damage Coefficient", 1.5f, "Damage coefficient of Bullet Heaven");
-            bulletHeavenProcCoefficient = plugin.Config.Bind<float>(specialTitle, "Bullet Heaven Proc Coefficient", 0.7f, "Damage coefficient of Bullet Heaven");
+            if (modVersion.Value != modVersion.DefaultValue.ToString())
+            {
+                Log.Warning("Mortician - version mismatch detected, clearing config");
+                ((Dictionary<ConfigDefinition, string>)AccessTools.PropertyGetter(typeof(ConfigFile), "OrphanedEntries").Invoke(plugin.Config, null)).Clear();
+                modVersion.Value = modVersion.DefaultValue.ToString();
+            }
+            */
             #endregion
         }
 

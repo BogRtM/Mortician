@@ -142,7 +142,7 @@ namespace SkillStates.Ghoul
                     crit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit(),
                     force = downwardForce,
                     procChainMask = default,
-                    procCoefficient = 1f
+                    procCoefficient = 0.8f
                 };
 
                 if (NetworkServer.active)

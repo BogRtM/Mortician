@@ -39,7 +39,7 @@ namespace Morris
         public const string MODUID = "com.Bog.Morris";
         public const string MODNAME = "Mortician";
 
-        public const string MODVERSION = "0.1.0";
+        public const string MODVERSION = "0.1.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";
@@ -191,9 +191,9 @@ namespace Morris
 
         private void CustomEmoteAPICompat()
         {
+            On.RoR2.BodyCatalog.SetBodyPrefabs += CreateEmoteSkeletons;
             CustomEmotesAPI.boneMapperCreated += CustomEmotesAPI_boneMapperCreated;
             CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged;
-            On.RoR2.BodyCatalog.SetBodyPrefabs += CreateEmoteSkeletons;
         }
 
         private void CreateEmoteSkeletons(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)
