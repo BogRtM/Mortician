@@ -17,7 +17,7 @@
 - Proc coefficient of ghouls' bite attack when clinging to large enemies reduced: *1 &rarr; 0.8*
 
 - Tombstone now stuns when launched
-- Tombstone launch velocity reduced: *70 &rarr; 60*
+- Tombstone launch velocity when hit by shovel reduced: *70 &rarr; 60*
 - Tombstone vengeful soul launch range increased: *40m &rarr; 80m*
 - Tombstone vengeful soul explosion radius increased: *10m &rarr; 15m* 
 >Tombstone felt really underwhelming so I turned it into a proper artillery cannon. I'm still undecided on whether or not I should rework it completely, though.
