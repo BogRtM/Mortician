@@ -1,4 +1,9 @@
 # Change Log
+`0.1.3`
+
+- Added config entry to allow you to limit the maximum number of ghouls that can be summoned
+- Removed item displays for ghoul equipment. I will come back to this and add item displays for the elite equipment later.
+
 `0.1.2`
 
 - Readme update lol
