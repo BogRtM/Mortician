@@ -70,8 +70,9 @@ SFX sourced from:
 ```
 • Warning spam when playing as client in multiplayer
 • RiskUI may be causing extreme lag (may be some other mod incompatability?)
-• Tombstone does not stop spinning animation when hitting the ground in multiplayer
-• Ghouls spawned from tombstone do not do anything under certain circumstances
+• Minions do not stop spinning animation when hitting the ground in multiplayer
+• Ghouls spawned from tombstone do nothing under certain circumstances
+• Ghouls spawned from tombstone may be of different level than ghouls spawned from Raise Dead
 ```
 ___________
 ![Icon1](https://github.com/BogRtM/Mortician/assets/55299061/552c5c77-1dd3-4913-9d01-f94b78bcc89f)
