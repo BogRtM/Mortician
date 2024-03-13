@@ -12,6 +12,7 @@ using R2API;
 using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
+using Morris.Modules.NPC;
 
 namespace Morris.Modules.Survivors
 {
@@ -94,7 +95,9 @@ namespace Morris.Modules.Survivors
         private static UnlockableDef masterySkinUnlockableDef;
 
         public static DeployableSlot tombstoneSlot;
+        public static DeployableSlot ghoulSlot;
         public DeployableAPI.GetDeployableSameSlotLimit GetTombstoneSlotLimit;
+        public DeployableAPI.GetDeployableSameSlotLimit GetGhoulSlotLimit;
 
         public override void InitializeCharacter()
         {
@@ -119,17 +122,27 @@ namespace Morris.Modules.Survivors
         {
             GetTombstoneSlotLimit += GetMaxTombstones;
             tombstoneSlot = DeployableAPI.RegisterDeployableSlot(GetTombstoneSlotLimit);
+            On.RoR2.CharacterMaster.AddDeployable += CharacterMaster_AddDeployableTombstone;
 
-            On.RoR2.CharacterMaster.AddDeployable += CharacterMaster_AddDeployable;
+            if(Config.ghoulLimit.Value > 0)
+            {
+                GetGhoulSlotLimit += GetMaxGhouls;
+                ghoulSlot = DeployableAPI.RegisterDeployableSlot(GetGhoulSlotLimit);
+            }
         }
 
-        private void CharacterMaster_AddDeployable(On.RoR2.CharacterMaster.orig_AddDeployable orig, CharacterMaster self, Deployable deployable, DeployableSlot slot)
+        private int GetMaxGhouls(CharacterMaster self, int deployableCountMultiplier)
+        {
+            return Config.ghoulLimit.Value;
+        }
+
+        private void CharacterMaster_AddDeployableTombstone(On.RoR2.CharacterMaster.orig_AddDeployable orig, CharacterMaster self, Deployable deployable, DeployableSlot slot)
         {
             if (MasterCatalog.FindMasterIndex(deployable.gameObject) == MasterCatalog.FindMasterIndex(PlaceTombstone.tombstoneMasterPrefab))
             {
                 slot = tombstoneSlot;
             }
-             
+            
             orig(self, deployable, slot);
         }
 
@@ -138,6 +151,8 @@ namespace Morris.Modules.Survivors
             return 1;
             //cope
         }
+
+        
 
         private void SetCoreTransform()
         {

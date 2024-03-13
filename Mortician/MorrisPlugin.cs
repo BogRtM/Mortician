@@ -39,7 +39,7 @@ namespace Morris
         public const string MODUID = "com.Bog.Morris";
         public const string MODNAME = "Mortician";
 
-        public const string MODVERSION = "0.1.1";
+        public const string MODVERSION = "0.1.3";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";

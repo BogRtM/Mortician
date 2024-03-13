@@ -4,10 +4,14 @@ using System.Text;
 using RoR2;
 using EntityStates;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using SkillStates.Ghoul;
 using SkillStates.Tombstone;
 using RoR2.UI;
+using Morris.Modules;
+using Morris.Modules.Survivors;
+using Morris.Modules.NPC;
 
 namespace Morris.Components
 {
@@ -58,6 +62,14 @@ namespace Morris.Components
                 {
                     this.owner = minionOwnership.ownerMaster.GetBodyObject();
                     this.ownerBody = minionOwnership.ownerMaster.GetBody();
+
+                    if (minionType == MorrisMinionType.Ghoul && Config.ghoulLimit.Value > 0 && NetworkServer.active)
+                    {
+                        var deployable = characterBody.masterObject.GetComponent<Deployable>();
+                        deployable.onUndeploy = new UnityEvent();
+                        deployable.onUndeploy.AddListener(characterBody.master.TrueKill);
+                        minionOwnership.ownerMaster.AddDeployable(deployable, Morris.Modules.Survivors.Morris.ghoulSlot);
+                    }
                 }
             }
         }
@@ -87,6 +99,16 @@ namespace Morris.Components
 
                 default:
                     break;
+            }
+        }
+
+        public void Suicide()
+        {
+            Log.Warning("Undeploying ghoul");
+
+            if (NetworkServer.active)
+            {
+                this.healthComponent.Suicide();
             }
         }
 

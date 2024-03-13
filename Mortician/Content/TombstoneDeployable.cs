@@ -74,7 +74,7 @@ namespace Morris.Modules.NPC
         public override Type characterMainState => typeof(TombstoneMain);
         public override Type characterSpawnState => typeof(TombstoneSpawn);
 
-        public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
+        public override ItemDisplaysBase itemDisplays => null;
 
         //if you have more than one character, easily create a config to enable/disable them like this
         //public override ConfigEntry<bool> characterEnabledConfig => Modules.Config.CharacterEnableConfig(bodyName);

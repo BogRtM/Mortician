@@ -9,7 +9,10 @@ namespace Morris.Modules
     {
         #region Morris General
         private static ConfigEntry<string> modVersion;
+
         public static ConfigEntry<float> sortPosition;
+
+        public static ConfigEntry<int> ghoulLimit;
 
         public static string passiveTitle = "Passive";
 
@@ -25,12 +28,8 @@ namespace Morris.Modules
         public static void ReadConfig(MorrisPlugin plugin)
         {
             #region Morris
-            ((Dictionary<ConfigDefinition, string>)AccessTools.PropertyGetter(typeof(ConfigFile), "OrphanedEntries").Invoke(plugin.Config, null)).Clear();
-
             /*
             modVersion = plugin.Config.Bind<string>("General", "Mod Version", MorrisPlugin.MODVERSION, "Current version; don't touch this or it will reset your config");
-
-            sortPosition = plugin.Config.Bind<float>("General", "Lobby Sort Position", 16f, "Sort position of Mortician in the character select lobby");
 
             if (modVersion.Value != modVersion.DefaultValue.ToString())
             {
@@ -39,6 +38,12 @@ namespace Morris.Modules
                 modVersion.Value = modVersion.DefaultValue.ToString();
             }
             */
+
+            sortPosition = plugin.Config.Bind<float>("General", "Lobby Sort Position", 16f, "Sort position of Mortician in the character select lobby");
+
+            ghoulLimit = plugin.Config.Bind<int>("General", "Ghoul limit", 0, "The maximum amount of ghouls that you can have out in the field. Set this to 0 or a " +
+                "negative number to have no limit. The intended experience is to have no limit at all, so I highly suggest only touching this if you are experiencing lag.");
+
             #endregion
         }
 

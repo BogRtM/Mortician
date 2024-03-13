@@ -11,6 +11,7 @@ using R2API;
 using EntityStates;
 using SkillStates.Ghoul;
 using RoR2.CharacterAI;
+using UnityEngine.Events;
 
 namespace Morris.Modules.NPC
 {
@@ -65,7 +66,7 @@ namespace Morris.Modules.NPC
         public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
         public override Type characterSpawnState => typeof(GhoulSpawn);
 
-        public override ItemDisplaysBase itemDisplays => new MorrisItemDisplays();
+        public override ItemDisplaysBase itemDisplays => null;
 
         //if you have more than one character, easily create a config to enable/disable them like this
         //public override ConfigEntry<bool> characterEnabledConfig => Modules.Config.CharacterEnableConfig(bodyName);
@@ -188,6 +189,12 @@ namespace Morris.Modules.NPC
             GhoulMinion.ghoulMasterPrefab = ghoulMasterPrefab;
             Modules.Content.AddMasterPrefab(ghoulMasterPrefab);
             CreateSpawnCard();
+
+            //Make ghoul a deployable
+            if (Config.ghoulLimit.Value > 0)
+            {
+                Deployable deployable = ghoulMasterPrefab.AddComponent<Deployable>();
+            }
         }
 
         private void CreateSpawnCard()
