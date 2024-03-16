@@ -1,25 +1,23 @@
 ﻿using BepInEx;
-using Morris.Modules.Survivors;
 using R2API.Utils;
 using R2API;
 using RoR2;
-using RoR2.Skills;
 using RoR2.UI;
-using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using System;
-using EntityStates.Merc;
 using Morris.Modules;
 using EmotesAPI;
 using Morris.Components;
-using SkillStates.Morris;
 using ShaderSwapper;
 using System.Linq;
 using System.Collections;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using System.Reflection;
+using System;
+
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -39,7 +37,7 @@ namespace Morris
         public const string MODUID = "com.Bog.Morris";
         public const string MODNAME = "Mortician";
 
-        public const string MODVERSION = "0.1.3";
+        public const string MODVERSION = "0.1.4";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";
@@ -147,32 +145,28 @@ namespace Morris
         private void Hook()
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
+
+            //IL.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+            //IL.RoR2.MinionOwnership.MinionGroup.AddMinion += MinionGroup_AddMinion;
         }
 
-        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        private void GlobalEventManager_OnCharacterDeath(ILContext il)
         {
-            orig(self);
+            
+        }
 
-            if (self.HasBuff(Buffs.exhaustionDebuff))
-            {
-                self.moveSpeed *= Buffs.exhaustStatReduction;
-                self.damage *= Buffs.exhaustStatReduction;
+        private void MinionGroup_AddMinion(ILContext il)
+        {
+            ILCursor cursor = new ILCursor(il);
+            cursor.TryGotoNext(
+                x => x.MatchLdarg(1),
+                x => x.MatchCallOrCallvirt(typeof(Component).GetMethod("GetComponent", new Type[] { })),
+                x => x.MatchStloc(1),
+                x => x.MatchLdloc(1)
+                );
+            cursor.Index += 4;
 
-                if (self.skillLocator)
-                {
-                    if (self.skillLocator.primary)
-                        self.skillLocator.primary.cooldownScale *= Buffs.exhaustCooldownScale;
-
-                    if (self.skillLocator.secondary)
-                        self.skillLocator.secondary.cooldownScale *= Buffs.exhaustCooldownScale;
-
-                    if (self.skillLocator.utility)
-                        self.skillLocator.utility.cooldownScale *= Buffs.exhaustCooldownScale;
-
-                    if (self.skillLocator.special)
-                        self.skillLocator.special.cooldownScale *= Buffs.exhaustCooldownScale;
-                }
-            }
+            Log.Warning(cursor);
         }
 
         private void BodyCatalog_SetBodyPrefabs(On.RoR2.BodyCatalog.orig_SetBodyPrefabs orig, GameObject[] newBodyPrefabs)

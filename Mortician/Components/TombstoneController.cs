@@ -1,6 +1,7 @@
 ﻿using Morris.Content;
 using Morris.Modules.NPC;
 using RoR2;
+using RoR2.Navigation;
 using RoR2.Orbs;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Morris.Components
         private TeamComponent teamComponent;
         private CharacterBody characterBody;
 
+        private NodeGraph nodeGraph;
+
         private readonly SphereSearch search = new SphereSearch();
 
         private float fireTime = 1f;
@@ -44,6 +47,13 @@ namespace Morris.Components
 
             ownerLocator = minionController.owner.GetComponent<TombstoneLocator>();
             ownerLocator.SetActiveTombstone(this);
+
+            nodeGraph = SceneInfo.instance.GetNodeGraph(MapNodeGroup.GraphType.Ground);
+
+            if (!nodeGraph)
+            {
+                Log.Warning("No node graph to spawn ghouls with!");
+            }
         }
 
         public void OnDestroy()
@@ -62,9 +72,10 @@ namespace Morris.Components
             {
                 spawnStopwatch = 0f;
 
-                if(NetworkServer.active)
+                if(NetworkServer.active && nodeGraph)
                 {
-                    SpawnGhoul();
+                    //SpawnGhoul();
+                    SpawnGhoulAtClosestNode();
                 }
             }
 
@@ -176,6 +187,31 @@ namespace Morris.Components
             directorSpawnRequest.ignoreTeamMemberLimit = true;
             directorSpawnRequest.teamIndexOverride = teamComponent.teamIndex;
             DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+        }
+
+        [Server]
+        public void SpawnGhoulAtClosestNode()
+        {
+            var nodeIndex = nodeGraph.FindClosestNodeWithFlagConditions(base.transform.position, HullClassification.Human, NodeFlags.None, NodeFlags.NoCharacterSpawn, false);
+
+            Vector3 vector3;
+            nodeGraph.GetNodePosition(nodeIndex, out vector3);
+
+            MasterSummon masterSummon = new MasterSummon();
+            masterSummon.masterPrefab = GhoulMinion.ghoulMasterPrefab;
+            masterSummon.ignoreTeamMemberLimit = true;
+            masterSummon.teamIndexOverride = TeamIndex.Player;
+            masterSummon.summonerBodyObject = minionController.owner;
+            //masterSummon.inventoryToCopy = base.characterBody.inventory;
+            masterSummon.position = vector3;
+            masterSummon.rotation = base.transform.rotation;
+
+            CharacterMaster ghoulMaster;
+            ghoulMaster = masterSummon.Perform();
+            if (ghoulMaster)
+            {
+                ghoulMaster.inventory.CopyEquipmentFrom(characterBody.inventory);
+            }
         }
     }
 }

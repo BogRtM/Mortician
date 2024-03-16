@@ -34,7 +34,6 @@ namespace SkillStates.Morris
             masterSummon.ignoreTeamMemberLimit = true;
             masterSummon.teamIndexOverride = TeamIndex.Player;
             masterSummon.summonerBodyObject = base.gameObject;
-            //masterSummon.inventoryToCopy = base.characterBody.inventory;
             masterSummon.position = GetBestSpawnPosition(base.GetAimRay());
             masterSummon.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
 
