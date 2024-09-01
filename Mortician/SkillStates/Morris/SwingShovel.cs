@@ -77,7 +77,7 @@ namespace SkillStates.Morris
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = Assets.MorrisShovelHit;
+            attack.hitEffectPrefab = MorrisAssets.MorrisShovelHit;
             attack.AddModdedDamageType(MorrisPlugin.LaunchGhoul);
         }
 
@@ -165,10 +165,11 @@ namespace SkillStates.Morris
             Vector3 halfExtent = LaunchHitbox.lossyScale * 0.5f;
             Quaternion rotation = LaunchHitbox.rotation;
 
-            Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask | LayerIndex.fakeActor.mask);
+            Collider[] hitObjects = Physics.OverlapBox(position, halfExtent, rotation, LayerIndex.defaultLayer.mask | LayerIndex.playerFakeActor.mask);
 
             foreach (Collider collider in hitObjects)
             {
+                //Chat.AddMessage("You hit: " + collider.name);
                 MorrisMinionController minionController = collider.GetComponent<MorrisMinionController>();
                 if (minionController && minionController.teamIndex == base.teamComponent.teamIndex)
                 {
@@ -239,7 +240,7 @@ namespace SkillStates.Morris
 
             Util.PlaySound(soundString, base.gameObject);
 
-            EffectManager.SimpleMuzzleFlash(Assets.ShovelSwingVFX, base.gameObject, muzzleName, false);
+            EffectManager.SimpleMuzzleFlash(MorrisAssets.ShovelSwingVFX, base.gameObject, muzzleName, false);
         }
 
         public override void OnExit()

@@ -124,8 +124,8 @@ namespace SkillStates.Ghoul
                 rotation = modelTransform.rotation,
                 scale = 1.5f
             };
-            EffectManager.SpawnEffect(Assets.GhoulBiteEffect, effectData, true);
-            EffectManager.SpawnEffect(Assets.OmniImpactVFXGhoul, effectData, true);
+            EffectManager.SpawnEffect(MorrisAssets.GhoulBiteEffect, effectData, true);
+            EffectManager.SpawnEffect(MorrisAssets.OmniImpactVFXGhoul, effectData, true);
 
             Util.PlaySound("Play_acrid_m2_bite_hit", base.gameObject, "Volume_SFX", 0.2f);
 
@@ -165,7 +165,7 @@ namespace SkillStates.Ghoul
 
             minionController.isInClingState = false;
 
-            gameObject.layer = LayerIndex.fakeActor.intVal;
+            gameObject.layer = LayerIndex.playerFakeActor.intVal;
             characterMotor.Motor.RebuildCollidableLayers();
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");

@@ -44,6 +44,11 @@ namespace Morris.Components
 
         private void Start()
         {
+            if (minionType == MorrisMinionType.Ghoul)
+            {
+                base.gameObject.layer = LayerIndex.playerFakeActor.intVal;
+            }
+            
             bodyESM = EntityStateMachine.FindByCustomName(base.gameObject, "Body");
             teamIndex = base.GetComponent<TeamComponent>().teamIndex;
             characterBody = base.GetComponent<CharacterBody>();
@@ -84,7 +89,6 @@ namespace Morris.Components
                     {
                         launchVector = direction.normalized
                     };
-
                     bodyESM.SetInterruptState(ghoulState, InterruptPriority.Pain);
                     break;
                 
@@ -93,7 +97,6 @@ namespace Morris.Components
                     {
                         launchVector = direction.normalized
                     };
-
                     bodyESM.SetInterruptState(tombstoneState, InterruptPriority.Pain);
                     break;
 

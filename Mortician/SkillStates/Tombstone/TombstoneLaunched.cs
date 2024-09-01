@@ -12,7 +12,7 @@ namespace SkillStates.Tombstone
         {
             launchPower = 60f;
             damageType = DamageType.Stun1s;
-            impactVFX = Assets.OmniImpactVFXTombstone;
+            impactVFX = MorrisAssets.OmniImpactVFXTombstone;
 
             base.OnEnter();
             gameObject.layer = LayerIndex.fakeActor.intVal;

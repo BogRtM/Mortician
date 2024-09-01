@@ -59,7 +59,7 @@ namespace SkillStates.Morris
             if(base.fixedAge >= effectTime && !hasSnapped)
             {
                 hasSnapped = true;
-                EffectManager.SimpleMuzzleFlash(Assets.MorrisFingerSnap, base.gameObject, "IndexFingerR", false);
+                EffectManager.SimpleMuzzleFlash(MorrisAssets.MorrisFingerSnap, base.gameObject, "IndexFingerR", false);
             }
 
             if(base.fixedAge >= duration && base.isAuthority)

@@ -9,7 +9,7 @@ namespace SkillStates.Ghoul
 {
     internal class BileSpit : BaseState
     {
-        public static GameObject projectilePrefab = Projectiles.ghoulBilePrefab;
+        public static GameObject spitPrefab = Projectiles.ghoulBilePrefab;
         public static GameObject muzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Croco/MuzzleflashCroco.prefab").WaitForCompletion();
 
         public static float baseDuration = 1f;
@@ -47,16 +47,18 @@ namespace SkillStates.Ghoul
 
                 if (base.isAuthority)
                 {
+
                     Ray aimRay = base.GetAimRay();
 
                     FireProjectileInfo FPI = new FireProjectileInfo();
                     FPI.crit = minionController.owner ? Util.CheckRoll(minionController.ownerBody.crit, minionController.ownerBody.master) : base.RollCrit();
                     FPI.damage = damageCoefficient * base.damageStat;
                     FPI.force = 100f;
-                    FPI.owner = minionController.owner ? minionController.owner : base.gameObject; ;
+                    FPI.owner = base.gameObject; //minionController.owner ? minionController.owner : base.gameObject;
                     FPI.position = aimRay.origin;
                     FPI.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
-                    FPI.projectilePrefab = projectilePrefab;
+                    FPI.projectilePrefab = spitPrefab;
+
                     ProjectileManager.instance.FireProjectile(FPI);
                 }
             }

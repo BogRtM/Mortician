@@ -20,14 +20,20 @@ namespace Morris.Modules
 
         private static void CreateBileProjectile()
         {
+            
             GameObject baseProjectile = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/FlyingVermin/VerminSpitProjectile.prefab").WaitForCompletion();
             ghoulBilePrefab = PrefabAPI.InstantiateClone(baseProjectile, "GhoulBilePrefab");
+
+            ProjectileController projectileController = ghoulBilePrefab.GetComponent<ProjectileController>();
+            projectileController.ghostPrefab.GetComponent<VFXAttributes>().DoNotPool = true;
 
             ProjectileDamage projectileDamage = ghoulBilePrefab.GetComponent<ProjectileDamage>();
             projectileDamage.damageType = DamageType.BlightOnHit;
 
             ProjectileSimple projectileSimple = ghoulBilePrefab.GetComponent<ProjectileSimple>();
             projectileSimple.desiredForwardSpeed = 200f;
+
+            ghoulBilePrefab.AddComponent<ProjectileSetOwnerToMorris>();
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)
@@ -37,11 +43,11 @@ namespace Morris.Modules
 
         private static GameObject CreateGhostPrefab(string ghostName)
         {
-            GameObject ghostPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(ghostName);
+            GameObject ghostPrefab = Modules.MorrisAssets.mainAssetBundle.LoadAsset<GameObject>(ghostName);
             if (!ghostPrefab.GetComponent<NetworkIdentity>()) ghostPrefab.AddComponent<NetworkIdentity>();
             if (!ghostPrefab.GetComponent<ProjectileGhostController>()) ghostPrefab.AddComponent<ProjectileGhostController>();
 
-            //Modules.Assets.ConvertAllRenderersToHopooShader(ghostPrefab);
+            //Modules.MorrisAssets.ConvertAllRenderersToHopooShader(ghostPrefab);
 
             return ghostPrefab;
         }

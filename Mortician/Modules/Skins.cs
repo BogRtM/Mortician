@@ -119,7 +119,7 @@ namespace Morris.Modules
             return newRendererInfos;
         }
         /// <summary>
-        /// pass in strings for mesh assets in your project. pass the same amount and order as you have renderers, filling with null as needed
+        /// pass in strings for mesh MorrisAssets. in your project. pass the same amount and order as you have renderers, filling with null as needed
         /// <code>
         /// myskindef.meshReplacements = Modules.Skins.getMeshReplacements(defaultRenderers,
         ///    "meshHenrySword",
@@ -128,7 +128,7 @@ namespace Morris.Modules
         /// </code>
         /// </summary>
         /// <param name="rendererinfos">your skindef's rendererinfos to access the renderers</param>
-        /// <param name="meshes">name of the mesh assets in your project</param>
+        /// <param name="meshes">name of the mesh MorrisAssets. in your project</param>
         /// <returns></returns>
         internal static SkinDef.MeshReplacement[] getMeshReplacements(CharacterModel.RendererInfo[] rendererinfos, params string[] meshes)
         {
@@ -146,7 +146,7 @@ namespace Morris.Modules
                 new SkinDef.MeshReplacement
                 {
                     renderer = rendererinfos[i].renderer,
-                    mesh = Assets.mainAssetBundle.LoadAsset<Mesh>(meshes[i])
+                    mesh = MorrisAssets.mainAssetBundle.LoadAsset<Mesh>(meshes[i])
                 });
             }
 

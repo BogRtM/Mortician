@@ -2,6 +2,7 @@
 using Morris.Modules.Characters;
 using Morris.Components;
 using SkillStates.Morris;
+using SkillStates.CoffinPod;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -13,6 +14,7 @@ using UnityEngine.UI;
 using EntityStates;
 using static RoR2.TeleporterInteraction;
 using Morris.Modules.NPC;
+using UnityEngine.Networking;
 
 namespace Morris.Modules.Survivors
 {
@@ -30,12 +32,13 @@ namespace Morris.Modules.Survivors
             bodyNameToken = MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_NAME",
             subtitleNameToken = MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_SUBTITLE",
 
-            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texMorrisIcon"),
+            characterPortrait = MorrisAssets.mainAssetBundle.LoadAsset<Texture>("texMorrisIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
             bodyColor = new Color32(33, 255, 189, 255),
 
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SimpleDotCrosshair.prefab").WaitForCompletion(),
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
+            //podPrefab = CreateCoffinPod(),
 
             capsuleHeight = 3.2f,
             capsuleRadius = 0.9f,
@@ -152,17 +155,47 @@ namespace Morris.Modules.Survivors
             //cope
         }
 
-        
-
-        private void SetCoreTransform()
+        private static GameObject CreateCoffinPod()
         {
-            ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
-            GameObject model = childLocator.gameObject;
-            CharacterBody characterBody = bodyPrefab.GetComponent<CharacterBody>();
+            Log.Warning("Creating Morris pod prefab");
+            GameObject podPrefab = Modules.MorrisAssets.mainAssetBundle.LoadAsset<GameObject>("CoffinPod");
 
-            Transform baseTransform = childLocator.FindChild("BaseBone");
-            model.GetComponent<CharacterModel>().coreTransform = baseTransform;
-            characterBody.coreTransform = baseTransform;
+            podPrefab.AddComponent<NetworkIdentity>();
+
+            ChildLocator childLocator = podPrefab.GetComponentInChildren<ChildLocator>();
+
+            var modelLocator = podPrefab.AddComponent<ModelLocator>();
+            modelLocator.modelTransform = childLocator.gameObject.transform;
+            modelLocator.modelBaseTransform = childLocator.gameObject.transform;
+            modelLocator.autoUpdateModelTransform = true;
+
+            var entityLocator = podPrefab.AddComponent<EntityLocator>();
+            entityLocator.entity = podPrefab;
+
+            var entityStateMachine = podPrefab.AddComponent<EntityStateMachine>();
+            entityStateMachine.customName = "Main";
+            entityStateMachine.initialStateType = new SerializableEntityStateType(typeof(Descent));
+            entityStateMachine.mainStateType = new SerializableEntityStateType(typeof(Idle));
+
+            var networkStateMachine = podPrefab.AddComponent<NetworkStateMachine>();
+            networkStateMachine.stateMachines = new EntityStateMachine[] { entityStateMachine };
+
+            var vehicleSeat = podPrefab.AddComponent<VehicleSeat>();
+            vehicleSeat.seatPosition = childLocator.FindChild("Pivot");
+            vehicleSeat.exitPosition = childLocator.FindChild("ExitPosition");
+            vehicleSeat.exitVehicleContextString = "SURVIVOR_POD_HATCH_OPEN_CONTEXT";
+            vehicleSeat.passengerState = new SerializableEntityStateType(typeof(GenericCharacterPod));
+
+            var buffPassenger = podPrefab.AddComponent<BuffPassengerWhileSeated>();
+            buffPassenger.buff = RoR2Content.Buffs.HiddenInvincibility;
+            buffPassenger.vehicleSeat = vehicleSeat;
+
+            var podController = podPrefab.AddComponent<SurvivorPodController>();
+            podController.cameraBone = childLocator.FindChild("CameraForward");
+
+            //PrefabAPI.RegisterNetworkPrefab(podPrefab);
+            Modules.Content.AddNetworkedObject(podPrefab);
+            return podPrefab;
         }
 
         public override void InitializeUnlockables()
@@ -191,7 +224,7 @@ namespace Morris.Modules.Survivors
             shovelSkillDef.skillName = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
             shovelSkillDef.skillNameToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_NAME";
             shovelSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_PRIMARY_SHOVEL_DESCRIPTION";
-            shovelSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisPrimaryIcon");
+            shovelSkillDef.icon = Modules.MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMorrisPrimaryIcon");
             shovelSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(SwingShovel));
             shovelSkillDef.activationStateMachineName = "Weapon";
             shovelSkillDef.baseMaxStock = 1;
@@ -218,7 +251,7 @@ namespace Morris.Modules.Survivors
                 skillName = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_NAME",
                 skillDescriptionToken = prefix + "_MORRIS_BODY_SECONDARY_GHOUL_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSecondaryIcon"),
+                skillIcon = Modules.MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSecondaryIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SpawnGhoul)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
@@ -245,7 +278,7 @@ namespace Morris.Modules.Survivors
             lanternSkillDef.skillName = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
             lanternSkillDef.skillNameToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_NAME";
             lanternSkillDef.skillDescriptionToken = prefix + "_MORRIS_BODY_UTILITY_LANTERN_DESCRIPTION";
-            lanternSkillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSacrificeIcon");
+            lanternSkillDef.icon = Modules.MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMorrisSacrificeIcon");
             lanternSkillDef.activationState = new EntityStates.SerializableEntityStateType(typeof(Sacrifice));
             lanternSkillDef.activationStateMachineName = "Weapon";
             lanternSkillDef.baseMaxStock = 1;
@@ -272,7 +305,7 @@ namespace Morris.Modules.Survivors
                 skillName = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
                 skillNameToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_NAME",
                 skillDescriptionToken = prefix + "_MORRIS_BODY_SPECIAL_TOMBSTONE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisTombstoneIcon"),
+                skillIcon = Modules.MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMorrisTombstoneIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(PlaceTombstone)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -310,7 +343,7 @@ namespace Morris.Modules.Survivors
 
             #region DefaultSkin
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_MORRIS_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("texMorrisDefaultSkin"), 
+                MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMorrisDefaultSkin"), 
                 defaultRenderers,
                 mainRenderer,
                 model);

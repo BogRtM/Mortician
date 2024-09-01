@@ -20,7 +20,7 @@ public class SoulOrbLocator : MonoBehaviour
         };
 
         //Util.PlaySound("Play_mage_m1_impact", soulOrbs[i]);
-        EffectManager.SpawnEffect(Assets.SoulOrbActivatedEffect, effectData, true);
+        EffectManager.SpawnEffect(MorrisAssets.SoulOrbActivatedEffect, effectData, true);
     }
 
     public void DeactivateSphere(int i)

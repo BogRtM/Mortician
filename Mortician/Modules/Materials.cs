@@ -18,12 +18,12 @@ namespace Morris.Modules
             if (tempMat)
                 return tempMat;
 
-            tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
+            tempMat = MorrisAssets.mainAssetBundle.LoadAsset<Material>(materialName);
 
             if (!tempMat)
             {
                 Log.Error("Failed to load material: " + materialName + " - Check to see that the material in your Unity project matches this name");
-                return new Material(Assets.hotpoo);
+                return new Material(MorrisAssets.hotpoo);
             }
 
             return tempMat.SetHopooMaterial();
@@ -31,8 +31,8 @@ namespace Morris.Modules
 
         public static IEnumerator FixRenderQueues()
         {
-            Material blueFire = Assets.mainAssetBundle.LoadAsset<Material>("matMorrisFireBlue");
-            Material greenFire = Assets.mainAssetBundle.LoadAsset<Material>("matMorrisFireGreen");
+            Material blueFire = MorrisAssets.mainAssetBundle.LoadAsset<Material>("matMorrisFireBlue");
+            Material greenFire = MorrisAssets.mainAssetBundle.LoadAsset<Material>("matMorrisFireGreen");
 
             blueFire.renderQueue = 2950;
             greenFire.renderQueue = 2900;
@@ -64,7 +64,7 @@ namespace Morris.Modules
             }
 
             //set shader
-            tempMat.shader = Assets.hotpoo;
+            tempMat.shader = MorrisAssets.hotpoo;
 
             //apply values after shader is set
             tempMat.SetColor("_Color", tempMat.GetColor("_Color"));

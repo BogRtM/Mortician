@@ -18,13 +18,13 @@ namespace SkillStates.Tombstone
             Util.PlaySound(spawnSoundString, base.gameObject);
 
             Transform modelTransform = base.GetModelTransform();
-            TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+            TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(base.gameObject);
             temporaryOverlay.duration = duration * 1.2f;
             temporaryOverlay.animateShaderAlpha = true;
             temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0.1f);
             temporaryOverlay.destroyComponentOnEnd = true;
-            temporaryOverlay.originalMaterial = Assets.TombstoneSpawnMat;
-            temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
+            temporaryOverlay.originalMaterial = MorrisAssets.TombstoneSpawnMat;
+            temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
         }
 
         public override void FixedUpdate()
