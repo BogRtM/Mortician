@@ -1,4 +1,4 @@
-# DISCLAIMER
+# 0.1.5 DISCLAIMER
 The latest 0.1.5 patch was very quick and dirty; I did not manage to do very much testing, so please reach out to `bog_rtm` on Discord if something is bugged or broken. I have no means of doing multiplayer testing at the moment, so absolutely nothing at all was tested in regards to multiplayer.
 
 I also do not own Seekers of the Storm, so I am unaware if there are any incompatibilities with the new content. Please send me all your feedback and bug reports.
