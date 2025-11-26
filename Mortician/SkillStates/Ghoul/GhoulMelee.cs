@@ -64,7 +64,7 @@ namespace SkillStates.Ghoul
             attack.pushAwayForce = 1f;
             attack.damage = damageCoefficient * base.damageStat;
             attack.hitBoxGroup = hitBoxGroup;
-            attack.hitEffectPrefab = Assets.OmniImpactVFXGhoul;
+            attack.hitEffectPrefab = MorrisAssets.OmniImpactVFXGhoul;
         }
 
         public override void OnSerialize(NetworkWriter writer)
@@ -87,7 +87,7 @@ namespace SkillStates.Ghoul
             {
                 hasFired = true;
 
-                EffectManager.SimpleMuzzleFlash(Assets.GhoulMeleeEffects[meleeIndex], base.gameObject, muzzleName, true);
+                EffectManager.SimpleMuzzleFlash(MorrisAssets.GhoulMeleeEffects[meleeIndex], base.gameObject, muzzleName, true);
 
                 if(base.isAuthority)
                     attack.Fire();

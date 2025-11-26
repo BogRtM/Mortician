@@ -33,7 +33,7 @@ namespace Morris.Modules.NPC
 
             bodyNameToClone = "EngiWalkerTurret",
 
-            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texTombstoneIcon"),
+            characterPortrait = MorrisAssets.mainAssetBundle.LoadAsset<Texture>("texTombstoneIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
             bodyColor = new Color32(33, 255, 189, 255),
 
@@ -211,7 +211,7 @@ namespace Morris.Modules.NPC
 
             #region DefaultSkin
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_Morris_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
+                MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
                 defaultRenderers,
                 mainRenderer,
                 model);

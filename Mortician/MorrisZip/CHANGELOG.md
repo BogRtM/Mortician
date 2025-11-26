@@ -1,4 +1,16 @@
 # Change Log
+`0.1.5`
+
+- Updated for SotS
+- Disabled CustomEmoteAPI compatibility for the time being, as I idenfitied some crashing
+
+### PLEASE READ THE DISCLAIMER IN THE README
+
+`0.1.4`
+
+- Ghouls spawned by Tombstone will now always be the same level as those spawned by Raise Dead
+- Ghouls spawned by Tombstone now properly inherit equipment from it
+  
 `0.1.3`
 
 - Added config entry to allow you to limit the maximum number of ghouls that can be summoned

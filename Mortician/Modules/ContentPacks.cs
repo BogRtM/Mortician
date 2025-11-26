@@ -26,6 +26,7 @@ namespace Morris.Modules
         public static List<BuffDef> buffDefs = new List<BuffDef>();
         public static List<EffectDef> effectDefs = new List<EffectDef>();
 
+        public static List<GameObject> networkedObjects = new List<GameObject>();
         public static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
 
         public void Initialize()
@@ -56,6 +57,7 @@ namespace Morris.Modules
             contentPack.buffDefs.Add(buffDefs.ToArray());
             contentPack.effectDefs.Add(effectDefs.ToArray());
 
+            contentPack.networkedObjectPrefabs.Add(networkedObjects.ToArray());
             contentPack.networkSoundEventDefs.Add(networkSoundEventDefs.ToArray());
 
             args.ReportProgress(1f);
@@ -129,6 +131,11 @@ namespace Morris.Modules
         {
             //Log.Warning(.*);
             ContentPacks.effectDefs.Add(effectDef);
+        }
+
+        public static void AddNetworkedObject(GameObject networkedObject)
+        {
+            ContentPacks.networkedObjects.Add(networkedObject);
         }
 
         public static void AddNetworkSoundEventDef(NetworkSoundEventDef networkSoundEventDef)

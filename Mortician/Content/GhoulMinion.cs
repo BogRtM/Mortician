@@ -28,7 +28,7 @@ namespace Morris.Modules.NPC
             bodyName = "GhoulBody",
             bodyNameToken = MorrisPlugin.DEVELOPER_PREFIX + "_GHOUL_BODY_NAME",
 
-            characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texGhoulIcon"),
+            characterPortrait = MorrisAssets.mainAssetBundle.LoadAsset<Texture>("texGhoulIcon"),
             //bodyColor = new Color(62f / 255f, 162f / 255f, 82f / 255f),
             bodyColor = new Color32(33, 255, 189, 255),
 
@@ -81,7 +81,7 @@ namespace Morris.Modules.NPC
             base.InitializeCharacter();
             MorrisPlugin.GhoulBodyPrefab = this.bodyPrefab;
 
-            bodyPrefab.layer = LayerIndex.fakeActor.intVal;
+            //bodyPrefab.layer = LayerIndex.playerFakeActor.intVal;
 
             EntityStateMachine ghoulBodyESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Body");
 
@@ -364,7 +364,7 @@ namespace Morris.Modules.NPC
 
             #region DefaultSkin
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_Morris_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
+                MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
                 defaultRenderers,
                 mainRenderer,
                 model);

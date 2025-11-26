@@ -19,7 +19,7 @@ namespace SkillStates.Ghoul
         {
             launchPower = 85f;
             damageType = DamageType.Generic;
-            impactVFX = Assets.OmniImpactVFXGhoul;
+            impactVFX = MorrisAssets.OmniImpactVFXGhoul;
 
             base.OnEnter();
 
@@ -63,7 +63,7 @@ namespace SkillStates.Ghoul
         {
             if (!willCling)
             {
-                gameObject.layer = LayerIndex.fakeActor.intVal;
+                gameObject.layer = LayerIndex.playerFakeActor.intVal;
                 characterMotor.Motor.RebuildCollidableLayers();
             }
 

@@ -30,7 +30,7 @@ namespace Morris.Components
 
         private void Awake()
         {
-            this.indicator = new Indicator(base.gameObject, Assets.LanternIndicator);
+            this.indicator = new Indicator(base.gameObject, MorrisAssets.LanternIndicator);
         }
 
         private void Start()

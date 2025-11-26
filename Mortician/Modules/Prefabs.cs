@@ -19,7 +19,7 @@ namespace Morris.Modules {
 
         public static GameObject CreateDisplayPrefab(string displayModelName, GameObject prefab, BodyInfo bodyInfo)
         {
-            GameObject model = Assets.LoadSurvivorModel(displayModelName);
+            GameObject model = MorrisAssets.LoadSurvivorModel(displayModelName);
 
             CharacterModel characterModel = model.GetComponent<CharacterModel>();
             if (!characterModel) {
@@ -27,7 +27,7 @@ namespace Morris.Modules {
             }
             characterModel.baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
-            //Modules.Assets.ConvertAllRenderersToHopooShader(model);
+            //Modules.MorrisAssets.ConvertAllRenderersToHopooShader(model);
 
             return model.gameObject;
         }
@@ -47,7 +47,7 @@ namespace Morris.Modules {
             GameObject model = null;
             if (modelName != "mdl")
             {
-                model = Assets.LoadSurvivorModel(modelName);
+                model = MorrisAssets.LoadSurvivorModel(modelName);
                 if (model == null) model = newBodyPrefab.GetComponentInChildren<CharacterModel>().gameObject;
 
                     modelBaseTransform = AddCharacterModelToSurvivorBody(newBodyPrefab, model.transform, bodyInfo);
@@ -188,7 +188,7 @@ namespace Morris.Modules {
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             if (!preattached) {
                 SetupCustomRendererInfos(characterModel, customInfos);

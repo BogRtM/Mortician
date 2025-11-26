@@ -37,7 +37,7 @@ namespace Morris
         public const string MODUID = "com.Bog.Morris";
         public const string MODNAME = "Mortician";
 
-        public const string MODVERSION = "0.1.4";
+        public const string MODVERSION = "0.1.5";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BOG";
@@ -69,9 +69,9 @@ namespace Morris
             containsCustomEmoteAPI = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI");
             //Log.Warning("Contains custom emote API: " + containsCustomEmoteAPI);
 
-            Modules.Assets.Initialize(); // load assets and read config
+            Modules.MorrisAssets.Initialize(); // load MorrisAssets. and read config
 
-            StartCoroutine(Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync());
+            StartCoroutine(Modules.MorrisAssets.mainAssetBundle.UpgradeStubbedShadersAsync());
 
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
@@ -97,14 +97,14 @@ namespace Morris
 
             if (containsCustomEmoteAPI)
             {
-                CustomEmoteAPICompat();
+                //CustomEmoteAPICompat();
             }
         }
 
         public IEnumerator CoroutineMaterialStuff()
         {
             //Log.Warning("Converting stubbed shaders");
-            yield return Modules.Assets.mainAssetBundle.UpgradeStubbedShadersAsync();
+            yield return Modules.MorrisAssets.mainAssetBundle.UpgradeStubbedShadersAsync();
             //Log.Warning("Shader conversion finished; now fixing render queues");
             yield return Materials.FixRenderQueues();
             //Log.Warning("Render queues have been fixed");
@@ -112,7 +112,7 @@ namespace Morris
 
         private void Start()
         {
-            Modules.Assets.LoadSoundbank();
+            //Modules.MorrisAssets.LoadSoundbank();
         }
 
         private void Subscriptions()
@@ -145,9 +145,15 @@ namespace Morris
         private void Hook()
         {
             On.RoR2.BodyCatalog.SetBodyPrefabs += BodyCatalog_SetBodyPrefabs;
-
+            //On.RoR2.EntityStateCatalog.InstantiateState_Type += EntityStateCatalog_InstantiateState_Type;
             //IL.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             //IL.RoR2.MinionOwnership.MinionGroup.AddMinion += MinionGroup_AddMinion;
+        }
+
+        private EntityStates.EntityState EntityStateCatalog_InstantiateState_Type(On.RoR2.EntityStateCatalog.orig_InstantiateState_Type orig, Type stateType)
+        {
+            Log.Warning(Environment.StackTrace);
+            return orig(stateType);
         }
 
         private void GlobalEventManager_OnCharacterDeath(ILContext il)
@@ -195,12 +201,12 @@ namespace Morris
             orig(newBodyPrefabs);
 
             Log.Warning("Creating Morris emote skeleton");
-            GameObject morrisSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("MorrisHumanoidSkeleton");
+            GameObject morrisSkeleton = Modules.MorrisAssets.mainAssetBundle.LoadAsset<GameObject>("MorrisHumanoidSkeleton");
             CustomEmotesAPI.ImportArmature(MorrisBodyPrefab, morrisSkeleton);
             morrisSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
 
             Log.Warning("Creating Ghoul emote skeleton");
-            GameObject ghoulSkeleton = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("GhoulHumanoidSkeleton");
+            GameObject ghoulSkeleton = Modules.MorrisAssets.mainAssetBundle.LoadAsset<GameObject>("GhoulHumanoidSkeleton");
             CustomEmotesAPI.ImportArmature(GhoulBodyPrefab, ghoulSkeleton);
             ghoulSkeleton.GetComponentInChildren<BoneMapper>().scale = 1f;
         }

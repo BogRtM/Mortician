@@ -22,14 +22,14 @@ namespace Morris.Content
         public override GameObject GetOrbEffect()
         {
             //return Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/EliteHaunted/HauntOrbEffect.prefab").WaitForCompletion();
-            return Assets.SoulOrbTrailEffect;
+            return MorrisAssets.SoulOrbTrailEffect;
         }
 
         public override void OnArrival()
         {
             if (!target) return;
 
-            var blastEffect = Assets.SoulOrbExplosion;
+            var blastEffect = MorrisAssets.SoulOrbExplosion;
             var effectData = new EffectData()
             {
                 origin = base.target.transform.position,

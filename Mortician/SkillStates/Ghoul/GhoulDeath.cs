@@ -34,13 +34,13 @@ namespace SkillStates.Ghoul
                 base.PlayCrossfade("FullBody, Override", "Sacrificed", 0.1f);
 
                 Transform modelTransform = base.GetModelTransform();
-                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(base.gameObject);
                 temporaryOverlay.duration = duration * 1.5f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
                 temporaryOverlay.destroyComponentOnEnd = true;
-                temporaryOverlay.originalMaterial = Assets.GhoulSacrificedMat;
-                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.originalMaterial = MorrisAssets.GhoulSacrificedMat;
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
             else
             {
@@ -97,7 +97,7 @@ namespace SkillStates.Ghoul
                 origin = base.characterBody.footPosition,
                 scale = radius
             };
-            EffectManager.SpawnEffect(Assets.GhoulSacrificeExplosion, effectData, true);
+            EffectManager.SpawnEffect(MorrisAssets.GhoulSacrificeExplosion, effectData, true);
 
             if (base.isAuthority)
             {
@@ -114,7 +114,7 @@ namespace SkillStates.Ghoul
                 attack.radius = sacrificedRadius;
                 attack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                 attack.falloffModel = BlastAttack.FalloffModel.None;
-                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(Assets.OmniImpactVFXGhoul);
+                attack.impactEffect = EffectCatalog.FindEffectIndexFromPrefab(MorrisAssets.OmniImpactVFXGhoul);
 
                 attack.Fire();
             }

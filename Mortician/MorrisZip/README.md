@@ -1,9 +1,7 @@
-# I NEED YOUR FEEDBACK
-If you play as a client, you will experience some latency as well as warning spam in the console (I am working to fix this), but otherwise please contact me (bog4770 on Discord) if you encounter any game-breaking bugs.
+# 0.1.5 DISCLAIMER
+The latest 0.1.5 patch was very quick and dirty; I did not manage to do very much testing, so please reach out to `bog_rtm` on Discord if something is bugged or broken. I have no means of doing multiplayer testing at the moment, so absolutely nothing at all was tested in regards to multiplayer.
 
-Also I'm not 100% decided on Tombstone's functionality. There may be a _slight_ chance in the future that it gets reworked. Probably not, though.
-
-Ghouls are missing a lot of SFX until I get someone to voice act them. Also they can proc Ghor's Tome and drop lunar coins; I'll definitely fix this, so enjoy it while it lasts.
+I also do not own Seekers of the Storm, so I am unaware if there are any incompatibilities with the new content. Please send me all your feedback and bug reports.
 
 # The Mortician
 I was listening to Spotify one day when the song [Till Death Us Do Part (2019)](https://www.youtube.com/watch?v=-V8fJqamOsE) by Lord Of The Lost came on. I already vaguely had an idea for a necromancer survivor, but that song gave me a sudden flash of inspiration, and immediately popped a more concrete idea into my head. I knew I had to act on it.
@@ -26,7 +24,7 @@ Actually just make yourself a playlist with Lord Of The Lost, Gothminister, and 
 ![image](https://github.com/BogRtM/Mortician/assets/55299061/fd599f4d-2aab-491c-8ed7-b684a2c0b428)
 
 ## Contact Me
-For feedback and bug reports, please reach out to `Bog4770` on Discord. You can also find me on the official Risk of Rain 2 modding server.
+For feedback and bug reports, please reach out to `bog_rtm` on Discord. You can also find me on the official Risk of Rain 2 modding server.
 
 ## Credits
 ```
@@ -72,7 +70,7 @@ SFX sourced from:
 • RiskUI may be causing extreme lag (may be some other mod incompatability?)
 • Minions do not stop spinning animation when hitting the ground in multiplayer
 • Ghouls spawned from tombstone do nothing under certain circumstances
-• Ghouls spawned from tombstone may be of different level than ghouls spawned from Raise Dead
+• Bungus sometimes doesn't work with Tombstone
 ```
 ___________
 ![Icon1](https://github.com/BogRtM/Mortician/assets/55299061/552c5c77-1dd3-4913-9d01-f94b78bcc89f)

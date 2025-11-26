@@ -4,6 +4,7 @@ using SkillStates.Morris;
 using SkillStates.Ghoul;
 using SkillStates.SharedStates;
 using SkillStates.Tombstone;
+using SkillStates.CoffinPod;
 
 namespace Morris.Modules
 {
@@ -16,6 +17,11 @@ namespace Morris.Modules
             Modules.Content.AddEntityState(typeof(SpawnGhoul));
             Modules.Content.AddEntityState(typeof(Sacrifice));
             Modules.Content.AddEntityState(typeof(PlaceTombstone));
+            #endregion
+
+            #region Coffin
+            Modules.Content.AddEntityState(typeof(Descent));
+            Modules.Content.AddEntityState(typeof(Landed));
             #endregion
 
             #region Shared
