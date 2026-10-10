@@ -142,7 +142,7 @@ namespace Morris.Components
                 damageInfo.damageColorIndex = DamageColorIndex.Default;
 
                 DamageReport damageReport = new DamageReport(damageInfo, healthComponent, damageInfo.damage, healthComponent.combinedHealth);
-                GlobalEventManager.instance.OnCharacterDeath(damageReport);
+                GlobalEventManager.instance.TriggerCharacterDeathProc(damageReport);
 
                 if (owner)
                 {
