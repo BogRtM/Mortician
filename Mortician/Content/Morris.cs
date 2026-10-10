@@ -352,6 +352,7 @@ namespace Morris.Modules.Survivors
             #endregion
 
             skinController.skins = skins.ToArray();
+            displayPrefab.AddComponent<ModelSkinController>().skins = skins.ToArray();
         }
     }
 }

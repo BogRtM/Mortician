@@ -210,7 +210,7 @@ namespace Morris.Modules.NPC
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
-            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_Morris_BODY_DEFAULT_SKIN_NAME",
+            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(MorrisPlugin.DEVELOPER_PREFIX + "_TOMBSTONE_BODY_DEFAULT_SKIN_NAME",
                 MorrisAssets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), 
                 defaultRenderers,
                 mainRenderer,

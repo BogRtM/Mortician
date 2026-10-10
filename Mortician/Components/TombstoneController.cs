@@ -18,6 +18,8 @@ namespace Morris.Components
         public static float searchRadius = 80f;
         public static float soulOrbDamage = 3.5f;
 
+        private const uint soulStockDirtyBit = 1u;
+
         private MorrisMinionController minionController;
         private TombstoneLocator ownerLocator;
         private ChildLocator childLocator;
@@ -44,6 +46,7 @@ namespace Morris.Components
             ModelLocator modelLocator = base.GetComponent<ModelLocator>();
             childLocator = modelLocator.modelTransform.GetComponent<ChildLocator>();
             soulOrbLocator = modelLocator.modelTransform.GetComponent<SoulOrbLocator>();
+            ShowSoulOrbs(0, soulStock);
 
             ownerLocator = minionController.owner.GetComponent<TombstoneLocator>();
             ownerLocator.SetActiveTombstone(this);
@@ -128,13 +131,7 @@ namespace Morris.Components
 
             //Log.Warning("Soul Stock on server is: " + soulStock);
 
-            RpcAddSoulStock(soulStock);
-        }
-
-        [ClientRpc]
-        public void RpcAddSoulStock(int i)
-        {
-            soulOrbLocator.ActivateSphere(i - 1);
+            base.SetDirtyBit(soulStockDirtyBit);
         }
 
         [Server]
@@ -146,13 +143,46 @@ namespace Morris.Components
 
             //Log.Warning("Soul Stock on server is: " + soulStock);
 
-            RpcDetractSoulStock(soulStock);
+            base.SetDirtyBit(soulStockDirtyBit);
         }
 
-        [ClientRpc]
-        public void RpcDetractSoulStock(int i)
+        public override bool OnSerialize(NetworkWriter writer, bool initialState)
         {
-            soulOrbLocator.DeactivateSphere(i);
+            if (initialState)
+            {
+                writer.WritePackedUInt32((uint)soulStock);
+                return true;
+            }
+
+            writer.WritePackedUInt32(base.syncVarDirtyBits);
+
+            if ((base.syncVarDirtyBits & soulStockDirtyBit) == 0)
+                return false;
+
+            writer.WritePackedUInt32((uint)soulStock);
+            return true;
+        }
+
+        public override void OnDeserialize(NetworkReader reader, bool initialState)
+        {
+            if (!initialState && (reader.ReadPackedUInt32() & soulStockDirtyBit) == 0)
+                return;
+
+            int newSoulStock = (int)reader.ReadPackedUInt32();
+
+            if (soulOrbLocator)
+                ShowSoulOrbs(soulStock, newSoulStock);
+
+            soulStock = newSoulStock;
+        }
+
+        private void ShowSoulOrbs(int fromStock, int toStock)
+        {
+            for (int i = fromStock; i < toStock; i++)
+                soulOrbLocator.ActivateSphere(i);
+
+            for (int i = toStock; i < fromStock; i++)
+                soulOrbLocator.DeactivateSphere(i);
         }
 
         public HurtBox FindOrbTarget()
@@ -210,7 +240,7 @@ namespace Morris.Components
             ghoulMaster = masterSummon.Perform();
             if (ghoulMaster)
             {
-                ghoulMaster.inventory.CopyEquipmentFrom(characterBody.inventory);
+                ghoulMaster.inventory.CopyEquipmentFrom(characterBody.inventory, false);
             }
         }
     }

@@ -25,7 +25,8 @@ namespace Morris.Modules
             ghoulBilePrefab = PrefabAPI.InstantiateClone(baseProjectile, "GhoulBilePrefab");
 
             ProjectileController projectileController = ghoulBilePrefab.GetComponent<ProjectileController>();
-            projectileController.ghostPrefab.GetComponent<VFXAttributes>().DoNotPool = true;
+            GameObject ghostPrefab = Addressables.LoadAssetAsync<GameObject>(projectileController.ghostPrefabAddress.RuntimeKey).WaitForCompletion();
+            ghostPrefab.GetComponent<VFXAttributes>().DoNotPool = true;
 
             ProjectileDamage projectileDamage = ghoulBilePrefab.GetComponent<ProjectileDamage>();
             projectileDamage.damageType = DamageType.BlightOnHit;

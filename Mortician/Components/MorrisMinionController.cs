@@ -56,7 +56,7 @@ namespace Morris.Components
 
             if (characterBody.inventory && NetworkServer.active)
             {
-                characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
+                characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.MinionLeash, 1);
             }
 
             if(characterBody.master)
