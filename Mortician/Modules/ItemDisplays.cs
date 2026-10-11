@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Morris.Modules
 {
@@ -31,7 +32,7 @@ namespace Morris.Modules
 
                 for (int j = 0; j < rules.Length; j++)
                 {
-                    GameObject followerPrefab = rules[j].followerPrefab;
+                    GameObject followerPrefab = LoadFollowerPrefab(rules[j]);
                     if (followerPrefab)
                     {
                         string key = followerPrefab.name?.ToLowerInvariant();
@@ -42,6 +43,17 @@ namespace Morris.Modules
                     }
                 }
             }
+        }
+
+        private static GameObject LoadFollowerPrefab(ItemDisplayRule rule)
+        {
+            if (rule.followerPrefab)
+                return rule.followerPrefab;
+
+            if (rule.followerPrefabAddress == null || !rule.followerPrefabAddress.RuntimeKeyIsValid())
+                return null;
+
+            return Addressables.LoadAssetAsync<GameObject>(rule.followerPrefabAddress.RuntimeKey).WaitForCompletion();
         }
 
         private static void PopulateCustomLightningArm()

@@ -56,7 +56,7 @@ namespace Morris.Components
 
             if (characterBody.inventory && NetworkServer.active)
             {
-                characterBody.inventory.RemoveItem(RoR2Content.Items.MinionLeash, 1);
+                characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.MinionLeash, 1);
             }
 
             if(characterBody.master)
@@ -142,7 +142,7 @@ namespace Morris.Components
                 damageInfo.damageColorIndex = DamageColorIndex.Default;
 
                 DamageReport damageReport = new DamageReport(damageInfo, healthComponent, damageInfo.damage, healthComponent.combinedHealth);
-                GlobalEventManager.instance.OnCharacterDeath(damageReport);
+                GlobalEventManager.instance.TriggerCharacterDeathProc(damageReport);
 
                 if (owner)
                 {
