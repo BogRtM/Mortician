@@ -73,20 +73,30 @@ namespace SkillStates.Ghoul
         {
             base.FixedUpdate();
 
+            if (!IsTargetClingable())
+            {
+                if (base.isAuthority)
+                {
+                    outer.SetNextStateToMain();
+                }
+
+                return;
+            }
+
             UpdateClingPoint();
 
             stopwatch += Time.fixedDeltaTime;
 
-            if (stopwatch >= biteInterval && initialTarget.healthComponent.alive)
+            if (stopwatch >= biteInterval)
             {
                 stopwatch = 0f;
                 Bite();
             }
+        }
 
-            if (!initialTarget.healthComponent.alive && base.isAuthority)
-            {
-                outer.SetNextStateToMain();
-            }
+        private bool IsTargetClingable()
+        {
+            return targetCollider && initialTarget && initialTarget.healthComponent && initialTarget.healthComponent.alive;
         }
 
         public void UpdateClingPoint()
