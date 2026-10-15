@@ -51,6 +51,8 @@ namespace Morris.Components
             ownerLocator = minionController.owner.GetComponent<TombstoneLocator>();
             ownerLocator.SetActiveTombstone(this);
 
+            minionController.ownerMaster.onBodyStart += MoveToRespawnedOwner;
+
             nodeGraph = SceneInfo.instance.GetNodeGraph(MapNodeGroup.GraphType.Ground);
 
             if (!nodeGraph)
@@ -61,10 +63,28 @@ namespace Morris.Components
 
         public void OnDestroy()
         {
+            if (minionController.ownerMaster)
+            {
+                minionController.ownerMaster.onBodyStart -= MoveToRespawnedOwner;
+            }
+
             if(ownerLocator.activeTombstone == this)
             {
                 ownerLocator.SetActiveTombstone(null);
             }
+        }
+
+        private void MoveToRespawnedOwner(CharacterBody newOwnerBody)
+        {
+            TombstoneLocator newOwnerLocator = newOwnerBody.GetComponent<TombstoneLocator>();
+
+            if (!newOwnerLocator)
+            {
+                return;
+            }
+
+            ownerLocator = newOwnerLocator;
+            ownerLocator.SetActiveTombstone(this);
         }
 
         public void FixedUpdate()
@@ -240,6 +260,7 @@ namespace Morris.Components
             ghoulMaster = masterSummon.Perform();
             if (ghoulMaster)
             {
+                ghoulMaster.minionOwnership.SetOwner(minionController.ownerMaster);
                 ghoulMaster.inventory.CopyEquipmentFrom(characterBody.inventory, false);
             }
         }

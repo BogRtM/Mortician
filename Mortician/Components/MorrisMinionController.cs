@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RoR2;
+using RoR2.CharacterAI;
 using EntityStates;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,7 @@ namespace Morris.Components
 {
     internal class MorrisMinionController : MonoBehaviour, ILifeBehavior
     {
+        public CharacterMaster ownerMaster { get; private set; }
         public GameObject owner { get; private set; }
         public CharacterBody ownerBody { get; private set; }
         public GameObject sacrificeOwner { get; private set; }
@@ -63,10 +65,13 @@ namespace Morris.Components
             {
                 MinionOwnership minionOwnership = characterBody.master.GetComponent<MinionOwnership>();
 
-                if (minionOwnership)
+                if (minionOwnership && minionOwnership.ownerMaster)
                 {
-                    this.owner = minionOwnership.ownerMaster.GetBodyObject();
-                    this.ownerBody = minionOwnership.ownerMaster.GetBody();
+                    this.ownerMaster = minionOwnership.ownerMaster;
+                    this.owner = ownerMaster.GetBodyObject();
+                    this.ownerBody = ownerMaster.GetBody();
+
+                    ownerMaster.onBodyStart += FollowRespawnedOwner;
 
                     if (minionType == MorrisMinionType.Ghoul && Config.ghoulLimit.Value > 0 && NetworkServer.active)
                     {
@@ -76,6 +81,27 @@ namespace Morris.Components
                         minionOwnership.ownerMaster.AddDeployable(deployable, Morris.Modules.Survivors.Morris.ghoulSlot);
                     }
                 }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (ownerMaster)
+            {
+                ownerMaster.onBodyStart -= FollowRespawnedOwner;
+            }
+        }
+
+        private void FollowRespawnedOwner(CharacterBody newOwnerBody)
+        {
+            this.owner = newOwnerBody.gameObject;
+            this.ownerBody = newOwnerBody;
+
+            BaseAI ai = characterBody.master.GetComponent<BaseAI>();
+
+            if (ai && NetworkServer.active)
+            {
+                ai.leader.gameObject = newOwnerBody.gameObject;
             }
         }
 
