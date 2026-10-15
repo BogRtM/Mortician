@@ -1,4 +1,8 @@
 # Change Log
+`0.1.6`
+- Updated for Hallowed Concepts
+This update was graciously provided by Delfofthebla
+
 `0.1.5`
 
 - Updated for SotS
